@@ -5,7 +5,10 @@
     <title>main</title>
 </head>
 <body>
-    session 값 확인: <p th:text="${session.loginEmail}"></p>
-                    <p th:text="${session.loginNickname}"></p>
+    session 값(이메일, 닉네임) 확인:
+    <p th:text="${session.loginEmail}"></p>
+    <p th:text="${session.loginNickname}"></p>
+
+    <a href="/member/logout">로그아웃</a>
 </body>
 </html>

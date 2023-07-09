@@ -14,6 +14,8 @@ public class MemberDTO {
     private String userEmail;
     private String userPassword;
 
+
+    // entity -> dto로 변환 메서드
     public static MemberDTO toMemberDTO(MemberEntity memberEntity) {
         MemberDTO memberDTO = new MemberDTO();
         memberDTO.setUserId(memberEntity.getUserId());

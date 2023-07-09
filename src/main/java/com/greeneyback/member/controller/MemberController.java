@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
@@ -71,6 +73,19 @@ public class MemberController {
         session.setAttribute("loginNickname", loginResult.getUserNickname());
         return "main";
     }
+    public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
+        MemberDTO loginResult = memberService.login(memberDTO);
+        if (loginResult != null) {
+            // login 성공
+            session.setAttribute("loginEmail", loginResult.getUserEmail());
+            session.setAttribute("loginNickname", loginResult.getUserNickname());
+            return "main";
+        } else {
+            // login 실패
+            return "login";
+        }
+    }
+
 
     @GetMapping("/member/logout")
     public String logout(HttpSession session) {

@@ -13,7 +13,13 @@ public class MemberDTO {
     private String userNickname;
     private String userEmail;
     private String userPassword;
-
+    private String userPhonenum;
+    private String userBirthdate;
+    private Integer userGender;
+    private String userTitle;
+    private Integer challengeNum;
+    private Integer userIsSuper;
+    private String userPicture;
 
     // entity -> dto로 변환 메서드
     public static MemberDTO toMemberDTO(MemberEntity memberEntity) {

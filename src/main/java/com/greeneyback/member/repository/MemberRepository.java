@@ -10,6 +10,4 @@ public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     // 이메일로 회원 정보 조회 (select * from user_table where user_email=?)
     Optional<MemberEntity> findByUserEmail(String userEmail);  // Optional로 객체가 null일 때 방지, 주고받는 것은 enetity 객체
 
-    // 이메일로 회원 정보 조회 (select * from user_table where user_email=?)
-    Optional<MemberEntity> findByUserEmail(String userEmail);
 }

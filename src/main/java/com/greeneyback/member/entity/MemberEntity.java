@@ -24,9 +24,27 @@ public class MemberEntity {
     @Column(unique = true, nullable = false, length = 45)
     private String userEmail; // 이메일
 
-    @Column(length = 45)
-    @NotNull
+    @Column(nullable = false, length = 45)
     private String userPassword; // 비밀번호
+
+    @Column(unique = true, nullable = false, length = 20)
+    private String userPhonenum; // 휴대폰 번호
+
+    @Column(nullable = false, length = 20)
+    private String userBirthdate; // 생년월일
+
+    @Column(nullable = false)
+    private Integer userGender; // 성별
+
+    @Column(length = 20)
+    private String userTitle; // 칭호
+
+    @Column
+    private Integer challengeNum; // 달성 도전과제 수
+
+    @Column
+    private String userPicture; // 프로필 사진
+
 
 
     public static MemberEntity toMemberEntity(MemberDTO memberDTO) {

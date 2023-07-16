@@ -28,6 +28,12 @@ public class MemberDTO {
         memberDTO.setUserNickname(memberEntity.getUserNickname());
         memberDTO.setUserEmail(memberEntity.getUserEmail());
         memberDTO.setUserPassword(memberEntity.getUserPassword());
+        memberDTO.setUserPhonenum(memberEntity.getUserPhonenum());
+        memberDTO.setUserBirthdate(memberEntity.getUserBirthdate());
+        memberDTO.setUserGender(memberDTO.getUserGender());
+        memberDTO.setUserTitle(memberDTO.getUserTitle());
+        memberDTO.setChallengeNum(memberDTO.getChallengeNum());
+        memberDTO.setUserPicture(memberDTO.getUserPicture());
         return memberDTO;
     }
 }

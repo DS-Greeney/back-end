@@ -46,12 +46,17 @@ public class MemberEntity {
     private String userPicture; // 프로필 사진
 
 
-
     public static MemberEntity toMemberEntity(MemberDTO memberDTO) {
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setUserNickname(memberDTO.getUserNickname());
         memberEntity.setUserEmail(memberDTO.getUserEmail());
         memberEntity.setUserPassword(memberDTO.getUserPassword());
+        memberEntity.setUserPhonenum(memberDTO.getUserPhonenum());
+        memberEntity.setUserBirthdate(memberDTO.getUserBirthdate());
+        memberEntity.setUserGender(memberDTO.getUserGender());
+        memberEntity.setUserTitle(memberDTO.getUserTitle());
+        memberEntity.setChallengeNum(memberDTO.getChallengeNum());
+        memberEntity.setUserPicture(memberDTO.getUserPicture());
         return memberEntity;
     }
     public static MemberEntity toUpdateMemberEntity(MemberDTO memberDTO) {

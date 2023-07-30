@@ -3,6 +3,8 @@ package com.greeneyback.member.dto;
 import com.greeneyback.member.entity.RstrntEntity;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -11,6 +13,7 @@ import lombok.*;
 public class RstrntDTO {
 
     private String rstrntId;
+    private String rstrntCtgry;
     private String rstrntName;
     private String rstrntAddr;
     private String rstrntTel;
@@ -24,6 +27,7 @@ public class RstrntDTO {
     public static RstrntDTO toRstrntDTO(RstrntEntity rstrntEntity) {
         RstrntDTO rstrntDTO = new RstrntDTO();
         rstrntDTO.setRstrntId(rstrntEntity.getRstrntId());
+        rstrntDTO.setRstrntCtgry(rstrntDTO.getRstrntCtgry());
         rstrntDTO.setRstrntName(rstrntEntity.getRstrntName());
         rstrntDTO.setRstrntAddr(rstrntEntity.getRstrntAddr());
         rstrntDTO.setRstrntTel(rstrntEntity.getRstrntTel());

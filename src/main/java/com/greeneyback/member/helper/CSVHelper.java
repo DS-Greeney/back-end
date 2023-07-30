@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,7 @@ public class CSVHelper {
             for (CSVRecord csvRecord : csvRecords) {
                 RstrntEntity rstrntEntity = new RstrntEntity(
                         csvRecord.get("RSTRNT_ID"),
+                        csvRecord.get("RSTRNT_CTGRY_N"),
                         csvRecord.get("RSTRNT_NM"),
                         csvRecord.get("RSTRNT_ROAD_NM_ADDR"),
                         csvRecord.get("RSTRNT_TEL_NO"),
@@ -51,7 +53,7 @@ public class CSVHelper {
             return rstrntEntities;
 
         } catch (IOException e) {
-            throw new RuntimeException("faile to parse CSV file: "+e.getMessage());
+            throw new RuntimeException("fail to parse CSV file: "+e.getMessage());
         }
     }
 

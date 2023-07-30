@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Setter
@@ -14,6 +15,8 @@ public class RstrntEntity {
     @Id // pk 지정
     @Column(unique = true, nullable = false, length = 50)
     private String rstrntId; // 식당 아이디
+    @Column(length = 200)
+    private String rstrntCtgry;  // 식당 카테고리
     @Column(length = 200)
     private String rstrntName; // 식당명
     @Column(length = 500)
@@ -36,8 +39,9 @@ public class RstrntEntity {
     public RstrntEntity() {
 
     }
-    public RstrntEntity(String rstrntId, String rstrntName, String rstrntAddr, String rstrntTel, String rstrntMenuinfo, String rstrntLa, String rstrntLo) {
+    public RstrntEntity(String rstrntId, String rstrntCtgry, String rstrntName, String rstrntAddr, String rstrntTel, String rstrntMenuinfo, String rstrntLa, String rstrntLo) {
         this.rstrntId = rstrntId;
+        this.rstrntCtgry = rstrntCtgry;
         this.rstrntName = rstrntName;
         this.rstrntAddr = rstrntAddr;
         this.rstrntTel = rstrntTel;
@@ -49,6 +53,7 @@ public class RstrntEntity {
     public static RstrntEntity toRstrntEntity(RstrntDTO rstrntDTO) {
         RstrntEntity rstrntEntity = new RstrntEntity();
         rstrntEntity.setRstrntId(rstrntDTO.getRstrntId());
+        rstrntEntity.setRstrntCtgry(rstrntDTO.getRstrntCtgry());
         rstrntEntity.setRstrntName(rstrntDTO.getRstrntName());
         rstrntEntity.setRstrntAddr(rstrntDTO.getRstrntAddr());
         rstrntEntity.setRstrntTel(rstrntDTO.getRstrntTel());

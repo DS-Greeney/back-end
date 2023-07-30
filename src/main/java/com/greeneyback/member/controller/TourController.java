@@ -100,11 +100,11 @@ public class TourController {
         String urlStr = "http://apis.data.go.kr/B551011/GreenTourService1"+
                 "/areaBasedList1" +
                 "?serviceKey=tK7Va58kue58fAehjhvQSgM9B1YDPZVt2UtOPh%2Fk1Os2UWleCMLcW5EZog%2FtRyj0E3ToAVSKf%2F2d9ogWT%2BTRfw%3D%3D" +
-                "&numOfRows=10" +
+                "&numOfRows=50" +
                 "&pageNo=1" +
                 "&MobileOS=ETC" +
                 "&MobileApp=AppTest" +
-                "&areaCode=2" +
+                "&areaCode=39" +
                 "&_type=json" +
                 "&arrange=A";
         URL url = new URL(urlStr);

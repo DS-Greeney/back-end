@@ -2,9 +2,9 @@ package com.greeneyback.member.entity;
 
 import com.greeneyback.member.dto.MemberDTO;
 import com.sun.istack.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.type.descriptor.sql.TinyIntTypeDescriptor;
 
 import javax.persistence.*;
@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Entity
 @Setter
 @Getter
+@DynamicInsert
 @Table(name = "user_table")
 public class MemberEntity {
     @Id // pk 지정
@@ -36,13 +37,13 @@ public class MemberEntity {
     @Column(nullable = false)
     private Integer userGender; // 성별
 
-    @Column(length = 20)
+    @Column(columnDefinition = "varchar(20) default '에코그린세포'")
     private String userTitle; // 칭호
 
-    @Column
+    @Column(columnDefinition = "int default 0")
     private Integer challengeNum; // 달성 도전과제 수
 
-    @Column
+    @Column(columnDefinition = "varchar(500) default 'https://firebasestorage.googleapis.com/v0/b/greeney-a996b.appspot.com/o/profile.png?alt=media&token=943e4fe4-50b1-4c02-883d-8925d136fcbe'")
     private String userPicture; // 프로필 사진
 
 

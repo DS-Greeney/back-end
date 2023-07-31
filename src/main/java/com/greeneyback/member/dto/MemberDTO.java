@@ -18,7 +18,6 @@ public class MemberDTO {
     private Integer userGender;
     private String userTitle;
     private Integer challengeNum;
-    private Integer userIsSuper;
     private String userPicture;
 
     // entity -> dto로 변환 메서드

@@ -23,7 +23,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-@CrossOrigin("http://localhost:8081")
+@CrossOrigin("http://localhost:8082")
 @Controller
 @RequestMapping("/api/csv")
 @RequiredArgsConstructor

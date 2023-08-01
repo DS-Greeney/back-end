@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 @Table(name = "restaurant_table")
 public class RstrntEntity {
     @Id // pk 지정
-    @Column(unique = true, nullable = false, length = 50)
+    @Column(unique = true, nullable = false, length = 50, name = "rstrnt_id")
     private String rstrntId; // 식당 아이디
     @Column(length = 200)
     private String rstrntCtgry;  // 식당 카테고리

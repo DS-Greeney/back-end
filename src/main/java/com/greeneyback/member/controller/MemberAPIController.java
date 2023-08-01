@@ -21,20 +21,18 @@ public class MemberAPIController {
     private final MemberService memberService;
 
     @PostMapping("/register")
-    public HashMap<String, Object> register(String userNickname, String userEmail,
-                                            String userPassword, String userPhonenum,
-                                            String userBirthdate, Integer userGender) {
+    public HashMap<String, Object> register(@RequestBody MemberDTO memberDTO) {
 
         HashMap<String, Object> userMap = new HashMap<>();
 
         try {
-            MemberDTO memberDTO = new MemberDTO();
-            memberDTO.setUserNickname(userNickname);
-            memberDTO.setUserEmail(userEmail);
-            memberDTO.setUserPassword(userPassword);
-            memberDTO.setUserPhonenum(userPhonenum);
-            memberDTO.setUserBirthdate(userBirthdate);
-            memberDTO.setUserGender(userGender);
+//            MemberDTO memberDTO = new MemberDTO();
+//            memberDTO.setUserNickname(userNickname);
+//            memberDTO.setUserEmail(userEmail);
+//            memberDTO.setUserPassword(userPassword);
+//            memberDTO.setUserPhonenum(userPhonenum);
+//            memberDTO.setUserBirthdate(userBirthdate);
+//            memberDTO.setUserGender(userGender);
 
             memberService.save(memberDTO);
 
@@ -54,14 +52,14 @@ public class MemberAPIController {
 
     // 수정필요~~~~~~~~~~~~~~~~
     @PostMapping("/login")
-    public HashMap<String, Object> login(String userEmail, String userPassword) {
+    public HashMap<String, Object> login(@RequestBody MemberDTO memberDTO) {
 
         HashMap<String, Object> map = new HashMap<>();
 
         try {
-            MemberDTO memberDTO = new MemberDTO();
-            memberDTO.setUserEmail(userEmail);
-            memberDTO.setUserPassword(userPassword);
+//            MemberDTO memberDTO = new MemberDTO();
+//            memberDTO.setUserEmail(userEmail);
+//            memberDTO.setUserPassword(userPassword);
 
             MemberDTO loginResult = memberService.login(memberDTO);
 

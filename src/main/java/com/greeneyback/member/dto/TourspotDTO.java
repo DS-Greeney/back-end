@@ -22,6 +22,8 @@ public class TourspotDTO {
     private String summary;
     private String tel;
     private String title;
+    private String latitude;
+    private String longitude;
 
     public static TourspotDTO toTourspotDTO(TourspotEntity tourspotEntity) {
         TourspotDTO tourspotDTO = new TourspotDTO();
@@ -33,6 +35,8 @@ public class TourspotDTO {
         tourspotDTO.setSummary(tourspotEntity.getSummary());
         tourspotDTO.setTel(tourspotEntity.getTel());
         tourspotDTO.setTitle(tourspotEntity.getTitle());
+        tourspotDTO.setLatitude(tourspotEntity.getLatitude());
+        tourspotDTO.setLongitude(tourspotEntity.getLongitude());
 
         return tourspotDTO;
     }

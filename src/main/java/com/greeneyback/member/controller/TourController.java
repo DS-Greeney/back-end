@@ -17,9 +17,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
@@ -104,7 +107,7 @@ public class TourController {
                 "&pageNo=1" +
                 "&MobileOS=ETC" +
                 "&MobileApp=AppTest" +
-                "&areaCode=39" +
+                "&areaCode=1" +
                 "&_type=json" +
                 "&arrange=A";
         URL url = new URL(urlStr);
@@ -146,6 +149,12 @@ public class TourController {
                 tourspotDTO.setSummary((String) jsonObj.get("summary"));
                 tourspotDTO.setTel((String) jsonObj.get("tel"));
                 tourspotDTO.setTitle((String) jsonObj.get("title"));
+
+                Map<String, String> locationMap = tourService.getGeoDataByAddress((String) jsonObj.get("addr"));
+
+                tourspotDTO.setLatitude(locationMap.get("latitude"));
+                tourspotDTO.setLongitude(locationMap.get("longitude"));
+
                 tourService.spotSave(tourspotDTO);
             }
 

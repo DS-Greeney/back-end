@@ -6,7 +6,9 @@ import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Entity
 @Setter
@@ -34,6 +36,12 @@ public class TourspotEntity {
     @Column
     @NotNull
     private String title;
+    @Column(length = 20)
+    @NotNull
+    private String latitude;
+    @Column(length = 20)
+    @NotNull
+    private String longitude;
 
     public static TourspotEntity toTourspotEntity(TourspotDTO tourspotDTO) {
         TourspotEntity tourspotEntity = new TourspotEntity();
@@ -45,6 +53,8 @@ public class TourspotEntity {
         tourspotEntity.setSummary(tourspotDTO.getSummary());
         tourspotEntity.setTel(tourspotDTO.getTel());
         tourspotEntity.setTitle(tourspotDTO.getTitle());
+        tourspotEntity.setLatitude(tourspotDTO.getLatitude());
+        tourspotEntity.setLongitude(tourspotDTO.getLongitude());
 
         return tourspotEntity;
     }

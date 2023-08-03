@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @Table(name = "tourspot_table")
 public class TourspotEntity {
     @Id // pk 지정
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, name = "tourspot_id")
     private int tourspot_id;
     @Column
     private int areaCode;

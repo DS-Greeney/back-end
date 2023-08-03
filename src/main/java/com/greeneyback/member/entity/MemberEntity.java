@@ -17,6 +17,7 @@ import javax.persistence.*;
 public class MemberEntity {
     @Id // pk 지정
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
+    @Column(name = "user_id")
     private Long userId;
 
     @Column(unique = true, nullable = false, length = 20)

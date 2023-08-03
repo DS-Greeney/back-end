@@ -1,5 +1,6 @@
 package com.greeneyback.member.entity;
 
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,17 +10,19 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Setter
 @Getter
-@Table(name = "restaurant_image_table")
-public class RstrntImgEntity {
+@Table(name = "tourspot_like_table")
+public class TourspotLikeEntity {
     @Id // pk 지정
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int rstrntImageId;
+    private int tourspotLikeId;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @NotNull
-    @JoinColumn(referencedColumnName = "rstrnt_id")
-    RstrntEntity rstrnt;
+    @JoinColumn(referencedColumnName = "tourspot_id")
+    TourspotEntity tourspot;
 
-    @Column(length = 500)
-    private String rstrntImage;
+    @ManyToOne(cascade = CascadeType.REMOVE)
+    @NotNull
+    @JoinColumn(referencedColumnName = "user_id")
+    MemberEntity user;
 }

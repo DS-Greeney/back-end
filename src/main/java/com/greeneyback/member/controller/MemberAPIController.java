@@ -50,7 +50,6 @@ public class MemberAPIController {
         }
     }
 
-    // 수정필요~~~~~~~~~~~~~~~~
     @PostMapping("/login")
     public HashMap<String, Object> login(@RequestBody MemberDTO memberDTO) {
 
@@ -77,5 +76,37 @@ public class MemberAPIController {
             return map;
         }
     }
+
+    @PostMapping("/info")
+    public HashMap<String, Object> userInfo(@RequestBody MemberDTO memberDTO) {
+        HashMap<String, Object> map = new HashMap<>();
+
+        try {
+            MemberDTO user = memberService.findById(memberDTO.getUserId());
+            map.put("success", Boolean.TRUE);
+            map.put("userNickname", user.getUserNickname());
+            map.put("userId", user.getUserId());
+            map.put("userPassword", user.getUserPassword());
+            map.put("userPhonenum", user.getUserPhonenum());
+            map.put("userBirthdate", user.getUserBirthdate());
+            map.put("userGender", user.getUserGender());
+            map.put("userTitle", user.getUserTitle());
+            map.put("userPicture", user.getUserPicture());
+            map.put("ChallengeNum", user.getChallengeNum());
+            // 내가 쓴 글
+            // 내가 댓글 단 글
+            // 내가 쓴 후기
+            // 찜한 목록
+            // 달성한 도전 과제
+            return map;
+        } catch (Exception e) {
+            map.put("success", Boolean.FALSE);
+            map.put("message", e.getMessage());
+
+            log.info("회원정보 요청 실패");
+            return map;
+        }
+    }
+
 
 }

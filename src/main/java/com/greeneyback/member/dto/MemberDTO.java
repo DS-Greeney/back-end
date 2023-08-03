@@ -29,10 +29,10 @@ public class MemberDTO {
         memberDTO.setUserPassword(memberEntity.getUserPassword());
         memberDTO.setUserPhonenum(memberEntity.getUserPhonenum());
         memberDTO.setUserBirthdate(memberEntity.getUserBirthdate());
-        memberDTO.setUserGender(memberDTO.getUserGender());
-        memberDTO.setUserTitle(memberDTO.getUserTitle());
-        memberDTO.setChallengeNum(memberDTO.getChallengeNum());
-        memberDTO.setUserPicture(memberDTO.getUserPicture());
+        memberDTO.setUserGender(memberEntity.getUserGender());
+        memberDTO.setUserTitle(memberEntity.getUserTitle());
+        memberDTO.setChallengeNum(memberEntity.getChallengeNum());
+        memberDTO.setUserPicture(memberEntity.getUserPicture());
         return memberDTO;
     }
 }

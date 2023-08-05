@@ -27,7 +27,7 @@ public class TourspotEntity {
     private String addr;
     @Column
     private String mainimage;
-    @Column
+    @Column(columnDefinition = "TEXT")
     @NotNull
     private String summary;
     @Column

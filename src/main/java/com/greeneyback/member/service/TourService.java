@@ -100,8 +100,8 @@ public class TourService {
         return tourspots;
     }
 
-    public TourspotEntity findBySigunguCode() {
-        return tourspotRepositoryImpl.findBySigunguCode(23);
+    public List<TourspotEntity> findByMyLocation(HashMap<String, Double> myLocation) {
+        return tourspotRepositoryImpl.findByLocation(myLocation);
     }
   
     

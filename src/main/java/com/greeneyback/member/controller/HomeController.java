@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class HomeController {
 
-    @Autowired
-    private final LocationService locationService;
+//    @Autowired
+//    private final LocationService locationService;
 
     // 기본페이지 요청 메서드
     @GetMapping("/")
@@ -25,26 +25,26 @@ public class HomeController {
     }
 
     // tourlist 반환 메서드
-    @GetMapping("/greeney/main/tourlist")
-    public Object tourlist(@RequestBody HashMap<String, String> myLocation) {
-
-        HashMap<String, Object> tourMap = new HashMap<>();
-
-        if(myLocation.get("latitude") != null || myLocation.get("longitude") != null) {
-            tourMap.put("success", Boolean.FALSE);
-            return tourMap;
-        }
-
-        // 1. repository를 통해 모든 List 가져오기
-
-        // 2. distanceList 구하기
-
-        // 3. rankList 구하기
-
-        // 4. 결론은 에바였다.
-
-
-
-        return tourMap;
-    }
+//    @GetMapping("/greeney/main/tourlist")
+//    public Object tourlist(@RequestBody HashMap<String, String> myLocation) {
+//
+//        HashMap<String, Object> tourMap = new HashMap<>();
+//
+//        if(myLocation.get("latitude") != null || myLocation.get("longitude") != null) {
+//            tourMap.put("success", Boolean.FALSE);
+//            return tourMap;
+//        }
+//
+//        // 1. repository를 통해 모든 List 가져오기
+//
+//        // 2. distanceList 구하기
+//
+//        // 3. rankList 구하기
+//
+//        // 4. 결론은 에바였다.
+//
+//
+//
+//        return tourMap;
+//    }
 }

@@ -21,7 +21,9 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -92,9 +94,16 @@ public class TourService {
         }
         return null;
     }
+  
+    public List<TourspotEntity> findAllTourspotEntities() {
+        List<TourspotEntity> tourspots = tourspotRepository.findAll();
+        return tourspots;
+    }
 
     public TourspotEntity findBySigunguCode() {
         return tourspotRepositoryImpl.findBySigunguCode(23);
     }
+  
+    
 }
 

@@ -6,18 +6,19 @@ import com.greeneyback.member.entity.AddrEntity;
 import com.greeneyback.member.entity.TourspotEntity;
 import com.greeneyback.member.repository.AddrRepository;
 import com.greeneyback.member.repository.TourspotRepository;
+import com.greeneyback.member.repository.TourspotRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -33,6 +34,9 @@ public class TourService {
     private final TourspotRepository tourspotRepository;
     private final AddrRepository addrRepository;
 
+    @Autowired
+    private final TourspotRepositoryImpl tourspotRepositoryImpl;
+
     public void spotSave(TourspotDTO tourspotDTO) {
         TourspotEntity tourspotEntity = TourspotEntity.toTourspotEntity(tourspotDTO);
         tourspotRepository.save(tourspotEntity);
@@ -43,7 +47,7 @@ public class TourService {
         addrRepository.save(addrEntity);
     }
 
-    public Map<String, String> getGeoDataByAddress(String addr) {
+    public Map<String, BigDecimal> getGeoDataByAddress(String addr) {
 
         try {
             String apiKey = "AIzaSyC8IBQFK9cWfU2uAJFznyitrP2mKp5024U";
@@ -60,7 +64,7 @@ public class TourService {
                 responseStrBuilder.append(inputStr);
             }
 
-            Map<String, String> location = new HashMap<String, String>();
+            Map<String, BigDecimal> location = new HashMap<String, BigDecimal>();
 
 
             JSONParser jsonParser = new JSONParser();
@@ -76,8 +80,8 @@ public class TourService {
             log.info("여기까지 성공" + parseLatitude.toString());
             log.info("여기까지 성공" + parseLongitude.toString());
 
-            String la = parseLatitude.toString();
-            String lo = parseLongitude.toString();
+            BigDecimal la = BigDecimal.valueOf(parseLatitude);
+            BigDecimal lo = BigDecimal.valueOf(parseLongitude);
 
             location.put("latitude", la);
             location.put("longitude", lo);
@@ -90,10 +94,16 @@ public class TourService {
         }
         return null;
     }
-
+  
     public List<TourspotEntity> findAllTourspotEntities() {
         List<TourspotEntity> tourspots = tourspotRepository.findAll();
         return tourspots;
     }
+
+    public TourspotEntity findBySigunguCode() {
+        return tourspotRepositoryImpl.findBySigunguCode(23);
+    }
+  
+    
 }
 

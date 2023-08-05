@@ -6,6 +6,7 @@ import lombok.*;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -22,8 +23,8 @@ public class TourspotDTO {
     private String summary;
     private String tel;
     private String title;
-    private String latitude;
-    private String longitude;
+    private BigDecimal latitude;
+    private BigDecimal longitude;
 
     public static TourspotDTO toTourspotDTO(TourspotEntity tourspotEntity) {
         TourspotDTO tourspotDTO = new TourspotDTO();

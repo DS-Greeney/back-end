@@ -2,6 +2,9 @@ package com.greeneyback.member.repository;
 
 import com.greeneyback.member.entity.TourspotEntity;
 
+import java.util.HashMap;
+import java.util.List;
+
 public interface TourspotRepositoryCustom {
-    TourspotEntity findBySigunguCode(Integer code);
+    List<TourspotEntity> findByLocation(HashMap<String, Double> myLocation);
 }

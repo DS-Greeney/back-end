@@ -20,13 +20,19 @@ public class TourListController {
     private final TourService tourService;
 
     // tourList 반환 메서드
-    @GetMapping("/greeney/main/tourlist")
-    public Object tourlist() {
+    @GetMapping("/greeney/main/tourlist1")
+    public Object tourlist(@RequestBody HashMap<String, Double> myLocation) {
 
         HashMap<String, Object> tourMap = new HashMap<>();
-        try {
+//        HashMap<String, Double> myLocation = new HashMap<>();
+//
+//        // 더미데이터
+//        myLocation.put("longitude", 126.9019532);
+//        myLocation.put("latitude", 37.5170112);
 
-            tourMap.put("tourlists", tourService.findBySigunguCode());
+        try {
+            tourMap.put("success", Boolean.TRUE);
+            tourMap.put("tourlists", tourService.findByMyLocation(myLocation));
         } catch (Exception e) {
             tourMap.put("error", e.getMessage());
         }

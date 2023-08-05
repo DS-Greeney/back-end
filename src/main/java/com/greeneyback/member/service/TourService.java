@@ -20,7 +20,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -87,6 +89,11 @@ public class TourService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public List<TourspotEntity> findAllTourspotEntities() {
+        List<TourspotEntity> tourspots = tourspotRepository.findAll();
+        return tourspots;
     }
 }
 

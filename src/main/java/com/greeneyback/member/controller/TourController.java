@@ -150,7 +150,7 @@ public class TourController {
                 tourspotDTO.setTel((String) jsonObj.get("tel"));
                 tourspotDTO.setTitle((String) jsonObj.get("title"));
 
-                Map<String, String> locationMap = tourService.getGeoDataByAddress((String) jsonObj.get("addr"));
+                Map<String, BigDecimal> locationMap = tourService.getGeoDataByAddress((String) jsonObj.get("addr"));
 
                 tourspotDTO.setLatitude(locationMap.get("latitude"));
                 tourspotDTO.setLongitude(locationMap.get("longitude"));

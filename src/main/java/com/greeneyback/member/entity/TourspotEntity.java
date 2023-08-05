@@ -36,12 +36,12 @@ public class TourspotEntity {
     @Column
     @NotNull
     private String title;
-    @Column(length = 20)
+    @Column(precision = 13, scale = 10)
     @NotNull
-    private String latitude;
-    @Column(length = 20)
+    private BigDecimal latitude;
+    @Column(precision = 13, scale = 10)
     @NotNull
-    private String longitude;
+    private BigDecimal longitude;
 
     public static TourspotEntity toTourspotEntity(TourspotDTO tourspotDTO) {
         TourspotEntity tourspotEntity = new TourspotEntity();

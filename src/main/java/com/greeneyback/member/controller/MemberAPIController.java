@@ -84,8 +84,9 @@ public class MemberAPIController {
         try {
             MemberDTO user = memberService.findById(memberDTO.getUserId());
             map.put("success", Boolean.TRUE);
-            map.put("userNickname", user.getUserNickname());
             map.put("userId", user.getUserId());
+            map.put("userNickname", user.getUserNickname());
+            map.put("userEmail", user.getUserEmail());
             map.put("userPassword", user.getUserPassword());
             map.put("userPhonenum", user.getUserPhonenum());
             map.put("userBirthdate", user.getUserBirthdate());

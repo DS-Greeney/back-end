@@ -22,7 +22,7 @@ public class TourlistAPIController {
 
     // tourList 반환 메서드
     @GetMapping("/tourlist")
-    public Object tourlist(@RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude) {
+    public Object tourlist(@RequestParam(name = "latitude", defaultValue = "0") String latitude, @RequestParam(name = "longitude", defaultValue = "0") String longitude) {
 
         HashMap<String, Object> tourMap = new HashMap<>();
         HashMap<String, Double> myLocation = new HashMap<>();

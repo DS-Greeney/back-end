@@ -21,9 +21,10 @@ public class TourlistAPIController {
 
     // tourList 반환 메서드
     @GetMapping("/tourlist")
-    public Object tourlist(@RequestBody HashMap<String, Double> myLocation) {
+    public Object tourlist(@RequestBody HashMap<String, String> myLocation) {
 
         HashMap<String, Object> tourMap = new HashMap<>();
+        HashMap<String, Double> myLocationDouble = new HashMap<>();
 //        HashMap<String, Double> myLocation = new HashMap<>();
 //
 //        // 더미데이터
@@ -31,8 +32,10 @@ public class TourlistAPIController {
 //        myLocation.put("latitude", 37.5170112);
 
         try {
+            myLocationDouble.put("latitude", Double.parseDouble(myLocation.get("latitude")));
+            myLocationDouble.put("longitude", Double.parseDouble(myLocation.get("longitude")));
             tourMap.put("success", Boolean.TRUE);
-            tourMap.put("tourlists", tourService.findByMyLocation(myLocation));
+            tourMap.put("tourlists", tourService.findByMyLocation(myLocationDouble));
         } catch (Exception e) {
             tourMap.put("error", e.getMessage());
         }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/greeney/main")
@@ -21,10 +22,10 @@ public class TourlistAPIController {
 
     // tourList 반환 메서드
     @GetMapping("/tourlist")
-    public Object tourlist(@RequestBody HashMap<String, String> myLocation) {
+    public Object tourlist(@RequestParam("latitude") String latitude, @RequestParam("longitude") String longitude) {
 
         HashMap<String, Object> tourMap = new HashMap<>();
-        HashMap<String, Double> myLocationDouble = new HashMap<>();
+        HashMap<String, Double> myLocation = new HashMap<>();
 //        HashMap<String, Double> myLocation = new HashMap<>();
 //
 //        // 더미데이터
@@ -32,10 +33,10 @@ public class TourlistAPIController {
 //        myLocation.put("latitude", 37.5170112);
 
         try {
-            myLocationDouble.put("latitude", Double.parseDouble(myLocation.get("latitude")));
-            myLocationDouble.put("longitude", Double.parseDouble(myLocation.get("longitude")));
+            myLocation.put("latitude", Double.parseDouble(latitude));
+            myLocation.put("longitude", Double.parseDouble(longitude));
             tourMap.put("success", Boolean.TRUE);
-            tourMap.put("tourlists", tourService.findByMyLocation(myLocationDouble));
+            tourMap.put("tourlists", tourService.findByMyLocation(myLocation));
         } catch (Exception e) {
             tourMap.put("error", e.getMessage());
         }

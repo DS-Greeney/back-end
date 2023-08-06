@@ -5,10 +5,7 @@ import com.greeneyback.member.service.TourService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,18 +19,24 @@ public class TourlistAPIController {
     @Autowired
     private final TourService tourService;
 
+    // tourList 반환 메서드
     @GetMapping("/tourlist")
-    public HashMap<String, Object> showTourList() {
-        HashMap<String, Object> map = new HashMap<>();
+    public Object tourlist(@RequestBody HashMap<String, Double> myLocation) {
+
+        HashMap<String, Object> tourMap = new HashMap<>();
+//        HashMap<String, Double> myLocation = new HashMap<>();
+//
+//        // 더미데이터
+//        myLocation.put("longitude", 126.9019532);
+//        myLocation.put("latitude", 37.5170112);
 
         try {
-            List<TourspotEntity> tourspots = tourService.findAllTourspotEntities();
-            map.put("success", Boolean.TRUE);
-            map.put("tourlist", tourspots);
+            tourMap.put("success", Boolean.TRUE);
+            tourMap.put("tourlists", tourService.findByMyLocation(myLocation));
         } catch (Exception e) {
-            map.put("success", Boolean.FALSE);
-            map.put("error", e.getMessage());
+            tourMap.put("error", e.getMessage());
         }
-        return map;
+
+        return tourMap;
     }
 }

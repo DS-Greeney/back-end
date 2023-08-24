@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/greeney/main")
@@ -47,6 +48,23 @@ public class TourlistAPIController {
 
         return tourMap;
     }
+
+    @GetMapping("/tourlist/detail/{tourspotId}")
+    public HashMap<String, Object> getTourlistDetail(@PathVariable int tourspotId) {
+        HashMap<String, Object> map = new HashMap<>();
+
+        try {
+            Optional<TourspotEntity> tourspot = tourService.findTourspotDetail(tourspotId);
+            map.put("success", Boolean.TRUE);
+            map.put("tourspot", tourspot);
+        } catch(Exception e) {
+            map.put("success", Boolean.FALSE);
+            map.put("error", e.getMessage());
+        }
+
+        return map;
+    }
+
 
     @GetMapping("restaurantlist")
     public Object restaurant(@RequestParam(name = "latitude", defaultValue = "37.5538") String latitude, @RequestParam(name = "longitude", defaultValue = "126.9916") String longitude) {

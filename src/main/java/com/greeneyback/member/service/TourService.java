@@ -21,10 +21,7 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -98,6 +95,11 @@ public class TourService {
     public List<TourspotEntity> findAllTourspotEntities() {
         List<TourspotEntity> tourspots = tourspotRepository.findAll();
         return tourspots;
+    }
+
+    public Optional<TourspotEntity> findTourspotDetail(int tourspotId) {
+        Optional<TourspotEntity> tourspot = tourspotRepository.findById(tourspotId);
+        return tourspot;
     }
 
     public List<TourspotEntity> findByMyLocation(HashMap<String, Double> myLocation) {

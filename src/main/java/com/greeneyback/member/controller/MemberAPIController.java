@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
@@ -75,6 +76,30 @@ public class MemberAPIController {
             log.info("로그인 실패");
             return map;
         }
+    }
+
+    @GetMapping("/logout")
+    public HashMap<String, Object> logout(HttpSession session) {
+        HashMap<String, Object> map = new HashMap<>();
+
+        session.invalidate();
+
+        map.put("success", Boolean.TRUE);
+
+        return map;
+    }
+
+    // 수정필요 **********************
+    @GetMapping("/delete")
+    public HashMap<String, Object> deleteById(HttpSession session, Model model) {
+        HashMap<String, Object> map = new HashMap<>();
+
+        Long loginId = (Long) session.getAttribute("loginId");
+        memberService.deleteById(loginId);
+
+        map.put("success", Boolean.TRUE);
+
+        return map;
     }
 
     @PostMapping("/info")

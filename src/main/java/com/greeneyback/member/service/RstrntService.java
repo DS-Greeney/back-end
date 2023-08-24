@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -45,6 +46,11 @@ public class RstrntService {
 
     public List<RstrntEntity> findAllRstrntEntities() {
         return rstrntRepository.findAll();
+    }
+
+    public Optional<RstrntEntity> findRstrntDetail(String rstrntId) {
+        Optional<RstrntEntity> restaurant = rstrntRepository.findById(rstrntId);
+        return restaurant;
     }
 
     public void restaurantSave(RstrntDTO rstrntDTO) {

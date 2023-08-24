@@ -1,5 +1,6 @@
 package com.greeneyback.member.controller;
 
+import com.greeneyback.member.entity.RstrntEntity;
 import com.greeneyback.member.entity.TourspotEntity;
 import com.greeneyback.member.service.RstrntService;
 import com.greeneyback.member.service.TourService;
@@ -81,5 +82,21 @@ public class TourlistAPIController {
         }
 
         return tourMap;
+    }
+
+    @GetMapping("/restaurantlist/detail/{rstrntId}")
+    public HashMap<String, Object> getRestaurantlistDetail(@PathVariable String rstrntId) {
+        HashMap<String, Object> map = new HashMap<>();
+
+        try {
+            Optional<RstrntEntity> restaurant = rstrntService.findRstrntDetail(rstrntId);
+            map.put("success", Boolean.TRUE);
+            map.put("restaurant", restaurant);
+        } catch(Exception e) {
+            map.put("success", Boolean.FALSE);
+            map.put("error", e.getMessage());
+        }
+
+        return map;
     }
 }

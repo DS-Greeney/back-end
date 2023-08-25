@@ -4,6 +4,7 @@ import com.greeneyback.member.dto.RstrntDTO;
 import com.greeneyback.member.entity.RstrntEntity;
 import com.greeneyback.member.helper.CSVHelper;
 import com.greeneyback.member.message.ResponseMessage;
+import com.greeneyback.member.repository.RstrntRepository;
 import com.greeneyback.member.service.RstrntService;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
@@ -71,14 +72,14 @@ public class RstrntController {
     }
 */
     private final RstrntService rstrntService;
+    private final RstrntRepository rstrntRepository;
     @GetMapping("/download")
     public void csvDown(HttpServletResponse response) throws IOException, CsvValidationException {
-
 
         String[] restaurantInfo;
 
         // 이 부분 절대주소 주의....
-        CSVReader csvReader = new CSVReader(new InputStreamReader(new FileInputStream("C:\\Users\\ski03\\study\\greeney\\back-end\\src\\main\\resources\\csv\\RT_VGTR_RSTRNT_INFO.csv"), "UTF-8"));
+        CSVReader csvReader = new CSVReader(new InputStreamReader(new FileInputStream("C:\\Greeney\\member\\member\\src\\main\\resources\\csv\\RT_VGTR_RSTRNT_INFO.csv"), "UTF-8"));
         csvReader.readNext();
 
         do {
@@ -94,13 +95,92 @@ public class RstrntController {
                 rstrntDTO.setRstrntMenuinfo(restaurantInfo[7]);
                 rstrntDTO.setRstrntLa(restaurantInfo[8]);
                 rstrntDTO.setRstrntLo(restaurantInfo[9]);
+                rstrntDTO.setRstrntStar(0);
+                rstrntDTO.setAreaCode(0);
 
                 rstrntService.restaurantSave(rstrntDTO);
 
             }
         } while (restaurantInfo != null);
 
+    }
 
+    @GetMapping("/rstrnt/areaCode")
+    public void setAreaCode() {
+        List<RstrntEntity> allRstrntEntities = rstrntService.findAllRstrntEntities();
+
+        for (int i=0; i< allRstrntEntities.size(); i++) {
+            if (allRstrntEntities.get(i).getRstrntAddr().contains("서울")) {
+                allRstrntEntities.get(i).setAreaCode(1);
+                rstrntRepository.save(allRstrntEntities.get(i));
+            }
+            else if (allRstrntEntities.get(i).getRstrntAddr().contains("인천")) {
+                allRstrntEntities.get(i).setAreaCode(2);
+                rstrntRepository.save(allRstrntEntities.get(i));
+            }
+            else if (allRstrntEntities.get(i).getRstrntAddr().contains("대전")) {
+                allRstrntEntities.get(i).setAreaCode(3);
+                rstrntRepository.save(allRstrntEntities.get(i));
+            }
+            else if (allRstrntEntities.get(i).getRstrntAddr().contains("대구")) {
+                allRstrntEntities.get(i).setAreaCode(4);
+                rstrntRepository.save(allRstrntEntities.get(i));
+            }
+            else if (allRstrntEntities.get(i).getRstrntAddr().contains("광주")) {
+                allRstrntEntities.get(i).setAreaCode(5);
+                rstrntRepository.save(allRstrntEntities.get(i));
+            }
+            else if (allRstrntEntities.get(i).getRstrntAddr().contains("부산")) {
+                allRstrntEntities.get(i).setAreaCode(6);
+                rstrntRepository.save(allRstrntEntities.get(i));
+            }
+            else if (allRstrntEntities.get(i).getRstrntAddr().contains("울산")) {
+                allRstrntEntities.get(i).setAreaCode(7);
+                rstrntRepository.save(allRstrntEntities.get(i));
+            }
+            else if (allRstrntEntities.get(i).getRstrntAddr().contains("세종")) {
+                allRstrntEntities.get(i).setAreaCode(8);
+                rstrntRepository.save(allRstrntEntities.get(i));
+            }
+            else if (allRstrntEntities.get(i).getRstrntAddr().contains("경기")) {
+                allRstrntEntities.get(i).setAreaCode(31);
+                rstrntRepository.save(allRstrntEntities.get(i));
+            }
+            else if (allRstrntEntities.get(i).getRstrntAddr().contains("강원")) {
+                allRstrntEntities.get(i).setAreaCode(32);
+                rstrntRepository.save(allRstrntEntities.get(i));
+            }
+            else if (allRstrntEntities.get(i).getRstrntAddr().contains("충청북도")) {
+                allRstrntEntities.get(i).setAreaCode(33);
+                rstrntRepository.save(allRstrntEntities.get(i));
+            }
+            else if (allRstrntEntities.get(i).getRstrntAddr().contains("충청남도")) {
+                allRstrntEntities.get(i).setAreaCode(34);
+                rstrntRepository.save(allRstrntEntities.get(i));
+            }
+            else if (allRstrntEntities.get(i).getRstrntAddr().contains("경상북도")) {
+                allRstrntEntities.get(i).setAreaCode(35);
+                rstrntRepository.save(allRstrntEntities.get(i));
+            }
+            else if (allRstrntEntities.get(i).getRstrntAddr().contains("경상남도")) {
+                allRstrntEntities.get(i).setAreaCode(36);
+                rstrntRepository.save(allRstrntEntities.get(i));
+            }
+            else if (allRstrntEntities.get(i).getRstrntAddr().contains("전라북도")) {
+                allRstrntEntities.get(i).setAreaCode(37);
+                rstrntRepository.save(allRstrntEntities.get(i));
+            }
+            else if (allRstrntEntities.get(i).getRstrntAddr().contains("전라남도")) {
+                allRstrntEntities.get(i).setAreaCode(38);
+                rstrntRepository.save(allRstrntEntities.get(i));
+            }
+            else if (allRstrntEntities.get(i).getRstrntAddr().contains("제주")) {
+                allRstrntEntities.get(i).setAreaCode(39);
+                rstrntRepository.save(allRstrntEntities.get(i));
+            }
+
+        }
 
     }
+
 }

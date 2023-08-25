@@ -29,17 +29,15 @@ public class RstrntEntity {
     private String rstrntLa; // 위도
     @Column(length = 20)
     private String rstrntLo; // 경도
-    //    @Column
-    //    private int rstrntStar; // 평균 평점
-    //    @Column(length = 500)
-    //    private String rstrntImage; // 사진
-    //    @Column
-    //    private int addrId; //주소아이디(FK)
+    @Column
+    private Integer rstrntStar; // 평균 평점
+    @Column
+    private Integer areaCode;
 
     public RstrntEntity() {
 
     }
-    public RstrntEntity(String rstrntId, String rstrntCtgry, String rstrntName, String rstrntAddr, String rstrntTel, String rstrntMenuinfo, String rstrntLa, String rstrntLo) {
+    public RstrntEntity(String rstrntId, String rstrntCtgry, String rstrntName, String rstrntAddr, String rstrntTel, String rstrntMenuinfo, String rstrntLa, String rstrntLo, Integer rstrntStar, Integer areaCode) {
         this.rstrntId = rstrntId;
         this.rstrntCtgry = rstrntCtgry;
         this.rstrntName = rstrntName;
@@ -48,6 +46,8 @@ public class RstrntEntity {
         this.rstrntMenuinfo = rstrntMenuinfo;
         this.rstrntLa = rstrntLa;
         this.rstrntLo = rstrntLo;
+        this.rstrntStar = rstrntStar;
+        this.areaCode = areaCode;
     }
 
     public static RstrntEntity toRstrntEntity(RstrntDTO rstrntDTO) {
@@ -60,6 +60,8 @@ public class RstrntEntity {
         rstrntEntity.setRstrntMenuinfo(rstrntDTO.getRstrntMenuinfo());
         rstrntEntity.setRstrntLa(rstrntDTO.getRstrntLa());
         rstrntEntity.setRstrntLo(rstrntDTO.getRstrntLo());
+        rstrntEntity.setRstrntStar(rstrntDTO.getRstrntStar());
+        rstrntEntity.setAreaCode(rstrntDTO.getAreaCode());
 
         return rstrntEntity;
     }

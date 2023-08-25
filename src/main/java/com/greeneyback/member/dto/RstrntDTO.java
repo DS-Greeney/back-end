@@ -20,9 +20,8 @@ public class RstrntDTO {
     private String rstrntMenuinfo;
     private String rstrntLa;
     private String rstrntLo;
-//    private int rstrntStar;
-//    private String rstrntImage;
-//    private int addrId;
+    private Integer rstrntStar;
+    private Integer areaCode;
 
     public static RstrntDTO toRstrntDTO(RstrntEntity rstrntEntity) {
         RstrntDTO rstrntDTO = new RstrntDTO();
@@ -34,6 +33,8 @@ public class RstrntDTO {
         rstrntDTO.setRstrntMenuinfo(rstrntEntity.getRstrntMenuinfo());
         rstrntDTO.setRstrntLa(rstrntEntity.getRstrntLa());
         rstrntDTO.setRstrntLo(rstrntEntity.getRstrntLo());
+        rstrntDTO.setRstrntStar(rstrntEntity.getRstrntStar());
+        rstrntDTO.setAreaCode(rstrntEntity.getAreaCode());
 
         return rstrntDTO;
     }

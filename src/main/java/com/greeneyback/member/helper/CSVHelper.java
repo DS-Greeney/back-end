@@ -44,7 +44,9 @@ public class CSVHelper {
                         csvRecord.get("RSTRNT_TEL_NO"),
                         csvRecord.get("SLE_VGTR_MENU_INFO_DC"),
                         csvRecord.get("RSTRNT_LA"),
-                        csvRecord.get("RSTRNT_LO")
+                        csvRecord.get("RSTRNT_LO"),
+                        0,
+                        0
                 );
 
                 rstrntEntities.add(rstrntEntity);

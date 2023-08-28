@@ -11,7 +11,7 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QspotLikeEntity is a Querydsl query type for spotLikeEntity
+ * QspotLikeEntity is a Querydsl query type for SpotLikeEntity
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
 public class QspotLikeEntity extends EntityPathBase<spotLikeEntity> {
@@ -20,7 +20,7 @@ public class QspotLikeEntity extends EntityPathBase<spotLikeEntity> {
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QspotLikeEntity spotLikeEntity = new QspotLikeEntity("spotLikeEntity");
+    public static final QspotLikeEntity spotLikeEntity = new QspotLikeEntity("SpotLikeEntity");
 
     public final NumberPath<Integer> categoryNumber = createNumber("categoryNumber", Integer.class);
 

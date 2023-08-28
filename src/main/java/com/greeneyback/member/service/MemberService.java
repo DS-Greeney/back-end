@@ -20,8 +20,9 @@ public class MemberService {
         // 2. repository의 save 메서드 호출
 
         if (memberDTO.getUserNickname() != null && memberDTO.getUserEmail() != null && memberDTO.getUserPassword() != null
-                && memberDTO.getUserBirthdate() != null && memberDTO.getUserPhonenum() != null && memberDTO.getUserBirthdate() != null
-                && memberDTO.getUserGender() != null) {
+//                && memberDTO.getUserBirthdate() != null && memberDTO.getUserPhonenum() != null && memberDTO.getUserBirthdate() != null
+//                && memberDTO.getUserGender() != null
+            ) {
             MemberEntity memberEntity = MemberEntity.toMemberEntity(memberDTO);
             memberRepository.save(memberEntity);
             // repository의 save 메서드 호출 (조건. entity 객체를 넘겨줘야 함)

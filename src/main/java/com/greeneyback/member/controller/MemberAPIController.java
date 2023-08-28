@@ -89,7 +89,7 @@ public class MemberAPIController {
         return map;
     }
 
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     public HashMap<String, Object> deleteById(@RequestBody MemberDTO memberDTO) {
         HashMap<String, Object> map = new HashMap<>();
 
@@ -134,7 +134,7 @@ public class MemberAPIController {
         }
     }
 
-    @GetMapping("/update/userNickname")
+    @PostMapping("/update/userNickname")
     public HashMap<String, Object> updateUserNicknameForm(@RequestBody MemberDTO updateUser) {
         HashMap<String, Object> map = new HashMap<>();
 
@@ -159,7 +159,7 @@ public class MemberAPIController {
         }
     }
 
-    @GetMapping("/update/userPassword")
+    @PostMapping("/update/userPassword")
     public HashMap<String, Object> updateUserPasswordForm(@RequestBody MemberDTO updateUser) {
         HashMap<String, Object> map = new HashMap<>();
 

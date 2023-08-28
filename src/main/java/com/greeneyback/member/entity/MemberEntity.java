@@ -29,14 +29,14 @@ public class MemberEntity {
     @Column(nullable = false, length = 45)
     private String userPassword; // 비밀번호
 
-    @Column(unique = true, nullable = false, length = 20)
-    private String userPhonenum; // 휴대폰 번호
-
-    @Column(nullable = false, length = 20)
-    private String userBirthdate; // 생년월일
-
-    @Column(nullable = false)
-    private Integer userGender; // 성별
+//    @Column(unique = true, nullable = false, length = 20)
+//    private String userPhonenum; // 휴대폰 번호
+//
+//    @Column(nullable = false, length = 20)
+//    private String userBirthdate; // 생년월일
+//
+//    @Column(nullable = false)
+//    private Integer userGender; // 성별
 
     @Column(columnDefinition = "varchar(20) default '에코그린세포'")
     private String userTitle; // 칭호
@@ -53,9 +53,9 @@ public class MemberEntity {
         memberEntity.setUserNickname(memberDTO.getUserNickname());
         memberEntity.setUserEmail(memberDTO.getUserEmail());
         memberEntity.setUserPassword(memberDTO.getUserPassword());
-        memberEntity.setUserPhonenum(memberDTO.getUserPhonenum());
-        memberEntity.setUserBirthdate(memberDTO.getUserBirthdate());
-        memberEntity.setUserGender(memberDTO.getUserGender());
+//        memberEntity.setUserPhonenum(memberDTO.getUserPhonenum());
+//        memberEntity.setUserBirthdate(memberDTO.getUserBirthdate());
+//        memberEntity.setUserGender(memberDTO.getUserGender());
         memberEntity.setUserTitle(memberDTO.getUserTitle());
         memberEntity.setChallengeNum(memberDTO.getChallengeNum());
         memberEntity.setUserPicture(memberDTO.getUserPicture());
@@ -67,9 +67,9 @@ public class MemberEntity {
         memberEntity.setUserNickname(memberDTO.getUserNickname());
         memberEntity.setUserEmail(memberDTO.getUserEmail());
         memberEntity.setUserPassword(memberDTO.getUserPassword());
-        memberEntity.setUserPhonenum(memberDTO.getUserPhonenum());
-        memberEntity.setUserBirthdate(memberDTO.getUserBirthdate());
-        memberEntity.setUserGender(memberDTO.getUserGender());
+//        memberEntity.setUserPhonenum(memberDTO.getUserPhonenum());
+//        memberEntity.setUserBirthdate(memberDTO.getUserBirthdate());
+//        memberEntity.setUserGender(memberDTO.getUserGender());
         memberEntity.setUserTitle(memberDTO.getUserTitle());
         memberEntity.setChallengeNum(memberDTO.getChallengeNum());
         memberEntity.setUserPicture(memberDTO.getUserPicture());

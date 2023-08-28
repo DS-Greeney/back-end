@@ -89,13 +89,13 @@ public class MemberAPIController {
         return map;
     }
 
-    // 수정필요 **********************
     @GetMapping("/delete")
-    public HashMap<String, Object> deleteById(HttpSession session, Model model) {
+    public HashMap<String, Object> deleteById(@RequestBody MemberDTO memberDTO) {
         HashMap<String, Object> map = new HashMap<>();
 
-        Long loginId = (Long) session.getAttribute("loginId");
-        memberService.deleteById(loginId);
+        Long id = memberDTO.getUserId();
+
+        memberService.deleteById(id);
 
         map.put("success", Boolean.TRUE);
 
@@ -113,9 +113,9 @@ public class MemberAPIController {
             map.put("userNickname", user.getUserNickname());
             map.put("userEmail", user.getUserEmail());
             map.put("userPassword", user.getUserPassword());
-            map.put("userPhonenum", user.getUserPhonenum());
-            map.put("userBirthdate", user.getUserBirthdate());
-            map.put("userGender", user.getUserGender());
+//            map.put("userPhonenum", user.getUserPhonenum());
+//            map.put("userBirthdate", user.getUserBirthdate());
+//            map.put("userGender", user.getUserGender());
             map.put("userTitle", user.getUserTitle());
             map.put("userPicture", user.getUserPicture());
             map.put("ChallengeNum", user.getChallengeNum());
@@ -130,6 +130,56 @@ public class MemberAPIController {
             map.put("message", e.getMessage());
 
             log.info("회원정보 요청 실패");
+            return map;
+        }
+    }
+
+    @GetMapping("/update/userNickname")
+    public HashMap<String, Object> updateUserNicknameForm(@RequestBody MemberDTO updateUser) {
+        HashMap<String, Object> map = new HashMap<>();
+
+        try {
+            MemberDTO memberDTO = memberService.findById(updateUser.getUserId());
+
+            memberDTO.setUserNickname(updateUser.getUserNickname());
+
+            memberService.update(memberDTO);
+
+            map.put("success", Boolean.TRUE);
+            map.put("userNickname", memberDTO.getUserNickname());
+
+            return map;
+
+        } catch (Exception e) {
+            map.put("success", Boolean.FALSE);
+            map.put("message", e.getMessage());
+
+            log.info("회원 닉네임 수정 실패");
+            return map;
+        }
+    }
+
+    @GetMapping("/update/userPassword")
+    public HashMap<String, Object> updateUserPasswordForm(@RequestBody MemberDTO updateUser) {
+        HashMap<String, Object> map = new HashMap<>();
+
+        try {
+            MemberDTO memberDTO = memberService.findById(updateUser.getUserId());
+
+            memberDTO.setUserPassword(updateUser.getUserPassword());
+
+            memberService.update(memberDTO);
+
+            map.put("success", Boolean.TRUE);
+            map.put("userPassword", memberDTO.getUserPassword());
+
+            return map;
+
+        } catch (Exception e) {
+            map.put("success", Boolean.FALSE);
+            map.put("message", e.getMessage());
+
+            log.info("회원 비밀번호 수정 실패");
             return map;
         }
     }

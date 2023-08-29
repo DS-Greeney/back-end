@@ -1,4 +1,4 @@
-package com.greeneyback.member.repository;
+package com.greeneyback.member.repository.custom;
 
 import com.greeneyback.member.entity.TourspotEntity;
 

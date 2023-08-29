@@ -1,6 +1,7 @@
-package com.greeneyback.member.repository;
+package com.greeneyback.member.repository.impl;
 
 import com.greeneyback.member.entity.RstrntEntity;
+import com.greeneyback.member.repository.custom.RstrntRepositoryCustom;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -13,7 +14,7 @@ import static com.greeneyback.member.entity.QRstrntEntity.rstrntEntity;
 
 @Repository
 @RequiredArgsConstructor
-public class RstrntRepositoryImpl implements RstrntRepositoryCustom{
+public class RstrntRepositoryImpl implements RstrntRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
 

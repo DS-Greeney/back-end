@@ -1,6 +1,7 @@
-package com.greeneyback.member.repository;
+package com.greeneyback.member.repository.impl;
 
 import com.greeneyback.member.entity.TourspotEntity;
+import com.greeneyback.member.repository.custom.TourspotRepositoryCustom;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;

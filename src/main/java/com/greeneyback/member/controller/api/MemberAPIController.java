@@ -1,4 +1,4 @@
-package com.greeneyback.member.controller;
+package com.greeneyback.member.controller.api;
 
 import com.greeneyback.member.dto.MemberDTO;
 import com.greeneyback.member.service.MemberService;

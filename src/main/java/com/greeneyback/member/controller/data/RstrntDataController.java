@@ -1,27 +1,18 @@
-package com.greeneyback.member.controller;
+package com.greeneyback.member.controller.data;
 
 import com.greeneyback.member.dto.RstrntDTO;
 import com.greeneyback.member.entity.RstrntEntity;
-import com.greeneyback.member.helper.CSVHelper;
-import com.greeneyback.member.message.ResponseMessage;
 import com.greeneyback.member.repository.RstrntRepository;
 import com.greeneyback.member.service.RstrntService;
 import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvValidationException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @CrossOrigin("http://localhost:8082")
@@ -29,7 +20,7 @@ import java.util.List;
 @RequestMapping("/api/csv")
 @RequiredArgsConstructor
 @Slf4j
-public class RstrntController {
+public class RstrntDataController {
 /*
     @Autowired
     RstrntService rstrntService;

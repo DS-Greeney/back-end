@@ -1,4 +1,4 @@
-package com.greeneyback.member.controller;
+package com.greeneyback.member.controller.data;
 
 import com.greeneyback.member.dto.TitleDTO;
 import com.greeneyback.member.service.TitleService;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-public class TitleController {
+public class TitleDataController {
     private final TitleService titleService;
     List<String> titleName = new ArrayList<String>();
     StringBuilder result = new StringBuilder();

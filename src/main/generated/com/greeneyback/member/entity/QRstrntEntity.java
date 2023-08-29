@@ -19,6 +19,8 @@ public class QRstrntEntity extends EntityPathBase<RstrntEntity> {
 
     public static final QRstrntEntity rstrntEntity = new QRstrntEntity("rstrntEntity");
 
+    public final NumberPath<Integer> areaCode = createNumber("areaCode", Integer.class);
+
     public final StringPath rstrntAddr = createString("rstrntAddr");
 
     public final StringPath rstrntCtgry = createString("rstrntCtgry");
@@ -32,6 +34,8 @@ public class QRstrntEntity extends EntityPathBase<RstrntEntity> {
     public final StringPath rstrntMenuinfo = createString("rstrntMenuinfo");
 
     public final StringPath rstrntName = createString("rstrntName");
+
+    public final NumberPath<Integer> rstrntStar = createNumber("rstrntStar", Integer.class);
 
     public final StringPath rstrntTel = createString("rstrntTel");
 

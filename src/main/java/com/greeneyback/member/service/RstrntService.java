@@ -5,6 +5,7 @@ import com.greeneyback.member.entity.RstrntEntity;
 import com.greeneyback.member.entity.TourspotEntity;
 import com.greeneyback.member.helper.CSVHelper;
 import com.greeneyback.member.repository.RstrntRepository;
+import com.greeneyback.member.repository.RstrntRepositoryImpl;
 import com.greeneyback.member.repository.TourspotRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class RstrntService {
     private final RstrntRepository rstrntRepository;
 
     @Autowired
-    private final TourspotRepositoryImpl tourspotRepositoryImpl;
+    private final RstrntRepositoryImpl rstrntRepositoryImpl;
 
     public List<RstrntEntity> findAllRstrntEntities() {
         return rstrntRepository.findAll();
@@ -59,7 +60,7 @@ public class RstrntService {
     }
 
     public List<RstrntEntity> findByMyLocation(HashMap<String, Double> myLocation) {
-        return tourspotRepositoryImpl.findRstrntByLocation(myLocation);
+        return rstrntRepositoryImpl.findByLocation(myLocation);
     }
 
 }

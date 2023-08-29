@@ -1,6 +1,7 @@
 package com.greeneyback.member.repository;
 
 import com.greeneyback.member.entity.TourspotEntity;
+import com.greeneyback.member.repository.custom.TourspotRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

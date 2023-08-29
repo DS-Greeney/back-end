@@ -6,7 +6,7 @@ import com.greeneyback.member.entity.AddrEntity;
 import com.greeneyback.member.entity.TourspotEntity;
 import com.greeneyback.member.repository.AddrRepository;
 import com.greeneyback.member.repository.TourspotRepository;
-import com.greeneyback.member.repository.TourspotRepositoryImpl;
+import com.greeneyback.member.repository.impl.TourspotRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;

@@ -11,16 +11,16 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QspotLikeEntity is a Querydsl query type for SpotLikeEntity
+ * QSpotLikeEntity is a Querydsl query type for SpotLikeEntity
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QspotLikeEntity extends EntityPathBase<spotLikeEntity> {
+public class QSpotLikeEntity extends EntityPathBase<SpotLikeEntity> {
 
-    private static final long serialVersionUID = 1837226864L;
+    private static final long serialVersionUID = 835233680L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QspotLikeEntity spotLikeEntity = new QspotLikeEntity("SpotLikeEntity");
+    public static final QSpotLikeEntity spotLikeEntity = new QSpotLikeEntity("spotLikeEntity");
 
     public final NumberPath<Integer> categoryNumber = createNumber("categoryNumber", Integer.class);
 
@@ -32,23 +32,23 @@ public class QspotLikeEntity extends EntityPathBase<spotLikeEntity> {
 
     public final QMemberEntity user;
 
-    public QspotLikeEntity(String variable) {
-        this(spotLikeEntity.class, forVariable(variable), INITS);
+    public QSpotLikeEntity(String variable) {
+        this(SpotLikeEntity.class, forVariable(variable), INITS);
     }
 
-    public QspotLikeEntity(Path<? extends spotLikeEntity> path) {
+    public QSpotLikeEntity(Path<? extends SpotLikeEntity> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QspotLikeEntity(PathMetadata metadata) {
+    public QSpotLikeEntity(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QspotLikeEntity(PathMetadata metadata, PathInits inits) {
-        this(spotLikeEntity.class, metadata, inits);
+    public QSpotLikeEntity(PathMetadata metadata, PathInits inits) {
+        this(SpotLikeEntity.class, metadata, inits);
     }
 
-    public QspotLikeEntity(Class<? extends spotLikeEntity> type, PathMetadata metadata, PathInits inits) {
+    public QSpotLikeEntity(Class<? extends SpotLikeEntity> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.rstrnt = inits.isInitialized("rstrnt") ? new QRstrntEntity(forProperty("rstrnt")) : null;
         this.tourspot = inits.isInitialized("tourspot") ? new QTourspotEntity(forProperty("tourspot")) : null;

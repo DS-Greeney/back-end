@@ -1,8 +1,7 @@
-package com.greeneyback.member.controller;
+package com.greeneyback.member.controller.data;
 
 import com.greeneyback.member.dto.AddrDTO;
 import com.greeneyback.member.dto.TourspotDTO;
-import com.greeneyback.member.entity.TourspotEntity;
 import com.greeneyback.member.service.TourService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,26 +9,22 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.Map;
 
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-public class TourController {
+public class TourDataController {
 
     // 투어 정보를 넣어줄 서비스 선언
     private final TourService tourService;

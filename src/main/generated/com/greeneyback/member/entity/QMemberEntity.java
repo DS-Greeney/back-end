@@ -21,19 +21,13 @@ public class QMemberEntity extends EntityPathBase<MemberEntity> {
 
     public final NumberPath<Integer> challengeNum = createNumber("challengeNum", Integer.class);
 
-    public final StringPath userBirthdate = createString("userBirthdate");
-
     public final StringPath userEmail = createString("userEmail");
-
-    public final NumberPath<Integer> userGender = createNumber("userGender", Integer.class);
 
     public final NumberPath<Long> userId = createNumber("userId", Long.class);
 
     public final StringPath userNickname = createString("userNickname");
 
     public final StringPath userPassword = createString("userPassword");
-
-    public final StringPath userPhonenum = createString("userPhonenum");
 
     public final StringPath userPicture = createString("userPicture");
 

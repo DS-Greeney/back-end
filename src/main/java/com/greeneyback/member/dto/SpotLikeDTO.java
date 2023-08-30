@@ -6,6 +6,8 @@ import com.greeneyback.member.entity.SpotLikeEntity;
 import com.greeneyback.member.entity.TourspotEntity;
 import lombok.*;
 
+import java.util.Optional;
+
 @Getter
 @Setter
 @NoArgsConstructor

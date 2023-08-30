@@ -1,6 +1,5 @@
-package com.greeneyback.member.controller;
+package com.greeneyback.member.controller.api;
 
-import com.greeneyback.member.dto.MemberDTO;
 import com.greeneyback.member.dto.SpotLikeDTO;
 import com.greeneyback.member.entity.MemberEntity;
 import com.greeneyback.member.entity.RstrntEntity;
@@ -17,13 +16,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/greeney/mypage")
-public class SpotLikeController {
+public class SpotLikeAPIController {
 
     @Autowired
     private final SpotLikeService spotLikeService;

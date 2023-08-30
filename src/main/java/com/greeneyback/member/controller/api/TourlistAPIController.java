@@ -65,6 +65,4 @@ public class TourlistAPIController {
         return map;
     }
 
-
-
 }

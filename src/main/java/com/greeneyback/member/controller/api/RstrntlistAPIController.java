@@ -19,7 +19,7 @@ public class RstrntlistAPIController {
     @Autowired
     private final RstrntService rstrntService;
 
-    @GetMapping("restaurantlist")
+    @GetMapping("/restaurantlist")
     public Object restaurant(@RequestParam(name = "latitude", defaultValue = "37.5538") String latitude, @RequestParam(name = "longitude", defaultValue = "126.9916") String longitude) {
         HashMap<String, Object> tourMap = new HashMap<>();
         HashMap<String, Double> myLocation = new HashMap<>();

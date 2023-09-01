@@ -57,6 +57,11 @@ public class TourlistAPIController {
             Optional<TourspotEntity> tourspot = tourService.findTourspotDetail(tourspotId);
             map.put("success", Boolean.TRUE);
             map.put("tourspot", tourspot);
+
+            // 리뷰 불러오기
+
+
+
         } catch(Exception e) {
             map.put("success", Boolean.FALSE);
             map.put("error", e.getMessage());
@@ -65,6 +70,10 @@ public class TourlistAPIController {
         return map;
     }
 
+
+    // 리뷰 불러오는 것... 아직 작성 중
+//    @PostMapping("/tourlist/detail/{tourspotId}")
+//    public HashMap<String, Object> postTourspotReview()
 
 
 }

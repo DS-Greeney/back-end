@@ -185,4 +185,14 @@ public class MemberAPIController {
     }
 
 
+    @GetMapping("/auth")
+    public HashMap<String, Object> authUser(@ModelAttribute MemberDTO memberDTO) {
+        HashMap<String, Object> map = new HashMap<>();
+
+
+
+        return map;
+    }
+
+
 }

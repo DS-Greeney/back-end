@@ -70,10 +70,4 @@ public class TourlistAPIController {
         return map;
     }
 
-
-    // 리뷰 불러오는 것... 아직 작성 중
-//    @PostMapping("/tourlist/detail/{tourspotId}")
-//    public HashMap<String, Object> postTourspotReview()
-
-
 }

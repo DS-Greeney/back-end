@@ -44,6 +44,10 @@ public class RstrntService {
         return rstrntRepository.findAll();
     }
 
+    public Optional<RstrntEntity> findById(String id) {
+        return rstrntRepository.findById(id);
+    }
+
     public Optional<RstrntEntity> findRstrntDetail(String rstrntId) {
         Optional<RstrntEntity> restaurant = rstrntRepository.findById(rstrntId);
         return restaurant;

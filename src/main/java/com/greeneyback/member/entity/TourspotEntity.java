@@ -4,6 +4,7 @@ import com.greeneyback.member.dto.TourspotDTO;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
@@ -42,6 +43,8 @@ public class TourspotEntity {
     @Column(precision = 13, scale = 10)
     @NotNull
     private BigDecimal longitude;
+    @Column(columnDefinition = "float default 0")
+    private  float tourspotStar;
 
     public static TourspotEntity toTourspotEntity(TourspotDTO tourspotDTO) {
         TourspotEntity tourspotEntity = new TourspotEntity();
@@ -55,6 +58,7 @@ public class TourspotEntity {
         tourspotEntity.setTitle(tourspotDTO.getTitle());
         tourspotEntity.setLatitude(tourspotDTO.getLatitude());
         tourspotEntity.setLongitude(tourspotDTO.getLongitude());
+        tourspotEntity.setTourspotStar(tourspotDTO.getTourspotStar());
 
         return tourspotEntity;
     }

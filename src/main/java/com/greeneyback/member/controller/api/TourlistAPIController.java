@@ -57,6 +57,11 @@ public class TourlistAPIController {
             Optional<TourspotEntity> tourspot = tourService.findTourspotDetail(tourspotId);
             map.put("success", Boolean.TRUE);
             map.put("tourspot", tourspot);
+
+            // 리뷰 불러오기
+
+
+
         } catch(Exception e) {
             map.put("success", Boolean.FALSE);
             map.put("error", e.getMessage());

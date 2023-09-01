@@ -97,6 +97,10 @@ public class TourService {
         return tourspots;
     }
 
+    public Optional<TourspotEntity> findById(int id) {
+        return tourspotRepository.findById(id);
+    }
+
     public Optional<TourspotEntity> findTourspotDetail(int tourspotId) {
         Optional<TourspotEntity> tourspot = tourspotRepository.findById(tourspotId);
         return tourspot;

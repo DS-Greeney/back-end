@@ -65,6 +65,11 @@ public class MemberService {
         }
 
     }
+
+    public Optional<MemberEntity> findUserById(Long id) {
+        return memberRepository.findById(id);
+    }
+
     public MemberDTO updateForm(String myEmail) {
         Optional<MemberEntity> optionalMemberEntity = memberRepository.findByUserEmail(myEmail);
         if (optionalMemberEntity.isPresent()) {

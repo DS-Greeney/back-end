@@ -1,15 +1,15 @@
 package com.greeneyback.member.controller.api;
 
+import com.greeneyback.member.dto.MemberDTO;
 import com.greeneyback.member.dto.SpotLikeDTO;
 import com.greeneyback.member.entity.MemberEntity;
 import com.greeneyback.member.entity.RstrntEntity;
 import com.greeneyback.member.entity.SpotLikeEntity;
 import com.greeneyback.member.entity.TourspotEntity;
-import com.greeneyback.member.repository.MemberRepository;
-import com.greeneyback.member.repository.RstrntRepository;
-import com.greeneyback.member.repository.SpotLikeRepository;
-import com.greeneyback.member.repository.TourspotRepository;
+import com.greeneyback.member.service.MemberService;
+import com.greeneyback.member.service.RstrntService;
 import com.greeneyback.member.service.SpotLikeService;
+import com.greeneyback.member.service.TourService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,10 +25,9 @@ public class SpotLikeAPIController {
 
     @Autowired
     private final SpotLikeService spotLikeService;
-    private final SpotLikeRepository spotLikeRepository;
-    private final MemberRepository memberRepository;
-    private final TourspotRepository tourspotRepository;
-    private final RstrntRepository rstrntRepository;
+    private final MemberService memberService;
+    private final TourService tourService;
+    private final RstrntService rstrntService;
 
     @PostMapping("/like")
     public HashMap<String, Object> spotLikeToggle(@RequestParam String userId, @RequestParam String itemId, @RequestParam String like) {
@@ -39,11 +38,11 @@ public class SpotLikeAPIController {
             if (like.equals("1")) { // 찜 추가
                 SpotLikeDTO spotLikeDTO = new SpotLikeDTO();
 
-                Optional<MemberEntity> likeUser = memberRepository.findById(Long.valueOf(userId));
+                Optional<MemberEntity> likeUser = memberService.findUserById(Long.valueOf(userId));
                 spotLikeDTO.setUser(likeUser.get());
 
-                Optional<TourspotEntity> likeTourspot = tourspotRepository.findById(Integer.valueOf(itemId));
-                Optional<RstrntEntity> likeRstrnt = rstrntRepository.findById(itemId);
+                Optional<TourspotEntity> likeTourspot = tourService.findById(Integer.valueOf(itemId));
+                Optional<RstrntEntity> likeRstrnt = rstrntService.findById(itemId);
                 // 숙소
                 // 여행코스
 
@@ -67,8 +66,8 @@ public class SpotLikeAPIController {
                 map.put("success", Boolean.TRUE);
             }
             else if (like.equals("0")) { // 찜 삭제
-                Optional<MemberEntity> user = memberRepository.findById(Long.valueOf(userId));
-                List<SpotLikeEntity> spotLikes = spotLikeRepository.findByUser(user.get()); // 유저가 찜한 목록
+                Optional<MemberEntity> user = memberService.findUserById(Long.valueOf(userId));
+                List<SpotLikeEntity> spotLikes = spotLikeService.findByUser(user.get()); // 유저가 찜한 목록
 
 //                for (SpotLikeEntity spotLike : spotLikes) {
 //
@@ -88,10 +87,28 @@ public class SpotLikeAPIController {
 
         } catch (Exception e) {
             map.put("success", Boolean.FALSE);
-            map.put("message", e.getMessage());
+            map.put("error", e.getMessage());
             return map;
         }
 
+    }
+
+    @GetMapping("/like/{userId}")
+    public HashMap<String, Object> getLikeList(@PathVariable String userId) {
+        HashMap<String, Object> map = new HashMap<>();
+
+        try {
+            Optional<MemberEntity> user = memberService.findUserById(Long.valueOf(userId));
+            List<SpotLikeEntity> spotLikes = spotLikeService.findByUser(user.get());
+
+            map.put("success", Boolean.TRUE);
+            map.put("spotLikeList", spotLikes);
+        } catch(Exception e) {
+            map.put("success", Boolean.FALSE);
+            map.put("error", e.getMessage());
+        }
+
+        return map;
     }
 
 }

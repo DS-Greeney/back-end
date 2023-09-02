@@ -109,6 +109,10 @@ public class TourService {
     public List<TourspotEntity> findByMyLocation(HashMap<String, Double> myLocation) {
         return tourspotRepositoryImpl.findByLocation(myLocation);
     }
+
+    public List<TourspotEntity> findByMyLocationAreaFilter(HashMap<String, Double> myLocation, int areaCode) {
+        return tourspotRepositoryImpl.findByLocationAreaCode(myLocation, areaCode);
+    }
   
     
 }

@@ -28,7 +28,7 @@ public class TourlistAPIController {
     @GetMapping("/tourlist")
     public Object tourlist(@RequestParam(name = "latitude", defaultValue = "37.5538") String latitude,
                            @RequestParam(name = "longitude", defaultValue = "126.9916") String longitude,
-                            @RequestParam(name = "aearCode") int areaCode) {
+                            @RequestParam(name = "areaCode") int areaCode) {
     //디폴트위도경도값:서울중심(남산)
 
         HashMap<String, Object> tourMap = new HashMap<>();

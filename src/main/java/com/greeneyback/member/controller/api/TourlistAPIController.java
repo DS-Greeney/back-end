@@ -49,6 +49,33 @@ public class TourlistAPIController {
         return tourMap;
     }
 
+    // 지역 필터링
+    @GetMapping("/tourlist/{areaCode}")
+    public Object tourlistAreaFiltering(@RequestParam(name = "latitude", defaultValue = "37.5538") String latitude, @RequestParam(name = "longitude", defaultValue = "126.9916") String longitude,
+    @RequestParam(name = "aearCode") int areaCode) {
+        //디폴트위도경도값:서울중심(남산)
+
+        HashMap<String, Object> tourMap = new HashMap<>();
+        HashMap<String, Double> myLocation = new HashMap<>();
+//        HashMap<String, Double> myLocation = new HashMap<>();
+//
+//        // 더미데이터
+//        myLocation.put("longitude", 126.9019532);
+//        myLocation.put("latitude", 37.5170112);
+
+        try {
+            myLocation.put("latitude", Double.parseDouble(latitude));
+            myLocation.put("longitude", Double.parseDouble(longitude));
+            tourMap.put("success", Boolean.TRUE);
+            tourMap.put("tourlists", tourService.findByMyLocationAreaFilter(myLocation, areaCode));
+        } catch (Exception e) {
+            tourMap.put("error", e.getMessage());
+        }
+
+        return tourMap;
+    }
+
+
     @GetMapping("/tourlist/detail/{tourspotId}")
     public HashMap<String, Object> getTourlistDetail(@PathVariable int tourspotId) {
         HashMap<String, Object> map = new HashMap<>();

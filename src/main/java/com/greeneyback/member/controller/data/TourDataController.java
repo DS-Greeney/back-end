@@ -103,7 +103,7 @@ public class TourDataController {
                 "&pageNo=1" +
                 "&MobileOS=ETC" +
                 "&MobileApp=AppTest" +
-                "&areaCode=1" +
+                "&areaCode=39" +
                 "&_type=json" +
                 "&arrange=A";
         URL url = new URL(urlStr);

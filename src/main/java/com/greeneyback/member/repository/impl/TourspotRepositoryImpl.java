@@ -36,4 +36,23 @@ public class TourspotRepositoryImpl implements TourspotRepositoryCustom {
         return tourspotEntityList;
     }
 
+    public List<TourspotEntity> findByLocationAreaCode(HashMap<String, Double> myLocation, int areaCode) {
+        List<TourspotEntity> tourspotEntityListFiltering = queryFactory
+                .selectFrom(tourspotEntity)
+                .where(tourspotEntity.areaCode.eq(areaCode))
+                .orderBy(Expressions.stringTemplate("ST_Distance_Sphere({0}, {1})",
+                        Expressions.stringTemplate("POINT({0}, {1})",
+                                myLocation.get("longitude"),
+                                myLocation.get("latitude")
+                        ),
+                        Expressions.stringTemplate("POINT({0}, {1})",
+                                tourspotEntity.longitude,
+                                tourspotEntity.latitude
+                        )
+                ).asc())
+                .fetch();
+        return tourspotEntityListFiltering;
+
+    }
+
 }

@@ -1,18 +1,20 @@
 package com.greeneyback.member.controller.api;
 
+import com.greeneyback.member.dto.CommentDTO;
 import com.greeneyback.member.entity.RstrntEntity;
 import com.greeneyback.member.entity.TourspotEntity;
+import com.greeneyback.member.service.AWSS3Service;
 import com.greeneyback.member.service.RstrntService;
 import com.greeneyback.member.service.TourService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/greeney/main")
@@ -22,6 +24,9 @@ public class TourlistAPIController {
 
     @Autowired
     private final TourService tourService;
+
+    @Autowired
+    private final AWSS3Service awss3Service;
 
 
     // tourList 반환 메서드
@@ -60,9 +65,6 @@ public class TourlistAPIController {
                 tourMap.put("error", e.getMessage());
             }
         }
-
-
-
         return tourMap;
     }
 
@@ -75,7 +77,7 @@ public class TourlistAPIController {
             map.put("success", Boolean.TRUE);
             map.put("tourspot", tourspot);
 
-            // 리뷰 불러오기
+            // 리뷰 불러오기 추후..^^
 
 
 
@@ -85,6 +87,24 @@ public class TourlistAPIController {
         }
 
         return map;
+    }
+
+    // 리뷰 작성 post
+    @PostMapping("/tourlist/detail/{tourspotId}")
+    public ResponseEntity<?> postTourComment(@RequestParam("images") List<MultipartFile> multipartFiles, @ModelAttribute CommentDTO commentDTO) {
+
+        // S3 service
+
+        try {
+            List<String> imageUrlList = new ArrayList<>();
+            imageUrlList = awss3Service.uploadFiletToS3(multipartFiles);
+            tourService.saveTourReviewComment(commentDTO, imageUrlList);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).build();
     }
 
 }

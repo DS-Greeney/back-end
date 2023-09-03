@@ -22,18 +22,19 @@ spring:
       ddl-auto: update
 
 # 파일(이미지) 업로드할 때 크기 제한 설정
+
   servlet:
     multipart:
-      maxFileSize: 10MB
-      maxRequestSize: 20MB
-
-#s3 설정
+      maxFileSize: 50MB
+      maxRequestSize: 50MB
 cloud:
   aws:
     s3:
       bucket: greeney
-    stack.auto: false
-    region.static: ap-northeast-2
+    stack:
+        auto: false
+    region:
+      static: ap-northeast-2
     credentials:
       accessKey: AKIA3MHWUJ4DMAH6W2JG
       secretKey: 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

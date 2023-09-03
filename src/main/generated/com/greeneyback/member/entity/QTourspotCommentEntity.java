@@ -32,7 +32,7 @@ public class QTourspotCommentEntity extends EntityPathBase<TourspotCommentEntity
 
     public final NumberPath<Integer> tourspotCmntStar = createNumber("tourspotCmntStar", Integer.class);
 
-    public final DateTimePath<java.util.Date> tourspotCmntTime = createDateTime("tourspotCmntTime", java.util.Date.class);
+    public final DatePath<java.time.LocalDate> tourspotCmntTime = createDate("tourspotCmntTime", java.time.LocalDate.class);
 
     public final QMemberEntity user;
 

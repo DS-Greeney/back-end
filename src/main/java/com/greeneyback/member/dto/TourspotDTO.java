@@ -29,7 +29,7 @@ public class TourspotDTO {
 
     public static TourspotDTO toTourspotDTO(TourspotEntity tourspotEntity) {
         TourspotDTO tourspotDTO = new TourspotDTO();
-        tourspotDTO.setTourspot_id((tourspotEntity.getTourspot_id()));
+        tourspotDTO.setTourspot_id((tourspotEntity.getTourspotId()));
         tourspotDTO.setAreaCode(tourspotEntity.getAreaCode());
         tourspotDTO.setSigunguCode(tourspotEntity.getSigunguCode());
         tourspotDTO.setAddr(tourspotEntity.getAddr());

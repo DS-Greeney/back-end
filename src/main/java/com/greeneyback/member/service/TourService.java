@@ -1,12 +1,18 @@
 package com.greeneyback.member.service;
 
 import com.greeneyback.member.dto.AddrDTO;
+import com.greeneyback.member.dto.CommentDTO;
 import com.greeneyback.member.dto.TourspotDTO;
 import com.greeneyback.member.entity.AddrEntity;
+import com.greeneyback.member.entity.MemberEntity;
+import com.greeneyback.member.entity.TourspotCommentEntity;
 import com.greeneyback.member.entity.TourspotEntity;
 import com.greeneyback.member.repository.AddrRepository;
+import com.greeneyback.member.repository.TourspotCmntRepository;
+import com.greeneyback.member.repository.MemberRepository;
 import com.greeneyback.member.repository.TourspotRepository;
 import com.greeneyback.member.repository.impl.TourspotRepositoryImpl;
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
@@ -26,10 +32,13 @@ import java.util.*;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Builder
 public class TourService {
 
     private final TourspotRepository tourspotRepository;
     private final AddrRepository addrRepository;
+    private final MemberRepository memberRepository;
+    private final TourspotCmntRepository tourspotCmntRepository;
 
     @Autowired
     private final TourspotRepositoryImpl tourspotRepositoryImpl;
@@ -113,7 +122,24 @@ public class TourService {
     public List<TourspotEntity> findByMyLocationAreaFilter(HashMap<String, Double> myLocation, int areaCode) {
         return tourspotRepositoryImpl.findByLocationAreaCode(myLocation, areaCode);
     }
-  
+
+    public void saveTourReviewComment(CommentDTO commentDTO, List<String> imageUrlList) {
+        TourspotCommentEntity tourspotCommentEntity = new TourspotCommentEntity();
+
+        // tourspotId 찾기
+        TourspotEntity tourspotEntity = tourspotRepository.findByTourspotId(commentDTO.getSpotId());
+        // userId 찾기
+        MemberEntity memberEntity = memberRepository.findByUserId(commentDTO.getUserId());
+
+        // entity 설정
+        tourspotCommentEntity.setTourspot(tourspotEntity);
+        tourspotCommentEntity.setUser(memberEntity);
+        tourspotCommentEntity.setTourspotCmntContent(commentDTO.getCmntContent());
+        tourspotCommentEntity.setTourspotCmntImg(imageUrlList.toString());
+        tourspotCommentEntity.setTourspotCmntStar(commentDTO.getCmntStar());
+
+        tourspotCmntRepository.save(tourspotCommentEntity);
+    }
     
 }
 

@@ -25,7 +25,6 @@ public class TourlistAPIController {
     @Autowired
     private final TourService tourService;
 
-    @Autowired
     private final AWSS3Service awss3Service;
 
 

@@ -22,10 +22,14 @@ public class TitleEntity {
     @Column(unique = true, nullable = false)
     private String titleName; // 칭호 이름
 
+    @Column(nullable = false)
+    private int goalChallengeNm; // 칭호 달성 목표 챌린지개수
+
     public static TitleEntity toTitleEntity(TitleDTO titleDTO) {
         TitleEntity titleEntity = new TitleEntity();
         titleEntity.setTitleId(titleDTO.getTitleId());
         titleEntity.setTitleName(titleDTO.getTitleName());
+        titleEntity.setGoalChallengeNm(titleDTO.getGoalChallengeNm());
 
         return titleEntity;
     }

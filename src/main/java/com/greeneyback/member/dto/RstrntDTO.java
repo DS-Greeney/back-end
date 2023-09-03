@@ -20,7 +20,7 @@ public class RstrntDTO {
     private String rstrntMenuinfo;
     private String rstrntLa;
     private String rstrntLo;
-    private Integer rstrntStar;
+    private float rstrntStar;
     private Integer areaCode;
 
     public static RstrntDTO toRstrntDTO(RstrntEntity rstrntEntity) {

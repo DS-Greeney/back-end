@@ -30,14 +30,14 @@ public class RstrntEntity {
     @Column(length = 20)
     private String rstrntLo; // 경도
     @Column
-    private Integer rstrntStar; // 평균 평점
+    private float rstrntStar; // 평균 평점
     @Column
     private Integer areaCode;
 
     public RstrntEntity() {
 
     }
-    public RstrntEntity(String rstrntId, String rstrntCtgry, String rstrntName, String rstrntAddr, String rstrntTel, String rstrntMenuinfo, String rstrntLa, String rstrntLo, Integer rstrntStar, Integer areaCode) {
+    public RstrntEntity(String rstrntId, String rstrntCtgry, String rstrntName, String rstrntAddr, String rstrntTel, String rstrntMenuinfo, String rstrntLa, String rstrntLo, float rstrntStar, Integer areaCode) {
         this.rstrntId = rstrntId;
         this.rstrntCtgry = rstrntCtgry;
         this.rstrntName = rstrntName;

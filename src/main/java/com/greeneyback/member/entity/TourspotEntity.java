@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 public class TourspotEntity {
     @Id // pk 지정
     @Column(unique = true, nullable = false, name = "tourspot_id")
-    private int tourspot_id;
+    private int tourspotId;
     @Column
     private int areaCode;
     @Column
@@ -48,7 +48,7 @@ public class TourspotEntity {
 
     public static TourspotEntity toTourspotEntity(TourspotDTO tourspotDTO) {
         TourspotEntity tourspotEntity = new TourspotEntity();
-        tourspotEntity.setTourspot_id((tourspotDTO.getTourspot_id()));
+        tourspotEntity.setTourspotId((tourspotDTO.getTourspot_id()));
         tourspotEntity.setAreaCode(tourspotDTO.getAreaCode());
         tourspotEntity.setSigunguCode(tourspotDTO.getSigunguCode());
         tourspotEntity.setAddr(tourspotDTO.getAddr());

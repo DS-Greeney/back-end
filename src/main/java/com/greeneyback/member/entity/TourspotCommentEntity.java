@@ -1,11 +1,12 @@
 package com.greeneyback.member.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Setter
@@ -32,9 +33,9 @@ public class TourspotCommentEntity {
     @Column(length = 500)
     private String tourspotCmntImg; // 사진
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @Column
-    private Date tourspotCmntTime; // 작성시간
+    private LocalDate tourspotCmntTime; // 작성시간
 
     @Column(length = 300)
     private int tourspotCmntStar; // 평점

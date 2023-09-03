@@ -37,7 +37,7 @@ public class QTourspotEntity extends EntityPathBase<TourspotEntity> {
 
     public final StringPath title = createString("title");
 
-    public final NumberPath<Integer> tourspot_id = createNumber("tourspot_id", Integer.class);
+    public final NumberPath<Integer> tourspotId = createNumber("tourspotId", Integer.class);
 
     public final NumberPath<Float> tourspotStar = createNumber("tourspotStar", Float.class);
 

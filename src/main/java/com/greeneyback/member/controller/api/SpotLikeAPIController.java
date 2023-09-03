@@ -50,7 +50,7 @@ public class SpotLikeAPIController {
                     spotLikeDTO.setCategoryNumber(1);
                     spotLikeDTO.setTourspot(likeTourspot.get());
 
-                    map.put("likeTourspotId", likeTourspot.get().getTourspot_id());
+                    map.put("likeTourspotId", likeTourspot.get().getTourspotId());
                 }
                 else if (likeRstrnt.isPresent()) {
                     spotLikeDTO.setCategoryNumber(2);

@@ -25,7 +25,7 @@ public class AWSS3Service {
 
     private final AmazonS3Client amazonS3Client;
 
-    @Value("${cloud.aws.s3.bucket")
+    @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
     // s3에 업로드, s3 url 반환.

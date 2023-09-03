@@ -14,32 +14,46 @@ import java.util.List;
 public class TitleDataController {
     private final TitleService titleService;
     List<String> titleName = new ArrayList<String>();
+    List<Integer> goalChallengeNm = new ArrayList<>();
     StringBuilder result = new StringBuilder();
 
     @GetMapping("/title/save")
-    public void titleSave() {
+    public String titleSave() {
         titleName.add("에코그린세포");
+        goalChallengeNm.add(0);
         titleName.add("환경 운동가 지망생");
+        goalChallengeNm.add(3);
         titleName.add("환경 보호 새내기");
+        goalChallengeNm.add(7);
         titleName.add("기특한 친환경 애호가");
+        goalChallengeNm.add(10);
         titleName.add("으쌰으쌰 친환경 행동가");
+        goalChallengeNm.add(10);
         titleName.add("친절한 환경운동가");
+        goalChallengeNm.add(12);
         titleName.add("발빠른 지구지킴이");
+        goalChallengeNm.add(12);
         titleName.add("똑똑한 친환경 전문가");
+        goalChallengeNm.add(15);
         titleName.add("열렬한 환경 보호 투쟁가");
+        goalChallengeNm.add(15);
         titleName.add("존경받는 환경 보호 영웅");
+        goalChallengeNm.add(17);
         titleName.add("최고의 환경부장관");
+        goalChallengeNm.add(20);
         titleName.add("빛나는 에코신");
+        goalChallengeNm.add(30);
 
         for (int i=0; i<titleName.size(); i++) {
             TitleDTO titleDTO = new TitleDTO();
             titleDTO.setTitleId(i+1);
             titleDTO.setTitleName(titleName.get(i));
+            titleDTO.setGoalChallengeNm(goalChallengeNm.get(i));
 
             titleService.titleSave(titleDTO);
-            result.append(i+","+titleName.get(i)+"\n");
+            result.append(i+","+titleName.get(i)+","+goalChallengeNm.get(i)+"\n");
         }
 
-//        return result.toString();
+        return result.toString();
     }
 }

@@ -141,12 +141,11 @@ public class TourService {
 
     // 이미지 url을 저장하는 메소드
     public void saveTourReviewImage(TourspotCommentEntity tourspotCommentEntity, List<String> imgUrlList) {
-        // 이미지 entity 선언
-        TourspotImageEntity tourspotImageEntity = new TourspotImageEntity();
 
         // forEach문을 통해서 db에 이미지 entity 추가
         for(String imgUrl : imgUrlList) {
-
+            // 이미지 entity 선언
+            TourspotImageEntity tourspotImageEntity = new TourspotImageEntity();
             // entity 설정
             tourspotImageEntity.setTourspotCmntId(tourspotCommentEntity);
             tourspotImageEntity.setTourspotImgUrl(imgUrl);

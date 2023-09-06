@@ -129,8 +129,8 @@ public class TourService {
         MemberEntity memberEntity = memberRepository.findByUserId(commentDTO.getUserId());
 
         // entity 설정
-        tourspotCommentEntity.setTourspotId(tourspotEntity);
-        tourspotCommentEntity.setUserId(memberEntity);
+        tourspotCommentEntity.setTourspot(tourspotEntity);
+        tourspotCommentEntity.setUser(memberEntity);
         tourspotCommentEntity.setTourspotCmntContent(commentDTO.getCmntContent());
         tourspotCommentEntity.setTourspotCmntStar(commentDTO.getCmntStar());
 
@@ -147,13 +147,56 @@ public class TourService {
             // 이미지 entity 선언
             TourspotImageEntity tourspotImageEntity = new TourspotImageEntity();
             // entity 설정
-            tourspotImageEntity.setTourspotCmntId(tourspotCommentEntity);
+            tourspotImageEntity.setTourspotCmnt(tourspotCommentEntity);
             tourspotImageEntity.setTourspotImgUrl(imgUrl);
 
             tourspotImgRepository.save(tourspotImageEntity);
         }
 
     }
+
+    // 리뷰 리스트를 불러오는 메소드
+    public List<Object> getReviewList(int tourspotId) {
+        // review들을 모은 List
+        List<Object> reviewList = new ArrayList<>();
+
+        // tourspotId를 이용해서 tourspotCommentEntity에서 컬럼들을 찾는다.
+        TourspotEntity tourspotEntity = tourspotRepository.findByTourspotId(tourspotId);
+        List<TourspotCommentEntity> tourspotCommentEntityList = tourspotCmntRepository.findByTourspot(tourspotEntity);
+
+        // 찾은 컬럼들을 하나씩 재구성해 reviewList에 넣는다.
+        for(TourspotCommentEntity tourspotCommentEntity : tourspotCommentEntityList) {
+
+            HashMap<String, Object> review = new HashMap<>();   // 하나의 review를 구성하는 hashmap
+            List<String> imgUrlList = new ArrayList<>();        // review에 담기는 imageUrl의 리스트
+
+            // userId를 통해 userNickname을 찾는다.
+            MemberEntity memberEntity = memberRepository.findByUserId(tourspotCommentEntity.getUser().getUserId());
+            String userNickname = memberEntity.getUserNickname();
+
+            // tourspotCmntId를 통해 tourspotImgEntity에서 컬럼들을 찾는다.
+            List<TourspotImageEntity> tourspotImageEntityList = tourspotImgRepository.findByTourspotCmnt(tourspotCommentEntity);
+
+            for(TourspotImageEntity tourspotImageEntity : tourspotImageEntityList) {
+                imgUrlList.add(tourspotImageEntity.getTourspotImgUrl());  // imgUrlList에 추가
+            }
+
+            // 하나의 리뷰를 구성해준다.
+            review.put("userNickname", userNickname);
+            review.put("tourspotCmntContent", tourspotCommentEntity.getTourspotCmntContent());
+            review.put("tourspotCmntTime", tourspotCommentEntity.getTourspotCmntTime());
+            review.put("tourspotCmntStar", tourspotCommentEntity.getTourspotCmntStar());
+            review.put("tourCmntImg", imgUrlList);
+
+            // 최종적으로 reviewList에 넣어준다.
+            reviewList.add(review);
+
+        }
+
+        return reviewList;
+    }
+
+
     
 }
 

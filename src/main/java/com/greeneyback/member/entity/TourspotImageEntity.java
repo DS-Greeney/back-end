@@ -16,10 +16,10 @@ public class TourspotImageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int tourspotImgId; // 이미지 고유 아이디
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.REMOVE, targetEntity = TourspotCommentEntity.class)
     @NotNull
-    @JoinColumn(referencedColumnName = "tourspotCmntId", name= "tourspot_cmnt_id")
-    TourspotCommentEntity tourspotCmntId;
+    @JoinColumn(referencedColumnName = "tourspot_cmnt_id", name= "tourspot_cmnt_id")
+    TourspotCommentEntity tourspotCmnt;
 
     @Column(length = 300)
     private String tourspotImgUrl; // 이미지 url

@@ -69,17 +69,22 @@ public class TourlistAPIController {
     }
 
     @GetMapping("/tourlist/detail/{tourspotId}")
-    public HashMap<String, Object> getTourlistDetail(@PathVariable int tourspotId) {
+    public HashMap<String, Object> getTourlistDetail(@PathVariable int tourspotId, @RequestParam int userId) {
+        // 결과를 담은 hashmap
         HashMap<String, Object> map = new HashMap<>();
+        // review들을 모은 List
+        List<Object> reviewList = new ArrayList<>();
+
 
         try {
             Optional<TourspotEntity> tourspot = tourService.findTourspotDetail(tourspotId);
-            map.put("success", Boolean.TRUE);
             map.put("tourspot", tourspot);
-            // 찜여부 추가해서 보냄  like, 있으면 1, 없으면 0 인거죠
-            // 리뷰 불러오기 추후..^^
+            // 찜여부 추가해서 보냄  like, 있으면 1, 없으면 0 인거죠 맞아 맞아~~
 
-
+            // 리뷰 불러오기
+            reviewList = tourService.getReviewList(tourspotId);
+            map.put("reviewList", reviewList);
+            map.put("success", Boolean.TRUE);
 
         } catch(Exception e) {
             map.put("success", Boolean.FALSE);

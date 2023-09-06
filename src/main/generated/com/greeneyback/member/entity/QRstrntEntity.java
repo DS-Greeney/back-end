@@ -35,7 +35,7 @@ public class QRstrntEntity extends EntityPathBase<RstrntEntity> {
 
     public final StringPath rstrntName = createString("rstrntName");
 
-    public final NumberPath<Integer> rstrntStar = createNumber("rstrntStar", Integer.class);
+    public final NumberPath<Float> rstrntStar = createNumber("rstrntStar", Float.class);
 
     public final StringPath rstrntTel = createString("rstrntTel");
 

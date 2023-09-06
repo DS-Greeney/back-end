@@ -19,19 +19,16 @@ public class TourspotCommentEntity {
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @NotNull
-    @JoinColumn(referencedColumnName = "tourspot_id")
-    TourspotEntity tourspot; // 게시글(관광지) 아이디
+    @JoinColumn(referencedColumnName = "tourspot_id", name = "tourspot_id")
+    TourspotEntity tourspotId; // 게시글(관광지) 아이디
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @NotNull
-    @JoinColumn(referencedColumnName = "user_id")
-    MemberEntity user; // 댓글 작성자
+    @JoinColumn(referencedColumnName = "user_id", name = "user_id")
+    MemberEntity userId; // 댓글 작성자
 
     @Column(length = 300)
     private String tourspotCmntContent; // 내용
-
-    @Column(length = 500)
-    private String tourspotCmntImg; // 사진
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     @Column

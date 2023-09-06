@@ -3,14 +3,8 @@ package com.greeneyback.member.service;
 import com.greeneyback.member.dto.AddrDTO;
 import com.greeneyback.member.dto.CommentDTO;
 import com.greeneyback.member.dto.TourspotDTO;
-import com.greeneyback.member.entity.AddrEntity;
-import com.greeneyback.member.entity.MemberEntity;
-import com.greeneyback.member.entity.TourspotCommentEntity;
-import com.greeneyback.member.entity.TourspotEntity;
-import com.greeneyback.member.repository.AddrRepository;
-import com.greeneyback.member.repository.TourspotCmntRepository;
-import com.greeneyback.member.repository.MemberRepository;
-import com.greeneyback.member.repository.TourspotRepository;
+import com.greeneyback.member.entity.*;
+import com.greeneyback.member.repository.*;
 import com.greeneyback.member.repository.impl.TourspotRepositoryImpl;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +14,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -39,6 +34,7 @@ public class TourService {
     private final AddrRepository addrRepository;
     private final MemberRepository memberRepository;
     private final TourspotCmntRepository tourspotCmntRepository;
+    private final TourspotImgRepository tourspotImgRepository;
 
     @Autowired
     private final TourspotRepositoryImpl tourspotRepositoryImpl;
@@ -123,7 +119,8 @@ public class TourService {
         return tourspotRepositoryImpl.findByLocationAreaCode(myLocation, areaCode);
     }
 
-    public void saveTourReviewComment(CommentDTO commentDTO, List<String> imageUrlList) {
+    // 리뷰를 db에 저장하는 메소드, 저장한 Entity를 반환한다.
+    public TourspotCommentEntity saveTourReviewComment(CommentDTO commentDTO) {
         TourspotCommentEntity tourspotCommentEntity = new TourspotCommentEntity();
 
         // tourspotId 찾기
@@ -132,13 +129,31 @@ public class TourService {
         MemberEntity memberEntity = memberRepository.findByUserId(commentDTO.getUserId());
 
         // entity 설정
-        tourspotCommentEntity.setTourspot(tourspotEntity);
-        tourspotCommentEntity.setUser(memberEntity);
+        tourspotCommentEntity.setTourspotId(tourspotEntity);
+        tourspotCommentEntity.setUserId(memberEntity);
         tourspotCommentEntity.setTourspotCmntContent(commentDTO.getCmntContent());
-        tourspotCommentEntity.setTourspotCmntImg(imageUrlList.toString());
         tourspotCommentEntity.setTourspotCmntStar(commentDTO.getCmntStar());
 
         tourspotCmntRepository.save(tourspotCommentEntity);
+
+        return tourspotCommentEntity;
+    }
+
+    // 이미지 url을 저장하는 메소드
+    public void saveTourReviewImage(TourspotCommentEntity tourspotCommentEntity, List<String> imgUrlList) {
+        // 이미지 entity 선언
+        TourspotImageEntity tourspotImageEntity = new TourspotImageEntity();
+
+        // forEach문을 통해서 db에 이미지 entity 추가
+        for(String imgUrl : imgUrlList) {
+
+            // entity 설정
+            tourspotImageEntity.setTourspotCmntId(tourspotCommentEntity);
+            tourspotImageEntity.setTourspotImgUrl(imgUrl);
+
+            tourspotImgRepository.save(tourspotImageEntity);
+        }
+
     }
     
 }

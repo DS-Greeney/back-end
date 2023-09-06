@@ -22,19 +22,17 @@ public class QTourspotCommentEntity extends EntityPathBase<TourspotCommentEntity
 
     public static final QTourspotCommentEntity tourspotCommentEntity = new QTourspotCommentEntity("tourspotCommentEntity");
 
-    public final QTourspotEntity tourspot;
-
     public final StringPath tourspotCmntContent = createString("tourspotCmntContent");
 
     public final NumberPath<Integer> tourspotCmntId = createNumber("tourspotCmntId", Integer.class);
-
-    public final StringPath tourspotCmntImg = createString("tourspotCmntImg");
 
     public final NumberPath<Integer> tourspotCmntStar = createNumber("tourspotCmntStar", Integer.class);
 
     public final DatePath<java.time.LocalDate> tourspotCmntTime = createDate("tourspotCmntTime", java.time.LocalDate.class);
 
-    public final QMemberEntity user;
+    public final QTourspotEntity tourspotId;
+
+    public final QMemberEntity userId;
 
     public QTourspotCommentEntity(String variable) {
         this(TourspotCommentEntity.class, forVariable(variable), INITS);
@@ -54,8 +52,8 @@ public class QTourspotCommentEntity extends EntityPathBase<TourspotCommentEntity
 
     public QTourspotCommentEntity(Class<? extends TourspotCommentEntity> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.tourspot = inits.isInitialized("tourspot") ? new QTourspotEntity(forProperty("tourspot")) : null;
-        this.user = inits.isInitialized("user") ? new QMemberEntity(forProperty("user")) : null;
+        this.tourspotId = inits.isInitialized("tourspotId") ? new QTourspotEntity(forProperty("tourspotId")) : null;
+        this.userId = inits.isInitialized("userId") ? new QMemberEntity(forProperty("userId")) : null;
     }
 
 }

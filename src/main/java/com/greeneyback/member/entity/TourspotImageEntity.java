@@ -18,7 +18,7 @@ public class TourspotImageEntity {
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @NotNull
-    @JoinColumn(referencedColumnName = "tourspot_cmnt_id", name= "tourspot_cmnt_id")
+    @JoinColumn(referencedColumnName = "tourspotCmntId", name= "tourspot_cmnt_id")
     TourspotCommentEntity tourspotCmntId;
 
     @Column(length = 300)

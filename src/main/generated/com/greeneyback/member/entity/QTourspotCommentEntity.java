@@ -28,8 +28,6 @@ public class QTourspotCommentEntity extends EntityPathBase<TourspotCommentEntity
 
     public final NumberPath<Integer> tourspotCmntId = createNumber("tourspotCmntId", Integer.class);
 
-    public final StringPath tourspotCmntImg = createString("tourspotCmntImg");
-
     public final NumberPath<Integer> tourspotCmntStar = createNumber("tourspotCmntStar", Integer.class);
 
     public final DatePath<java.time.LocalDate> tourspotCmntTime = createDate("tourspotCmntTime", java.time.LocalDate.class);

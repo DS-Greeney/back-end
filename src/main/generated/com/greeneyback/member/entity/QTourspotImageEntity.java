@@ -22,7 +22,7 @@ public class QTourspotImageEntity extends EntityPathBase<TourspotImageEntity> {
 
     public static final QTourspotImageEntity tourspotImageEntity = new QTourspotImageEntity("tourspotImageEntity");
 
-    public final QTourspotCommentEntity tourspotCmntId;
+    public final QTourspotCommentEntity tourspotCmnt;
 
     public final NumberPath<Integer> tourspotImgId = createNumber("tourspotImgId", Integer.class);
 
@@ -46,7 +46,7 @@ public class QTourspotImageEntity extends EntityPathBase<TourspotImageEntity> {
 
     public QTourspotImageEntity(Class<? extends TourspotImageEntity> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.tourspotCmntId = inits.isInitialized("tourspotCmntId") ? new QTourspotCommentEntity(forProperty("tourspotCmntId"), inits.get("tourspotCmntId")) : null;
+        this.tourspotCmnt = inits.isInitialized("tourspotCmnt") ? new QTourspotCommentEntity(forProperty("tourspotCmnt"), inits.get("tourspotCmnt")) : null;
     }
 
 }

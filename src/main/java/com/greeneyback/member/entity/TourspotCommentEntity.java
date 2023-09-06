@@ -15,17 +15,17 @@ import java.time.LocalDate;
 public class TourspotCommentEntity {
     @Id // pk 지정
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "tourspot_cmnt_id")
     private int tourspotCmntId; // 댓글 아이디
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @NotNull
+    @ManyToOne(cascade = CascadeType.REMOVE, targetEntity = TourspotEntity.class)
     @JoinColumn(referencedColumnName = "tourspot_id", name = "tourspot_id")
-    TourspotEntity tourspotId; // 게시글(관광지) 아이디
+    TourspotEntity tourspot; // 게시글(관광지) 아이디
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.REMOVE, targetEntity = MemberEntity.class)
     @NotNull
     @JoinColumn(referencedColumnName = "user_id", name = "user_id")
-    MemberEntity userId; // 댓글 작성자
+    MemberEntity user; // 댓글 작성자
 
     @Column(length = 300)
     private String tourspotCmntContent; // 내용

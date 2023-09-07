@@ -62,4 +62,8 @@ public class RstrntService {
         return rstrntRepositoryImpl.findByLocation(myLocation);
     }
 
+    public List<RstrntEntity> findByMyLocationAreaFilter(HashMap<String, Double> myLocation, int areaCode) {
+        return rstrntRepositoryImpl.findByLocationAreaCode(myLocation, areaCode);
+    }
+
 }

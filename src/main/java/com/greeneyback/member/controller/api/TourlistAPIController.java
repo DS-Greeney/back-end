@@ -1,17 +1,13 @@
 package com.greeneyback.member.controller.api;
 
 import com.greeneyback.member.dto.CommentDTO;
-import com.greeneyback.member.entity.RstrntEntity;
-import com.greeneyback.member.entity.TourspotCommentEntity;
+import com.greeneyback.member.entity.SpotCommentEntity;
 import com.greeneyback.member.entity.TourspotEntity;
 import com.greeneyback.member.service.AWSS3Service;
-import com.greeneyback.member.service.RstrntService;
 import com.greeneyback.member.service.TourService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -82,7 +78,7 @@ public class TourlistAPIController {
             // 찜여부 추가해서 보냄  like, 있으면 1, 없으면 0 인거죠 맞아 맞아~~
 
             // 리뷰 불러오기
-            reviewList = tourService.getReviewList(tourspotId);
+            reviewList = tourService.getReviewList(tourspotId, 1);
             map.put("reviewList", reviewList);
             map.put("success", Boolean.TRUE);
 
@@ -109,10 +105,10 @@ public class TourlistAPIController {
             imageUrlList = awss3Service.uploadFiletToS3(multipartFiles);
 
             // 리뷰 테이블에 먼저 추가한 후 그 Entity를 받아온다. (commentID 때문에)
-            TourspotCommentEntity tourspotCommentEntity = tourService.saveTourReviewComment(commentDTO);
+            SpotCommentEntity spotCommentEntity = tourService.saveTourReviewComment(commentDTO);
 
             // commentID와 함께 이미지 db를 추가한다.
-            tourService.saveTourReviewImage(tourspotCommentEntity, imageUrlList);
+            tourService.saveTourReviewImage(spotCommentEntity, imageUrlList);
             map.put("success", Boolean.TRUE);
 
         }

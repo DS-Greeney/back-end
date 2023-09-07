@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 @ToString
 public class RstrntDTO {
 
-    private String rstrntId;
+    private int rstrntId;
     private String rstrntCtgry;
     private String rstrntName;
     private String rstrntAddr;

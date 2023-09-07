@@ -25,7 +25,7 @@ public class QRstrntEntity extends EntityPathBase<RstrntEntity> {
 
     public final StringPath rstrntCtgry = createString("rstrntCtgry");
 
-    public final StringPath rstrntId = createString("rstrntId");
+    public final NumberPath<Integer> rstrntId = createNumber("rstrntId", Integer.class);
 
     public final StringPath rstrntLa = createString("rstrntLa");
 

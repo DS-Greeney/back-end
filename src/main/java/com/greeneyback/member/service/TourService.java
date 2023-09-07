@@ -5,6 +5,7 @@ import com.greeneyback.member.dto.CommentDTO;
 import com.greeneyback.member.dto.TourspotDTO;
 import com.greeneyback.member.entity.*;
 import com.greeneyback.member.repository.*;
+import com.greeneyback.member.repository.impl.SpotCmntRepositoryImpl;
 import com.greeneyback.member.repository.impl.TourspotRepositoryImpl;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -33,8 +33,10 @@ public class TourService {
     private final TourspotRepository tourspotRepository;
     private final AddrRepository addrRepository;
     private final MemberRepository memberRepository;
-    private final TourspotCmntRepository tourspotCmntRepository;
-    private final TourspotImgRepository tourspotImgRepository;
+    private final SpotCmntRepository spotCmntRepository;
+    private final SpotCmntImgRepository spotCmntImgRepository;
+
+    private final SpotCmntRepositoryImpl spotCmntRepositoryImpl;
 
     @Autowired
     private final TourspotRepositoryImpl tourspotRepositoryImpl;
@@ -120,72 +122,71 @@ public class TourService {
     }
 
     // 리뷰를 db에 저장하는 메소드, 저장한 Entity를 반환한다.
-    public TourspotCommentEntity saveTourReviewComment(CommentDTO commentDTO) {
-        TourspotCommentEntity tourspotCommentEntity = new TourspotCommentEntity();
+    public SpotCommentEntity saveTourReviewComment(CommentDTO commentDTO) {
+        SpotCommentEntity tourspotCommentEntity = new SpotCommentEntity();
 
-        // tourspotId 찾기
-        TourspotEntity tourspotEntity = tourspotRepository.findByTourspotId(commentDTO.getSpotId());
         // userId 찾기
         MemberEntity memberEntity = memberRepository.findByUserId(commentDTO.getUserId());
 
         // entity 설정
-        tourspotCommentEntity.setTourspot(tourspotEntity);
+        tourspotCommentEntity.setSpotId(commentDTO.getSpotId());
         tourspotCommentEntity.setUser(memberEntity);
-        tourspotCommentEntity.setTourspotCmntContent(commentDTO.getCmntContent());
-        tourspotCommentEntity.setTourspotCmntStar(commentDTO.getCmntStar());
+        tourspotCommentEntity.setCategoryNumber(commentDTO.getCategoryNumber());
+        tourspotCommentEntity.setSpotCmntContent(commentDTO.getCmntContent());
+        tourspotCommentEntity.setSpotCmntStar(commentDTO.getCmntStar());
 
-        tourspotCmntRepository.save(tourspotCommentEntity);
+        spotCmntRepository.save(tourspotCommentEntity);
 
         return tourspotCommentEntity;
     }
 
     // 이미지 url을 저장하는 메소드
-    public void saveTourReviewImage(TourspotCommentEntity tourspotCommentEntity, List<String> imgUrlList) {
+    public void saveTourReviewImage(SpotCommentEntity tourspotCommentEntity, List<String> imgUrlList) {
 
         // forEach문을 통해서 db에 이미지 entity 추가
         for(String imgUrl : imgUrlList) {
             // 이미지 entity 선언
-            TourspotImageEntity tourspotImageEntity = new TourspotImageEntity();
+            SpotCommentImageEntity tourspotImageEntity = new SpotCommentImageEntity();
             // entity 설정
-            tourspotImageEntity.setTourspotCmnt(tourspotCommentEntity);
-            tourspotImageEntity.setTourspotImgUrl(imgUrl);
+            tourspotImageEntity.setSpotCmnt(tourspotCommentEntity);
+            tourspotImageEntity.setSpotImgUrl(imgUrl);
 
-            tourspotImgRepository.save(tourspotImageEntity);
+            spotCmntImgRepository.save(tourspotImageEntity);
         }
 
     }
 
     // 리뷰 리스트를 불러오는 메소드
-    public List<Object> getReviewList(int tourspotId) {
+    public List<Object> getReviewList(int spotId, int categoryNumber) {
         // review들을 모은 List
         List<Object> reviewList = new ArrayList<>();
 
-        // tourspotId를 이용해서 tourspotCommentEntity에서 컬럼들을 찾는다.
-        TourspotEntity tourspotEntity = tourspotRepository.findByTourspotId(tourspotId);
-        List<TourspotCommentEntity> tourspotCommentEntityList = tourspotCmntRepository.findByTourspot(tourspotEntity);
+        // spotId과 categoryNumber를 이용해서 spotCommentEntity에서 컬럼들을 찾는다.
+        List<SpotCommentEntity> spotCommentEntityList = spotCmntRepositoryImpl.findBySpotIdAndCategoryNumber(spotId, categoryNumber);
 
         // 찾은 컬럼들을 하나씩 재구성해 reviewList에 넣는다.
-        for(TourspotCommentEntity tourspotCommentEntity : tourspotCommentEntityList) {
+        for(SpotCommentEntity spotCommentEntity : spotCommentEntityList) {
 
             HashMap<String, Object> review = new HashMap<>();   // 하나의 review를 구성하는 hashmap
             List<String> imgUrlList = new ArrayList<>();        // review에 담기는 imageUrl의 리스트
 
             // userId를 통해 userNickname을 찾는다.
-            MemberEntity memberEntity = memberRepository.findByUserId(tourspotCommentEntity.getUser().getUserId());
+            MemberEntity memberEntity = memberRepository.findByUserId(spotCommentEntity.getUser().getUserId());
             String userNickname = memberEntity.getUserNickname();
 
-            // tourspotCmntId를 통해 tourspotImgEntity에서 컬럼들을 찾는다.
-            List<TourspotImageEntity> tourspotImageEntityList = tourspotImgRepository.findByTourspotCmnt(tourspotCommentEntity);
+            // spotCmntId를 통해 spotCmntImgRepository에서 컬럼들을 찾는다.
+            List<SpotCommentImageEntity> spotImageEntityList = spotCmntImgRepository.findBySpotCmnt(spotCommentEntity);
 
-            for(TourspotImageEntity tourspotImageEntity : tourspotImageEntityList) {
-                imgUrlList.add(tourspotImageEntity.getTourspotImgUrl());  // imgUrlList에 추가
+            for(SpotCommentImageEntity spotCommentImageEntity : spotImageEntityList) {
+                imgUrlList.add(spotCommentImageEntity.getSpotImgUrl());  // imgUrlList에 추가
             }
 
             // 하나의 리뷰를 구성해준다.
             review.put("userNickname", userNickname);
-            review.put("tourspotCmntContent", tourspotCommentEntity.getTourspotCmntContent());
-            review.put("tourspotCmntTime", tourspotCommentEntity.getTourspotCmntTime());
-            review.put("tourspotCmntStar", tourspotCommentEntity.getTourspotCmntStar());
+            review.put("tourspotCmntContent", spotCommentEntity.getSpotCmntContent());
+            review.put("tourspotCmntTime", spotCommentEntity.getSpotCmntTime());
+            review.put("tourspotCmntStar", spotCommentEntity.getSpotCmntStar());
+            review.put("categoryNumber", spotCommentEntity.getCategoryNumber());
             review.put("tourCmntImg", imgUrlList);
 
             // 최종적으로 reviewList에 넣어준다.

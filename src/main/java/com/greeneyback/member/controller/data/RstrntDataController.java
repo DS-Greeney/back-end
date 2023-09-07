@@ -78,7 +78,7 @@ public class RstrntDataController {
 
             if(restaurantInfo != null) {
                 RstrntDTO rstrntDTO = new RstrntDTO();
-                rstrntDTO.setRstrntId(restaurantInfo[0]); // id
+                rstrntDTO.setRstrntId(Integer.parseInt(restaurantInfo[0])); // id
                 rstrntDTO.setRstrntCtgry(restaurantInfo[1]);
                 rstrntDTO.setRstrntName(restaurantInfo[2]);
                 rstrntDTO.setRstrntAddr(restaurantInfo[3]);

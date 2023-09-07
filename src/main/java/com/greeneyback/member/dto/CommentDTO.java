@@ -16,8 +16,9 @@ import java.util.Date;
 @ToString
 public class CommentDTO {
 
-    private int tourspotCmntId; // 댓글 아이디
+    private int spotCmntId; // 댓글 아이디
     private int spotId; // 게시글 아이디
+    private int categoryNumber; // 카테고리 넘버 // 관광지 : 1 , 식당 : 2 , 숙소 : 3, 여행코스 : 4
     private Long userId; // 댓글 작성자
     private String cmntContent; // 내용
     private String cmntImg; // 사진

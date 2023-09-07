@@ -64,7 +64,7 @@ public class RstrntDataController {
 */
     private final RstrntService rstrntService;
     private final RstrntRepository rstrntRepository;
-    @GetMapping("/download")
+    @GetMapping("/rstrnt/download") // 이 부분 수정했어요
     public void csvDown(HttpServletResponse response) throws IOException, CsvValidationException {
 
         String[] restaurantInfo;
@@ -78,7 +78,7 @@ public class RstrntDataController {
 
             if(restaurantInfo != null) {
                 RstrntDTO rstrntDTO = new RstrntDTO();
-                rstrntDTO.setRstrntId(restaurantInfo[0]); // id
+                rstrntDTO.setRstrntId(Integer.parseInt(restaurantInfo[0])); // id
                 rstrntDTO.setRstrntCtgry(restaurantInfo[1]);
                 rstrntDTO.setRstrntName(restaurantInfo[2]);
                 rstrntDTO.setRstrntAddr(restaurantInfo[3]);

@@ -26,37 +26,37 @@ public class CSVHelper {
         return true;
     }
 
-    public static List<RstrntEntity> csvToRstrntEntities(InputStream is) {
-        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-             CSVParser csvParser = new CSVParser(fileReader,
-                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {
-
-            List<RstrntEntity> rstrntEntities = new ArrayList<RstrntEntity>();
-
-            Iterable<CSVRecord> csvRecords = csvParser.getRecords();
-
-            for (CSVRecord csvRecord : csvRecords) {
-                RstrntEntity rstrntEntity = new RstrntEntity(
-                        csvRecord.get("RSTRNT_ID"),
-                        csvRecord.get("RSTRNT_CTGRY_N"),
-                        csvRecord.get("RSTRNT_NM"),
-                        csvRecord.get("RSTRNT_ROAD_NM_ADDR"),
-                        csvRecord.get("RSTRNT_TEL_NO"),
-                        csvRecord.get("SLE_VGTR_MENU_INFO_DC"),
-                        csvRecord.get("RSTRNT_LA"),
-                        csvRecord.get("RSTRNT_LO"),
-                        0,
-                        0
-                );
-
-                rstrntEntities.add(rstrntEntity);
-            }
-
-            return rstrntEntities;
-
-        } catch (IOException e) {
-            throw new RuntimeException("fail to parse CSV file: "+e.getMessage());
-        }
-    }
+//    public static List<RstrntEntity> csvToRstrntEntities(InputStream is) {
+//        try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+//             CSVParser csvParser = new CSVParser(fileReader,
+//                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {
+//
+//            List<RstrntEntity> rstrntEntities = new ArrayList<RstrntEntity>();
+//
+//            Iterable<CSVRecord> csvRecords = csvParser.getRecords();
+//
+//            for (CSVRecord csvRecord : csvRecords) {
+//                RstrntEntity rstrntEntity = new RstrntEntity(
+//                        csvRecord.get("RSTRNT_ID"),
+//                        csvRecord.get("RSTRNT_CTGRY_N"),
+//                        csvRecord.get("RSTRNT_NM"),
+//                        csvRecord.get("RSTRNT_ROAD_NM_ADDR"),
+//                        csvRecord.get("RSTRNT_TEL_NO"),
+//                        csvRecord.get("SLE_VGTR_MENU_INFO_DC"),
+//                        csvRecord.get("RSTRNT_LA"),
+//                        csvRecord.get("RSTRNT_LO"),
+//                        0,
+//                        0
+//                );
+//
+//                rstrntEntities.add(rstrntEntity);
+//            }
+//
+//            return rstrntEntities;
+//
+//        } catch (IOException e) {
+//            throw new RuntimeException("fail to parse CSV file: "+e.getMessage());
+//        }
+//    }
 
 }

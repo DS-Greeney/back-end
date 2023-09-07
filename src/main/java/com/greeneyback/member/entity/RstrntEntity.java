@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 public class RstrntEntity {
     @Id // pk 지정
     @Column(unique = true, nullable = false, length = 50, name = "rstrnt_id")
-    private String rstrntId; // 식당 아이디
+    private int rstrntId; // 식당 아이디
     @Column(length = 200)
     private String rstrntCtgry;  // 식당 카테고리
     @Column(length = 200)
@@ -37,7 +37,7 @@ public class RstrntEntity {
     public RstrntEntity() {
 
     }
-    public RstrntEntity(String rstrntId, String rstrntCtgry, String rstrntName, String rstrntAddr, String rstrntTel, String rstrntMenuinfo, String rstrntLa, String rstrntLo, float rstrntStar, Integer areaCode) {
+    public RstrntEntity(int rstrntId, String rstrntCtgry, String rstrntName, String rstrntAddr, String rstrntTel, String rstrntMenuinfo, String rstrntLa, String rstrntLo, float rstrntStar, Integer areaCode) {
         this.rstrntId = rstrntId;
         this.rstrntCtgry = rstrntCtgry;
         this.rstrntName = rstrntName;

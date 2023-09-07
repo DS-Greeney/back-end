@@ -20,17 +20,28 @@ public class RstrntlistAPIController {
     private final RstrntService rstrntService;
 
     @GetMapping("/restaurantlist")
-    public Object restaurant(@RequestParam(name = "latitude", defaultValue = "37.5538") String latitude, @RequestParam(name = "longitude", defaultValue = "126.9916") String longitude) {
+    public Object restaurant(@RequestParam(name = "latitude", defaultValue = "37.5538") String latitude, @RequestParam(name = "longitude", defaultValue = "126.9916") String longitude, @RequestParam(name = "areaCode") int areaCode) {
         HashMap<String, Object> tourMap = new HashMap<>();
         HashMap<String, Double> myLocation = new HashMap<>();
 
-        try {
-            myLocation.put("latitude", Double.parseDouble(latitude));
-            myLocation.put("longitude", Double.parseDouble(longitude));
-            tourMap.put("success", Boolean.TRUE);
-            tourMap.put("restaurants", rstrntService.findByMyLocation(myLocation));
-        } catch (Exception e) {
-            tourMap.put("error", e.getMessage());
+        if (areaCode == 0) {
+            try {
+                myLocation.put("latitude", Double.parseDouble(latitude));
+                myLocation.put("longitude", Double.parseDouble(longitude));
+                tourMap.put("success", Boolean.TRUE);
+                tourMap.put("restaurants", rstrntService.findByMyLocation(myLocation));
+            } catch (Exception e) {
+                tourMap.put("error", e.getMessage());
+            }
+        } else {
+            try {
+                myLocation.put("latitude", Double.parseDouble(latitude));
+                myLocation.put("longitude", Double.parseDouble(longitude));
+                tourMap.put("success", Boolean.TRUE);
+                tourMap.put("restaurants", rstrntService.findByMyLocationAreaFilter(myLocation, areaCode));
+            } catch (Exception e) {
+                tourMap.put("error", e.getMessage());
+            }
         }
 
         return tourMap;

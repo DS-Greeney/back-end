@@ -27,31 +27,33 @@ public class RstrntlistAPIController {
     private final AWSS3Service awss3Service;
 
     @GetMapping("/restaurantlist")
-    public Object restaurant(@RequestParam(name = "latitude", defaultValue = "37.5538") String latitude, @RequestParam(name = "longitude", defaultValue = "126.9916") String longitude, @RequestParam(name = "areaCode") int areaCode) {
-        HashMap<String, Object> tourMap = new HashMap<>();
+    public Object restaurant(@RequestParam(name = "latitude", defaultValue = "37.5538") String latitude,
+                             @RequestParam(name = "longitude", defaultValue = "126.9916") String longitude,
+                             @RequestParam(name = "areaCode") int areaCode) {
+        HashMap<String, Object> rstrntMap = new HashMap<>();
         HashMap<String, Double> myLocation = new HashMap<>();
 
         if (areaCode == 0) {
             try {
                 myLocation.put("latitude", Double.parseDouble(latitude));
                 myLocation.put("longitude", Double.parseDouble(longitude));
-                tourMap.put("success", Boolean.TRUE);
-                tourMap.put("restaurants", rstrntService.findByMyLocation(myLocation));
+                rstrntMap.put("success", Boolean.TRUE);
+                rstrntMap.put("restaurants", rstrntService.findByMyLocation(myLocation));
             } catch (Exception e) {
-                tourMap.put("error", e.getMessage());
+                rstrntMap.put("error", e.getMessage());
             }
         } else {
             try {
                 myLocation.put("latitude", Double.parseDouble(latitude));
                 myLocation.put("longitude", Double.parseDouble(longitude));
-                tourMap.put("success", Boolean.TRUE);
-                tourMap.put("restaurants", rstrntService.findByMyLocationAreaFilter(myLocation, areaCode));
+                rstrntMap.put("success", Boolean.TRUE);
+                rstrntMap.put("restaurants", rstrntService.findByMyLocationAreaFilter(myLocation, areaCode));
             } catch (Exception e) {
-                tourMap.put("error", e.getMessage());
+                rstrntMap.put("error", e.getMessage());
             }
         }
 
-        return tourMap;
+        return rstrntMap;
     }
 
     @GetMapping("/restaurantlist/detail/{rstrntId}")
@@ -77,8 +79,8 @@ public class RstrntlistAPIController {
     }
 
     // 리뷰 작성 post
-    @PostMapping("/tourlist/detail/{tourspotId}")
-    public HashMap<String, Object> postTourComment(@RequestParam("images") List<MultipartFile> multipartFiles, @ModelAttribute CommentDTO commentDTO) {
+    @PostMapping("/restaurantlist/detail/{rstrntId}")
+    public HashMap<String, Object> postRstrntComment(@RequestParam("images") List<MultipartFile> multipartFiles, @ModelAttribute CommentDTO commentDTO) {
         HashMap<String, Object> map = new HashMap<>();
 
         // S3 service

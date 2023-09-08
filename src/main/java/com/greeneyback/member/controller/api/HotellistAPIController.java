@@ -1,13 +1,12 @@
 package com.greeneyback.member.controller.api;
 
 import com.greeneyback.member.dto.CommentDTO;
-import com.greeneyback.member.entity.RstrntEntity;
+import com.greeneyback.member.entity.HotelEntity;
 import com.greeneyback.member.entity.SpotCommentEntity;
 import com.greeneyback.member.service.AWSS3Service;
-import com.greeneyback.member.service.RstrntService;
+import com.greeneyback.member.service.HotelService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,55 +19,54 @@ import java.util.Optional;
 @RequestMapping("/greeney/main")
 @RequiredArgsConstructor
 @Slf4j
-public class RstrntlistAPIController {
+public class HotellistAPIController {
 
-    @Autowired
-    private final RstrntService rstrntService;
+    private final HotelService hotelService;
     private final AWSS3Service awss3Service;
 
-    @GetMapping("/restaurantlist")
-    public Object restaurant(@RequestParam(name = "latitude", defaultValue = "37.5538") String latitude,
+    @GetMapping("/hotellist")
+    public Object hotel(@RequestParam(name = "latitude", defaultValue = "37.5538") String latitude,
                              @RequestParam(name = "longitude", defaultValue = "126.9916") String longitude,
                              @RequestParam(name = "areaCode") int areaCode) {
-        HashMap<String, Object> rstrntMap = new HashMap<>();
+        HashMap<String, Object> hotelMap = new HashMap<>();
         HashMap<String, Double> myLocation = new HashMap<>();
 
         if (areaCode == 0) {
             try {
                 myLocation.put("latitude", Double.parseDouble(latitude));
                 myLocation.put("longitude", Double.parseDouble(longitude));
-                rstrntMap.put("success", Boolean.TRUE);
-                rstrntMap.put("restaurants", rstrntService.findByMyLocation(myLocation));
+                hotelMap.put("success", Boolean.TRUE);
+                hotelMap.put("hotels", hotelService.findByMyLocation(myLocation));
             } catch (Exception e) {
-                rstrntMap.put("error", e.getMessage());
+                hotelMap.put("error", e.getMessage());
             }
         } else {
             try {
                 myLocation.put("latitude", Double.parseDouble(latitude));
                 myLocation.put("longitude", Double.parseDouble(longitude));
-                rstrntMap.put("success", Boolean.TRUE);
-                rstrntMap.put("restaurants", rstrntService.findByMyLocationAreaFilter(myLocation, areaCode));
+                hotelMap.put("success", Boolean.TRUE);
+                hotelMap.put("hotels", hotelService.findByMyLocationAreaFilter(myLocation, areaCode));
             } catch (Exception e) {
-                rstrntMap.put("error", e.getMessage());
+                hotelMap.put("error", e.getMessage());
             }
         }
 
-        return rstrntMap;
+        return hotelMap;
     }
 
-    @GetMapping("/restaurantlist/detail/{rstrntId}")
-    public HashMap<String, Object> getRestaurantlistDetail(@PathVariable int rstrntId) {
+    @GetMapping("/hotellist/detail/{hotelId}")
+    public HashMap<String, Object> getHotelDetail(@PathVariable int hotelId) {
         HashMap<String, Object> map = new HashMap<>();
         // review들을 모은 List
         List<Object> reviewList = new ArrayList<>();
 
         try {
-            Optional<RstrntEntity> restaurant = rstrntService.findRstrntDetail(rstrntId);
+            Optional<HotelEntity> hotel = hotelService.findHotelDetail(hotelId);
 
             // 리뷰 불러오기
-            reviewList = rstrntService.getReviewList(rstrntId, 2);
+            reviewList = hotelService.getReviewList(hotelId, 2);
             map.put("reviewList", reviewList);
-            map.put("restaurant", restaurant);
+            map.put("hotel", hotel);
             map.put("success", Boolean.TRUE);
         } catch(Exception e) {
             map.put("success", Boolean.FALSE);
@@ -79,8 +77,8 @@ public class RstrntlistAPIController {
     }
 
     // 리뷰 작성 post
-    @PostMapping("/restaurantlist/detail/{rstrntId}")
-    public HashMap<String, Object> postRstrntComment(@RequestParam("images") List<MultipartFile> multipartFiles, @ModelAttribute CommentDTO commentDTO) {
+    @PostMapping("/hotellist/detail/{hotelspotId}")
+    public HashMap<String, Object> postHotelComment(@RequestParam("images") List<MultipartFile> multipartFiles, @ModelAttribute CommentDTO commentDTO) {
         HashMap<String, Object> map = new HashMap<>();
 
         // S3 service
@@ -93,10 +91,10 @@ public class RstrntlistAPIController {
             imageUrlList = awss3Service.uploadFiletToS3(multipartFiles);
 
             // 리뷰 테이블에 먼저 추가한 후 그 Entity를 받아온다. (commentID 때문에)
-            SpotCommentEntity spotCommentEntity = rstrntService.saveRstrntReviewComment(commentDTO);
+            SpotCommentEntity spotCommentEntity = hotelService.saveHotelReviewComment(commentDTO);
 
             // commentID와 함께 이미지 db를 추가한다.
-            rstrntService.saveRstrntReviewImage(spotCommentEntity, imageUrlList);
+            hotelService.saveHotelReviewImage(spotCommentEntity, imageUrlList);
             map.put("success", Boolean.TRUE);
 
         }
@@ -108,4 +106,5 @@ public class RstrntlistAPIController {
 
         return map;
     }
+
 }

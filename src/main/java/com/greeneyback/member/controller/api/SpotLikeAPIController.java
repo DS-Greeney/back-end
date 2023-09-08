@@ -30,7 +30,7 @@ public class SpotLikeAPIController {
     private final RstrntService rstrntService;
 
     @PostMapping("/like")
-    public HashMap<String, Object> spotLikeToggle(@RequestParam String userId, @RequestParam String itemId, @RequestParam String like) {
+    public HashMap<String, Object> spotLikeToggle(@RequestParam String userId, @RequestParam int itemId, @RequestParam String like) {
 
         HashMap<String, Object> map = new HashMap<>();
 

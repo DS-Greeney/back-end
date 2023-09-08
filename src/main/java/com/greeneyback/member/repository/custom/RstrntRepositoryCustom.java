@@ -8,4 +8,5 @@ import java.util.List;
 public interface RstrntRepositoryCustom {
 
     List<RstrntEntity> findByLocation(HashMap<String, Double> myLocation);
+    List<RstrntEntity> findByLocationAreaCode(HashMap<String, Double> myLocation, int areaCode);
 }

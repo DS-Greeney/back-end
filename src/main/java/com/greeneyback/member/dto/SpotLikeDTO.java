@@ -17,8 +17,7 @@ public class SpotLikeDTO {
 
     private int spotLikeId;
     private int categoryNumber;
-    TourspotEntity tourspot;
-    RstrntEntity rstrnt;
+    private int spotId;
     MemberEntity user;
 
     public static SpotLikeDTO toSpotLikeDTO(SpotLikeEntity spotLikeEntity) {
@@ -26,8 +25,7 @@ public class SpotLikeDTO {
 
         spotLikeDTO.setSpotLikeId(spotLikeEntity.getSpotLikeId());
         spotLikeDTO.setCategoryNumber(spotLikeEntity.getCategoryNumber());
-        spotLikeDTO.setTourspot(spotLikeEntity.getTourspot());
-        spotLikeDTO.setRstrnt(spotLikeEntity.getRstrnt());
+        spotLikeDTO.setSpotId(spotLikeEntity.getSpotId());
         spotLikeDTO.setUser(spotLikeEntity.getUser());
 
         return spotLikeDTO;

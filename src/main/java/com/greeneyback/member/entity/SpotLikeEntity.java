@@ -23,17 +23,9 @@ public class SpotLikeEntity {
     @NotNull
     private int categoryNumber; // 좋아요 누른 카테고리 코드
 
-    @ManyToOne(cascade = CascadeType.REMOVE, targetEntity = TourspotEntity.class)
-    @JoinColumn(referencedColumnName = "tourspot_id", name = "tourspot_id")
-    TourspotEntity tourspot;
-
-    @ManyToOne(cascade = CascadeType.REMOVE, targetEntity = RstrntEntity.class)
-    @JoinColumn(referencedColumnName = "rstrnt_id", name = "rstrnt_id")
-    RstrntEntity rstrnt;
-
-    // 숙소 id  - 추후 수정
-
-    // 여행코스 id  - 추후 수정
+    @Column
+    @NotNull
+    private int spotId; // 장소 ID
 
     @ManyToOne(cascade = CascadeType.REMOVE, targetEntity = MemberEntity.class)
     @NotNull
@@ -44,8 +36,7 @@ public class SpotLikeEntity {
         SpotLikeEntity spotLikeEntity = new SpotLikeEntity();
         spotLikeEntity.setSpotLikeId(spotLikeDTO.getSpotLikeId());
         spotLikeEntity.setCategoryNumber(spotLikeDTO.getCategoryNumber());
-        spotLikeEntity.setTourspot(spotLikeDTO.getTourspot());
-        spotLikeEntity.setRstrnt(spotLikeDTO.getRstrnt());
+        spotLikeEntity.setSpotId(spotLikeDTO.getSpotId());
         spotLikeEntity.setUser(spotLikeDTO.getUser());
 
         return spotLikeEntity;

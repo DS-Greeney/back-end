@@ -71,6 +71,10 @@ public class HotelService {
         return hotelRepository.findAll();
     }
 
+    public Optional<HotelEntity> findById(int id) {
+        return hotelRepository.findById(id);
+    }
+
     public Optional<HotelEntity> findHotelDetail(int hotelId) {
         Optional<HotelEntity> hotel = hotelRepository.findById(hotelId);
         return hotel;

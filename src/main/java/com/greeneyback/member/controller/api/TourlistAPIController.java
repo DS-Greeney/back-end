@@ -1,9 +1,13 @@
 package com.greeneyback.member.controller.api;
 
 import com.greeneyback.member.dto.CommentDTO;
+import com.greeneyback.member.entity.MemberEntity;
 import com.greeneyback.member.entity.SpotCommentEntity;
+import com.greeneyback.member.entity.SpotLikeEntity;
 import com.greeneyback.member.entity.TourspotEntity;
 import com.greeneyback.member.service.AWSS3Service;
+import com.greeneyback.member.service.MemberService;
+import com.greeneyback.member.service.SpotLikeService;
 import com.greeneyback.member.service.TourService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +25,8 @@ public class TourlistAPIController {
 
     @Autowired
     private final TourService tourService;
-
+    private final MemberService memberService;
+    private final SpotLikeService spotLikeService;
     private final AWSS3Service awss3Service;
 
 
@@ -75,7 +80,16 @@ public class TourlistAPIController {
         try {
             Optional<TourspotEntity> tourspot = tourService.findTourspotDetail(tourspotId);
             map.put("tourspot", tourspot);
-            // 찜여부 추가해서 보냄  like, 있으면 1, 없으면 0 인거죠 맞아 맞아~~
+            // 찜여부 추가해서 보냄  like 있으면 1, 없으면 0
+//            Optional<MemberEntity> user = memberService.findUserById(Long.valueOf(userId));
+//            List<SpotLikeEntity> spotLikes = spotLikeService.findByUser(user.get());
+//
+//            for (SpotLikeEntity like : spotLikes) {
+//                if (like.getSpotId()==tourspotId) {
+//                    map.put("like", 1);
+//                }
+//            }
+//            map.put("like", 0);
 
             // 리뷰 불러오기
             reviewList = tourService.getReviewList(tourspotId, 1);

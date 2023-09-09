@@ -12,6 +12,7 @@ import com.greeneyback.member.service.TourService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -105,6 +106,7 @@ public class TourlistAPIController {
     }
 
     // 리뷰 작성 post
+    @Transactional
     @PostMapping("/tourlist/detail/{tourspotId}")
     public HashMap<String, Object> postTourComment(@RequestParam("images") List<MultipartFile> multipartFiles, @ModelAttribute CommentDTO commentDTO) {
         HashMap<String, Object> map = new HashMap<>();
@@ -123,8 +125,11 @@ public class TourlistAPIController {
 
             // commentID와 함께 이미지 db를 추가한다.
             tourService.saveTourReviewImage(spotCommentEntity, imageUrlList);
-            map.put("success", Boolean.TRUE);
 
+            // 리뷰 별점을 계산하고 저장한다.
+            tourService.calculateAvgStar(commentDTO);
+
+            map.put("success", Boolean.TRUE);
         }
         catch(Exception e) {
             e.printStackTrace();

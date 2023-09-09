@@ -80,16 +80,16 @@ public class TourlistAPIController {
         try {
             Optional<TourspotEntity> tourspot = tourService.findTourspotDetail(tourspotId);
             map.put("tourspot", tourspot);
-            // 찜여부 추가해서 보냄  like 있으면 1, 없으면 0
-//            Optional<MemberEntity> user = memberService.findUserById(Long.valueOf(userId));
-//            List<SpotLikeEntity> spotLikes = spotLikeService.findByUser(user.get());
-//
-//            for (SpotLikeEntity like : spotLikes) {
-//                if (like.getSpotId()==tourspotId) {
-//                    map.put("like", 1);
-//                }
-//            }
-//            map.put("like", 0);
+            // 찜 있으면 like 1, 없으면 0
+            Optional<MemberEntity> user = memberService.findUserById(Long.valueOf(userId));
+            List<SpotLikeEntity> spotLikes = spotLikeService.findByUser(user.get());
+
+            map.put("like", 0);
+            for (SpotLikeEntity like : spotLikes) {
+                if (like.getSpotId()==tourspotId) {
+                    map.put("like", 1);
+                }
+            }
 
             // 리뷰 불러오기
             reviewList = tourService.getReviewList(tourspotId, 1);

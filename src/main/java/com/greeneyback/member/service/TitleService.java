@@ -6,6 +6,8 @@ import com.greeneyback.member.repository.TitleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class TitleService {
@@ -13,5 +15,9 @@ public class TitleService {
     public void titleSave(TitleDTO titleDTO) {
         TitleEntity titleEntity = TitleEntity.toTitleEntity(titleDTO);
         titleRepository.save(titleEntity);
+    }
+
+    public Optional<TitleEntity> findById(int id) {
+        return titleRepository.findById(id);
     }
 }

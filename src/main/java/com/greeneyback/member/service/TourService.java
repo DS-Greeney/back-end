@@ -7,6 +7,7 @@ import com.greeneyback.member.entity.*;
 import com.greeneyback.member.repository.*;
 import com.greeneyback.member.repository.impl.SpotCmntRepositoryImpl;
 import com.greeneyback.member.repository.impl.TourspotRepositoryImpl;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,11 +25,15 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.*;
 
+import static com.greeneyback.member.entity.QTourspotEntity.tourspotEntity;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
 @Builder
 public class TourService {
+
+    private final JPAQueryFactory queryFactory;
 
     private final TourspotRepository tourspotRepository;
     private final AddrRepository addrRepository;
@@ -138,6 +143,26 @@ public class TourService {
         spotCmntRepository.save(tourspotCommentEntity);
 
         return tourspotCommentEntity;
+    }
+
+    // 평균 별점을 계산하고 저장하는 메소드
+    public void calculateAvgStar(CommentDTO commentDTO) {
+        int spotId = commentDTO.getSpotId();
+        Optional<TourspotEntity> tourspot = findById(spotId);
+
+        float avgStar = 0;
+
+        if (tourspot.get().getTourspotStar()==0) {
+            avgStar = commentDTO.getCmntStar();
+        }
+        else {
+            avgStar = (tourspot.get().getTourspotStar() + commentDTO.getCmntStar())/2;
+        }
+
+        queryFactory.update(tourspotEntity)
+                .set(tourspotEntity.tourspotStar, avgStar)
+                .where(tourspotEntity.tourspotId.eq(spotId))
+                .execute();
     }
 
     // 이미지 url을 저장하는 메소드

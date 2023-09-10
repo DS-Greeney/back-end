@@ -24,11 +24,9 @@ public class QSpotLikeEntity extends EntityPathBase<SpotLikeEntity> {
 
     public final NumberPath<Integer> categoryNumber = createNumber("categoryNumber", Integer.class);
 
-    public final QRstrntEntity rstrnt;
+    public final NumberPath<Integer> spotId = createNumber("spotId", Integer.class);
 
     public final NumberPath<Integer> spotLikeId = createNumber("spotLikeId", Integer.class);
-
-    public final QTourspotEntity tourspot;
 
     public final QMemberEntity user;
 
@@ -50,8 +48,6 @@ public class QSpotLikeEntity extends EntityPathBase<SpotLikeEntity> {
 
     public QSpotLikeEntity(Class<? extends SpotLikeEntity> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.rstrnt = inits.isInitialized("rstrnt") ? new QRstrntEntity(forProperty("rstrnt")) : null;
-        this.tourspot = inits.isInitialized("tourspot") ? new QTourspotEntity(forProperty("tourspot")) : null;
         this.user = inits.isInitialized("user") ? new QMemberEntity(forProperty("user")) : null;
     }
 

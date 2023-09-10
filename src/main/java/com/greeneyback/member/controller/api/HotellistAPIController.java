@@ -77,7 +77,7 @@ public class HotellistAPIController {
     }
 
     // 리뷰 작성 post
-    @PostMapping("/hotellist/detail/{hotelspotId}")
+    @PostMapping("/hotellist/detail/{hotelId}")
     public HashMap<String, Object> postHotelComment(@RequestParam("images") List<MultipartFile> multipartFiles, @ModelAttribute CommentDTO commentDTO) {
         HashMap<String, Object> map = new HashMap<>();
 

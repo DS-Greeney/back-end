@@ -21,6 +21,8 @@ public class QTitleEntity extends EntityPathBase<TitleEntity> {
 
     public final NumberPath<Integer> goalChallengeNm = createNumber("goalChallengeNm", Integer.class);
 
+    public final NumberPath<Integer> nextChallengeNm = createNumber("nextChallengeNm", Integer.class);
+
     public final NumberPath<Integer> titleId = createNumber("titleId", Integer.class);
 
     public final StringPath titleName = createString("titleName");

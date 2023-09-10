@@ -18,6 +18,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -100,6 +101,7 @@ public class HotelService {
         hotelCommentEntity.setUser(memberEntity);
         hotelCommentEntity.setCategoryNumber(commentDTO.getCategoryNumber());
         hotelCommentEntity.setSpotCmntContent(commentDTO.getCmntContent());
+        hotelCommentEntity.setSpotCmntTime(LocalDate.now());
         hotelCommentEntity.setSpotCmntStar(commentDTO.getCmntStar());
 
         spotCmntRepository.save(hotelCommentEntity);

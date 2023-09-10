@@ -23,6 +23,7 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.time.LocalDate;
 import java.util.*;
 
 import static com.greeneyback.member.entity.QTourspotEntity.tourspotEntity;
@@ -138,6 +139,7 @@ public class TourService {
         tourspotCommentEntity.setUser(memberEntity);
         tourspotCommentEntity.setCategoryNumber(commentDTO.getCategoryNumber());
         tourspotCommentEntity.setSpotCmntContent(commentDTO.getCmntContent());
+        tourspotCommentEntity.setSpotCmntTime(LocalDate.now());
         tourspotCommentEntity.setSpotCmntStar(commentDTO.getCmntStar());
 
         spotCmntRepository.save(tourspotCommentEntity);

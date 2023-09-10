@@ -21,8 +21,10 @@ import java.io.IOException;
 @Slf4j
 public class HotelDataController {
 
-    // 호텔 데이터 삽입
+
     private final HotelService hotelService;
+
+    // 호텔 데이터 삽입
     @GetMapping("/hotel/download")
     public void csvDown(HttpServletResponse response) throws CsvValidationException, IOException {
         hotelService.csvHotelDataSave();

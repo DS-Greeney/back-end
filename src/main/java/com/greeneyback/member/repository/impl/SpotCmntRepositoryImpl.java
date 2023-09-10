@@ -14,7 +14,6 @@ import java.util.List;
 
 import static com.greeneyback.member.entity.QSpotCommentEntity.spotCommentEntity;
 
-
 @Repository
 @RequiredArgsConstructor
 public class SpotCmntRepositoryImpl implements SpotCmntRepositoryCustom {

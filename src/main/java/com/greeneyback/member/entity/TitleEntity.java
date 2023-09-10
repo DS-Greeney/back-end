@@ -23,13 +23,17 @@ public class TitleEntity {
     private String titleName; // 칭호 이름
 
     @Column(nullable = false)
-    private int goalChallengeNm; // 칭호 달성 목표 챌린지개수
+    private int goalChallengeNm; // 칭호를 달성하기 위한 총 도전과제 개수
+
+    @Column(nullable = false)
+    private int nextChallengeNm; // 다음 칭호를 달성하기 위해 완료해야할 도전과제 개수
 
     public static TitleEntity toTitleEntity(TitleDTO titleDTO) {
         TitleEntity titleEntity = new TitleEntity();
         titleEntity.setTitleId(titleDTO.getTitleId());
         titleEntity.setTitleName(titleDTO.getTitleName());
         titleEntity.setGoalChallengeNm(titleDTO.getGoalChallengeNm());
+        titleEntity.setNextChallengeNm(titleDTO.getNextChallengeNm());
 
         return titleEntity;
     }

@@ -21,6 +21,7 @@ public class ChallengeEntity {
     @NotNull
     private String challengeContent;
 
+
     public static ChallengeEntity toChallengeEntity(ChallengeDTO challengeDTO) {
         ChallengeEntity challengeEntity = new ChallengeEntity();
         challengeEntity.setChallengeId(challengeDTO.getChallengeId());

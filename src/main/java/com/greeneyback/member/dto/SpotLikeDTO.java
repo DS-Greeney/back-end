@@ -1,12 +1,8 @@
 package com.greeneyback.member.dto;
 
 import com.greeneyback.member.entity.MemberEntity;
-import com.greeneyback.member.entity.RstrntEntity;
 import com.greeneyback.member.entity.SpotLikeEntity;
-import com.greeneyback.member.entity.TourspotEntity;
 import lombok.*;
-
-import java.util.Optional;
 
 @Getter
 @Setter

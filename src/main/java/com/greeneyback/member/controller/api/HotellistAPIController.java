@@ -64,7 +64,7 @@ public class HotellistAPIController {
             Optional<HotelEntity> hotel = hotelService.findHotelDetail(hotelId);
 
             // 리뷰 불러오기
-            reviewList = hotelService.getReviewList(hotelId, 2);
+            reviewList = hotelService.getReviewList(hotelId, 3);
             map.put("reviewList", reviewList);
             map.put("hotel", hotel);
             map.put("success", Boolean.TRUE);

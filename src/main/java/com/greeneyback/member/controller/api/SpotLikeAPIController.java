@@ -118,13 +118,16 @@ public class SpotLikeAPIController {
 
     @Transactional
     @DeleteMapping("/dislike")
-    public HashMap<String, Object> deleteLike(@RequestParam int spotLikeId) {
+    public HashMap<String, Object> deleteLike(@RequestParam int categoryNumber, @RequestParam int spotId, @RequestParam Long userId) {
         HashMap<String, Object> map = new HashMap<>();
 
         try {
-            spotLikeService.deleteSpotLikeById(spotLikeId);
-            map.put("dislikeSpotId", spotLikeId);
-            map.put("sucess", Boolean.TRUE);
+//            spotLikeService.deleteSpotLikeById(spotLikeId);
+//            map.put("dislikeSpotId", spotLikeId);
+
+            // categoryNumber와, spotId와, userId를 이용해서 값을 찾기
+            spotLikeService.deleteSpotLikeByCategoryNumAndSpotIdAndUserId(categoryNumber, spotId, userId);
+            map.put("success", Boolean.TRUE);
         } catch(Exception e) {
             map.put("success", Boolean.FALSE);
             map.put("error", e.getMessage());

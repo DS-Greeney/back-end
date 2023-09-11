@@ -107,7 +107,7 @@ public class HotellistAPIController {
             List<String> imageUrlList = new ArrayList<>();
 
             // S3Service에게 파일값을 넘겨주고 결과 url 리스트를 받아온다
-            imageUrlList = awss3Service.uploadFiletToS3(multipartFiles);
+            imageUrlList = awss3Service.uploadReviewImageFileToS3(multipartFiles);
 
             // 리뷰 테이블에 먼저 추가한 후 그 Entity를 받아온다. (commentID 때문에)
             SpotCommentEntity spotCommentEntity = hotelService.saveHotelReviewComment(commentDTO);

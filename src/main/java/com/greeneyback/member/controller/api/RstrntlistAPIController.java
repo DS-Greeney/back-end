@@ -1,13 +1,18 @@
 package com.greeneyback.member.controller.api;
 
 import com.greeneyback.member.dto.CommentDTO;
+import com.greeneyback.member.entity.MemberEntity;
 import com.greeneyback.member.entity.RstrntEntity;
 import com.greeneyback.member.entity.SpotCommentEntity;
+import com.greeneyback.member.entity.SpotLikeEntity;
 import com.greeneyback.member.service.AWSS3Service;
+import com.greeneyback.member.service.MemberService;
 import com.greeneyback.member.service.RstrntService;
+import com.greeneyback.member.service.SpotLikeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,6 +29,8 @@ public class RstrntlistAPIController {
 
     @Autowired
     private final RstrntService rstrntService;
+    private final MemberService memberService;
+    private final SpotLikeService spotLikeService;
     private final AWSS3Service awss3Service;
 
     @GetMapping("/restaurantlist")
@@ -57,13 +64,24 @@ public class RstrntlistAPIController {
     }
 
     @GetMapping("/restaurantlist/detail/{rstrntId}")
-    public HashMap<String, Object> getRestaurantlistDetail(@PathVariable int rstrntId) {
+    public HashMap<String, Object> getRestaurantlistDetail(@PathVariable int rstrntId, @RequestParam int userId) {
         HashMap<String, Object> map = new HashMap<>();
         // review들을 모은 List
         List<Object> reviewList = new ArrayList<>();
 
         try {
             Optional<RstrntEntity> restaurant = rstrntService.findRstrntDetail(rstrntId);
+
+            // 찜 있으면 like 1, 없으면 0
+            Optional<MemberEntity> user = memberService.findUserById((long) userId);
+            List<SpotLikeEntity> spotLikes = spotLikeService.findByUser(user.get());
+
+            map.put("like", 0);
+            for (SpotLikeEntity like : spotLikes) {
+                if (like.getSpotId()==rstrntId) {
+                    map.put("like", 1);
+                }
+            }
 
             // 리뷰 불러오기
             reviewList = rstrntService.getReviewList(rstrntId, 2);
@@ -79,6 +97,7 @@ public class RstrntlistAPIController {
     }
 
     // 리뷰 작성 post
+    @Transactional
     @PostMapping("/restaurantlist/detail/{rstrntId}")
     public HashMap<String, Object> postRstrntComment(@RequestParam("images") List<MultipartFile> multipartFiles, @ModelAttribute CommentDTO commentDTO) {
         HashMap<String, Object> map = new HashMap<>();
@@ -97,8 +116,11 @@ public class RstrntlistAPIController {
 
             // commentID와 함께 이미지 db를 추가한다.
             rstrntService.saveRstrntReviewImage(spotCommentEntity, imageUrlList);
-            map.put("success", Boolean.TRUE);
 
+            // 리뷰 별점을 계산하고 저장한다.
+            rstrntService.calculateAvgStar(commentDTO);
+
+            map.put("success", Boolean.TRUE);
         }
         catch(Exception e) {
             e.printStackTrace();

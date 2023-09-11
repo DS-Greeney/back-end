@@ -97,4 +97,10 @@ public class MemberService {
         memberRepository.deleteById(id);
     }
 
+    public void updateUserProfileImage(Long userId, String imageURl) {
+        MemberEntity memberEntity = memberRepository.findByUserId(userId);
+        memberEntity.setUserPicture(imageURl);
+        memberRepository.save(memberEntity);
+    }
+
 }

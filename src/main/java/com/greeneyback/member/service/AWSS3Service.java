@@ -30,9 +30,12 @@ public class AWSS3Service {
 
     // s3에 업로드, s3 url 반환.
     // filePath : S3 버킷에서 만든 폴더 이름
-    public List<String> uploadFiletToS3(List<MultipartFile> multipartFiles) {
+    // reviewImage를 올리는 함수
+    public List<String> uploadReviewImageFileToS3(List<MultipartFile> multipartFiles) {
 
         List<String> imageUrlList = new ArrayList<>();
+
+        String folderName = "reviewImages";
 
         for(MultipartFile multipartFile: multipartFiles) {
             String originalFilename = multipartFile.getOriginalFilename();
@@ -43,13 +46,16 @@ public class AWSS3Service {
             objectMetadata.setContentLength(size);
 
             // S3 업로드 전 이름 변경
-            String uploadFilename = createFilName(originalFilename);
+            String uploadFilename = createFileName(originalFilename);
+
+            // S3 업로드할 때 파일 경로 설정
+            String s3Key = folderName + "/" + uploadFilename;
 
             // S3 업로드
             try(InputStream inputStream = multipartFile.getInputStream()) {
 
                 amazonS3Client.putObject(
-                        new PutObjectRequest(bucket, uploadFilename, inputStream, objectMetadata)
+                        new PutObjectRequest(bucket, s3Key, inputStream, objectMetadata)
                                 .withCannedAcl(CannedAccessControlList.PublicRead)
                 );
 
@@ -63,6 +69,41 @@ public class AWSS3Service {
         return imageUrlList;
     }
 
+    // 프로필 이미지를 올리는 함수
+    public String uploadUserProfileImageFileToS3(MultipartFile multipartFile, Long userId) {
+
+        String imageUrl = null;
+        String folderName = "userProfileImage";
+
+        long size = multipartFile.getSize(); // 파일 크기
+
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentType(multipartFile.getContentType());
+        objectMetadata.setContentLength(size);
+
+        // S3 업로드 전 이름 변경
+        // 양식: userId = 1인 경우, 1로 저장됨
+        String uploadFilename = createUserImageName(userId);
+
+        // S3 업로드할 때 파일 경로 설정
+        String s3Key = folderName + "/" + uploadFilename;
+
+        // S3 업로드
+        try(InputStream inputStream = multipartFile.getInputStream()) {
+
+            amazonS3Client.putObject(
+                    new PutObjectRequest(bucket, s3Key, inputStream, objectMetadata)
+                            .withCannedAcl(CannedAccessControlList.PublicRead)
+            );
+            imageUrl = amazonS3Client.getUrl(bucket, uploadFilename).toString();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return imageUrl;
+    }
+
     // 추후 수정 예정
     private void removeNewFile(File targetFile) {
         if(targetFile.delete()) {
@@ -74,8 +115,13 @@ public class AWSS3Service {
 
 
     // s3 저장시 동일 파일명 방지 위해 uuid 생성
-    private String createFilName(String fileName) {
+    private String createFileName(String fileName) {
         return UUID.randomUUID() + fileName;
+    }
+
+    // 프로필 이미지 저장시 User의 Id로 이미지 저장
+    private String createUserImageName(Long userId) {
+        return userId.toString();
     }
 
 }

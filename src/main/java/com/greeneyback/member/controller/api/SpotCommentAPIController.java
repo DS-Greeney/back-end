@@ -33,11 +33,11 @@ public class SpotCommentAPIController {
         try {
             List<Object> myReviewList = new ArrayList<>();
 
-            Optional<MemberEntity> user = memberService.findUserById(Long.valueOf(userId));
-            List<SpotCommentEntity> userReviewList = spotCmntService.findByUser(user.get());
+            Optional<MemberEntity> user = memberService.findUserById(Long.valueOf(userId));  // userId로 user 찾기
+            List<SpotCommentEntity> userReviewList = spotCmntService.findByUser(user.get());  // user로 Review 찾기
 
             for (SpotCommentEntity spotReview : userReviewList) {
-                HashMap<String, Object> map2 = new HashMap<>();
+                HashMap<String, Object> map2 = new HashMap<>();  // 하나의 Review를 구성하는 hashMap
 
                 int spotCmntId = spotReview.getSpotCmntId();
                 int categoryNumber = spotReview.getCategoryNumber();
@@ -46,7 +46,7 @@ public class SpotCommentAPIController {
                 LocalDate spotCmntTime = spotReview.getSpotCmntTime();
                 int spotId = spotReview.getSpotId();
 
-                List<String> imgUrlList = new ArrayList<>();
+                List<String> imgUrlList = new ArrayList<>();   // 이미지 url을 담는 List
                 List<SpotCommentImageEntity> spotImageEntityList = spotCmntImgService.findBySpotCmnt(spotReview);
 
                 for (SpotCommentImageEntity spotCommentImageEntity : spotImageEntityList) {

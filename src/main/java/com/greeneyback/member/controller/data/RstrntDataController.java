@@ -64,13 +64,13 @@ public class RstrntDataController {
 */
     private final RstrntService rstrntService;
     private final RstrntRepository rstrntRepository;
-    @GetMapping("/rstrnt/download") // 이 부분 수정했어요
+    @GetMapping("/rstrnt/download") // 이 부분 수정했어요2
     public void csvDown(HttpServletResponse response) throws IOException, CsvValidationException {
 
         String[] restaurantInfo;
 
         // 이 부분 절대주소 주의....
-        CSVReader csvReader = new CSVReader(new InputStreamReader(new FileInputStream("C:\\Greeney\\member\\member\\src\\main\\resources\\csv\\RT_VGTR_RSTRNT_INFO.csv"), "UTF-8"));
+        CSVReader csvReader = new CSVReader(new InputStreamReader(new FileInputStream("C:\\Users\\ski03\\study\\greeney\\back-end\\src\\main\\resources\\csv\\rstrnt_data.csv"), "UTF-8"));
         csvReader.readNext();
 
         do {

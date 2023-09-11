@@ -12,6 +12,7 @@ import com.greeneyback.member.repository.SpotCmntImgRepository;
 import com.greeneyback.member.repository.SpotCmntRepository;
 import com.greeneyback.member.repository.impl.RstrntRepositoryImpl;
 import com.greeneyback.member.repository.impl.SpotCmntRepositoryImpl;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+
+import static com.greeneyback.member.entity.QRstrntEntity.rstrntEntity;
 
 @Service
 @RequiredArgsConstructor
@@ -44,6 +47,8 @@ public class RstrntService {
     }
 
      */
+
+    private final JPAQueryFactory queryFactory;
 
     private final RstrntRepository rstrntRepository;
 
@@ -100,6 +105,25 @@ public class RstrntService {
         spotCmntRepository.save(rstrntCommentEntity);
 
         return rstrntCommentEntity;
+    }
+
+    public void calculateAvgStar(CommentDTO commentDTO) {
+        int spotId = commentDTO.getSpotId();
+        Optional<RstrntEntity> rstrnt = findById(spotId);
+
+        float avgStar = 0;
+
+        if (rstrnt.get().getRstrntStar()==0) {
+            avgStar = commentDTO.getCmntStar();
+        }
+        else {
+            avgStar = (rstrnt.get().getRstrntStar() + commentDTO.getCmntStar())/2;
+        }
+
+        queryFactory.update(rstrntEntity)
+                .set(rstrntEntity.rstrntStar, avgStar)
+                .where(rstrntEntity.rstrntId.eq(spotId))
+                .execute();
     }
 
     // 이미지 url을 저장하는 메소드

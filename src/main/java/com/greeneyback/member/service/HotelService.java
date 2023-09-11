@@ -11,6 +11,7 @@ import com.greeneyback.member.repository.impl.HotelRepositoryImpl;
 import com.greeneyback.member.repository.impl.SpotCmntRepositoryImpl;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +25,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import static com.greeneyback.member.entity.QHotelEntity.hotelEntity;
+
 @Service
 @RequiredArgsConstructor
 public class HotelService {
 
+    private final JPAQueryFactory queryFactory;
     private final MemberRepository memberRepository;
     private final HotelRepository hotelRepository;
     private final HotelRepositoryImpl hotelRepositoryImpl;
@@ -107,6 +111,25 @@ public class HotelService {
         spotCmntRepository.save(hotelCommentEntity);
 
         return hotelCommentEntity;
+    }
+
+    public void calculateAvgStar(CommentDTO commentDTO) {
+        int spotId = commentDTO.getSpotId();
+        Optional<HotelEntity> hotel = findById(spotId);
+
+        float avgStar = 0;
+
+        if (hotel.get().getHotelStar()==0) {
+            avgStar = commentDTO.getCmntStar();
+        }
+        else {
+            avgStar = (hotel.get().getHotelStar() + commentDTO.getCmntStar())/2;
+        }
+
+        queryFactory.update(hotelEntity)
+                .set(hotelEntity.hotelStar, avgStar)
+                .where(hotelEntity.hotelId.eq(spotId))
+                .execute();
     }
 
     // 이미지 url을 저장하는 메소드

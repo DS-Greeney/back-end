@@ -8,10 +8,7 @@ import com.greeneyback.member.service.SpotCmntImgService;
 import com.greeneyback.member.service.SpotCmntService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,8 +26,8 @@ public class SpotCommentAPIController {
     private final SpotCmntService spotCmntService;
     private final SpotCmntImgService spotCmntImgService;
 
-    @GetMapping("/myReviewList")
-    public HashMap<String, Object> showMyReviewList(@RequestParam int userId) {
+    @GetMapping("/myReviewList/{userId}")
+    public HashMap<String, Object> showMyReviewList(@PathVariable int userId) {
         HashMap<String, Object> map = new HashMap<>();
 
         try {
@@ -68,6 +65,7 @@ public class SpotCommentAPIController {
             }
 
             map.put("myReviewList", myReviewList);
+            map.put("suceess", Boolean.TRUE);
         } catch (Exception e) {
             map.put("success", Boolean.FALSE);
             map.put("error", e.getMessage());

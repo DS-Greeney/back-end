@@ -225,6 +225,8 @@ public class TourService {
     }
 
 
-    
+    public List<TourspotEntity> findBySearchAndMyLocation(List<String> stringList, HashMap<String, Double> myLocation) {
+        return tourspotRepositoryImpl.findBySearchAndMyLocation(stringList, myLocation);
+    }
 }
 

@@ -5,10 +5,7 @@ import com.greeneyback.member.entity.MemberEntity;
 import com.greeneyback.member.entity.SpotCommentEntity;
 import com.greeneyback.member.entity.SpotLikeEntity;
 import com.greeneyback.member.entity.TourspotEntity;
-import com.greeneyback.member.service.AWSS3Service;
-import com.greeneyback.member.service.MemberService;
-import com.greeneyback.member.service.SpotLikeService;
-import com.greeneyback.member.service.TourService;
+import com.greeneyback.member.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +26,7 @@ public class TourlistAPIController {
     private final MemberService memberService;
     private final SpotLikeService spotLikeService;
     private final AWSS3Service awss3Service;
+    private final SearchService searchService;
 
 
     // tourList 반환 메서드
@@ -138,6 +136,44 @@ public class TourlistAPIController {
         }
 
         return map;
+    }
+
+    // 검색 결과 받아오는 메서드
+    @GetMapping("/tourlist/{userId}")
+    public HashMap<String, Object> searchTourlist(@PathVariable(name = "userId") Long userId,
+                            @RequestParam(name = "latitude", defaultValue = "37.5538") String latitude,
+                           @RequestParam(name = "longitude", defaultValue = "126.9916") String longitude,
+                            @RequestParam(name = "search") String search) {
+        HashMap<String, Object> result = new HashMap<>();
+        HashMap<String, Double> myLocation = new HashMap<>();
+
+        // 검색 결과
+        try {
+            // 내 위치 저장
+            myLocation.put("latitude", Double.parseDouble(latitude));
+            myLocation.put("longitude", Double.parseDouble(longitude));
+
+            // search 작업해서 List로 받아오기
+            List<String> stringList = searchService.stringToList(search);
+
+            // searchTable에 userId, categoryNumber와 함께 저장
+            searchService.saveSearch(stringList, userId, 1);
+
+            // TourService에 전달해 결과 받아오기
+            List<TourspotEntity> tourspotEntities = tourService.findBySearchAndMyLocation(stringList, myLocation);
+
+            // 결과 저장
+            result.put("tourlists", tourspotEntities);
+            result.put("success", Boolean.TRUE);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("success", Boolean.FALSE);
+            result.put("error", e.getMessage());
+        }
+
+
+        return result;
     }
 
 }

@@ -127,6 +127,13 @@ public class TourService {
         return tourspotRepositoryImpl.findByLocationAreaCode(myLocation, areaCode);
     }
 
+    // 별점순 정렬
+    public List<TourspotEntity> findAllOrderByStar() {
+        return queryFactory.selectFrom(tourspotEntity)
+                .orderBy(tourspotEntity.tourspotStar.desc())
+                .fetch();
+    }
+
     // 리뷰를 db에 저장하는 메소드, 저장한 Entity를 반환한다.
     public SpotCommentEntity saveTourReviewComment(CommentDTO commentDTO) {
         SpotCommentEntity tourspotCommentEntity = new SpotCommentEntity();

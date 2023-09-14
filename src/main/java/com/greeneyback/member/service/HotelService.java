@@ -93,6 +93,13 @@ public class HotelService {
         return hotelRepositoryImpl.findByLocationAreaCode(myLocation, areaCode);
     }
 
+    // 별점순 정렬
+    public List<HotelEntity> findAllOrderByStar() {
+        return queryFactory.selectFrom(hotelEntity)
+                .orderBy(hotelEntity.hotelStar.desc())
+                .fetch();
+    }
+
     // 리뷰를 db에 저장하는 메소드, 저장한 Entity를 반환한다.
     public SpotCommentEntity saveHotelReviewComment(CommentDTO commentDTO) {
         SpotCommentEntity hotelCommentEntity = new SpotCommentEntity();

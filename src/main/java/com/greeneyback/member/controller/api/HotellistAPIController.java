@@ -61,6 +61,23 @@ public class HotellistAPIController {
         return hotelMap;
     }
 
+    // 별점순 정렬
+    @GetMapping("/hotellist/star")
+    public HashMap<String, Object> hotellistOrderByStar() {
+        HashMap<String, Object> map = new HashMap<>();
+
+        try {
+            List<HotelEntity> hotellistOrderByStar = hotelService.findAllOrderByStar();
+            map.put("hotellist", hotellistOrderByStar);
+            map.put("success", Boolean.TRUE);
+        } catch (Exception e) {
+            map.put("success", Boolean.FALSE);
+            map.put("error", e.getMessage());
+        }
+
+        return map;
+    }
+
     @GetMapping("/hotellist/detail/{hotelId}")
     public HashMap<String, Object> getHotelDetail(@PathVariable int hotelId, @RequestParam int userId) {
         HashMap<String, Object> map = new HashMap<>();

@@ -109,16 +109,11 @@ public class RstrntService {
 
     public void calculateAvgStar(CommentDTO commentDTO) {
         int spotId = commentDTO.getSpotId();
-        Optional<RstrntEntity> rstrnt = findById(spotId);
 
-        float avgStar = 0;
+        List<SpotCommentEntity> comments = spotCmntRepository.findBySpotId(spotId);
 
-        if (rstrnt.get().getRstrntStar()==0) {
-            avgStar = commentDTO.getCmntStar();
-        }
-        else {
-            avgStar = (rstrnt.get().getRstrntStar() + commentDTO.getCmntStar())/2;
-        }
+        float totalStars = (float) comments.stream().mapToDouble(SpotCommentEntity::getSpotCmntStar).sum();
+        float avgStar = totalStars/comments.size();
 
         queryFactory.update(rstrntEntity)
                 .set(rstrntEntity.rstrntStar, avgStar)

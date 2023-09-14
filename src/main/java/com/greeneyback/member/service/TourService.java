@@ -150,16 +150,11 @@ public class TourService {
     // 평균 별점을 계산하고 저장하는 메소드
     public void calculateAvgStar(CommentDTO commentDTO) {
         int spotId = commentDTO.getSpotId();
-        Optional<TourspotEntity> tourspot = findById(spotId);
 
-        float avgStar = 0;
+        List<SpotCommentEntity> comments = spotCmntRepository.findBySpotId(spotId);
 
-        if (tourspot.get().getTourspotStar()==0) {
-            avgStar = commentDTO.getCmntStar();
-        }
-        else {
-            avgStar = (tourspot.get().getTourspotStar() + commentDTO.getCmntStar())/2;
-        }
+        float totalStars = (float) comments.stream().mapToDouble(SpotCommentEntity::getSpotCmntStar).sum();
+        float avgStar = totalStars/comments.size();
 
         queryFactory.update(tourspotEntity)
                 .set(tourspotEntity.tourspotStar, avgStar)

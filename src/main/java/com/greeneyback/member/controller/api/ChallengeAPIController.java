@@ -1,14 +1,18 @@
 package com.greeneyback.member.controller.api;
 
 import com.greeneyback.member.dto.MemberDTO;
+import com.greeneyback.member.entity.ChallengeEntity;
 import com.greeneyback.member.entity.TitleEntity;
+import com.greeneyback.member.service.ChallengeService;
 import com.greeneyback.member.service.MemberService;
 import com.greeneyback.member.service.TitleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -19,6 +23,7 @@ public class ChallengeAPIController {
     @Autowired
     private final MemberService memberService;
     private final TitleService titleService;
+    private final ChallengeService challengeService;
 
     @PostMapping("/challengeComplete")
     public HashMap<String, Object> challenge(@RequestParam int userId, @RequestParam int challengeId) {
@@ -96,5 +101,39 @@ public class ChallengeAPIController {
         }
         return map;
 
+    }
+
+    // 랜덤으로 하루에 챌린지 3개 불러오기
+    @GetMapping("/challenge/today")
+    public HashMap<String, Object> todayRandomChallenge() {
+        HashMap<String, Object> map = new HashMap<>();
+
+
+        try {
+            List<ChallengeEntity> randomChallenges = challengeService.getRandomChallenges();
+            List<Object> challenges = new ArrayList<>();
+
+            for (ChallengeEntity challenge : randomChallenges) {
+
+                HashMap<String, Object> map2 = new HashMap<>();
+
+                int challengeId = challenge.getChallengeId();
+                String challengeContent = challenge.getChallengeContent();
+
+                map2.put("challengeId", challengeId);
+                map2.put("content", challengeContent);
+                map2.put("complete", 0);
+
+                challenges.add(map2);
+            }
+
+            map.put("todayChallengeList", challenges);
+            map.put("suceess", Boolean.TRUE);
+        } catch (Exception e) {
+            map.put("success", Boolean.FALSE);
+            map.put("error", e.getMessage());
+        }
+
+        return map;
     }
 }

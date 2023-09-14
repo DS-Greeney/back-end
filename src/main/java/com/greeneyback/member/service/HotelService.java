@@ -192,4 +192,7 @@ public class HotelService {
     }
 
 
+    public List<HotelEntity> findBySearchAndMyLocation(List<String> stringList, HashMap<String, Double> myLocation) {
+        return hotelRepositoryImpl.findBySearchAndMyLocation(stringList, myLocation);
+    }
 }

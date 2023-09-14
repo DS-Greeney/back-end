@@ -10,4 +10,5 @@ public interface SpotCmntRepository extends JpaRepository<SpotCommentEntity, Int
 
     List<SpotCommentEntity> findByUser(MemberEntity user);
 
+    List<SpotCommentEntity> findBySpotId(int spotId);
 }

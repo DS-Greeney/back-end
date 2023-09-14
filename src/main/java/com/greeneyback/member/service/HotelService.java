@@ -115,16 +115,11 @@ public class HotelService {
 
     public void calculateAvgStar(CommentDTO commentDTO) {
         int spotId = commentDTO.getSpotId();
-        Optional<HotelEntity> hotel = findById(spotId);
 
-        float avgStar = 0;
+        List<SpotCommentEntity> comments = spotCmntRepository.findBySpotId(spotId);
 
-        if (hotel.get().getHotelStar()==0) {
-            avgStar = commentDTO.getCmntStar();
-        }
-        else {
-            avgStar = (hotel.get().getHotelStar() + commentDTO.getCmntStar())/2;
-        }
+        float totalStars = (float) comments.stream().mapToDouble(SpotCommentEntity::getSpotCmntStar).sum();
+        float avgStar = totalStars/comments.size();
 
         queryFactory.update(hotelEntity)
                 .set(hotelEntity.hotelStar, avgStar)

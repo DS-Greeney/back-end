@@ -63,6 +63,23 @@ public class RstrntlistAPIController {
         return rstrntMap;
     }
 
+    // 별점순 정렬
+    @GetMapping("/restaurantlist/star")
+    public HashMap<String, Object> restaurantlistOrderByStar() {
+        HashMap<String, Object> map = new HashMap<>();
+
+        try {
+            List<RstrntEntity> restaurantlistOrderByStar = rstrntService.findAllOrderByStar();
+            map.put("restaurantlist", restaurantlistOrderByStar);
+            map.put("success", Boolean.TRUE);
+        } catch (Exception e) {
+            map.put("success", Boolean.FALSE);
+            map.put("error", e.getMessage());
+        }
+
+        return map;
+    }
+
     @GetMapping("/restaurantlist/detail/{rstrntId}")
     public HashMap<String, Object> getRestaurantlistDetail(@PathVariable int rstrntId, @RequestParam int userId) {
         HashMap<String, Object> map = new HashMap<>();
@@ -130,4 +147,5 @@ public class RstrntlistAPIController {
 
         return map;
     }
+
 }

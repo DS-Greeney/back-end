@@ -10,4 +10,6 @@ public interface HotelRepositoryCustom {
 
     List<HotelEntity> findByLocation(HashMap<String, Double> myLocation);
     List<HotelEntity> findByLocationAreaCode(HashMap<String, Double> myLocation, int areaCode);
+
+    List<HotelEntity> findBySearchAndMyLocation(List<String> stringList, HashMap<String, Double> myLocation);
 }

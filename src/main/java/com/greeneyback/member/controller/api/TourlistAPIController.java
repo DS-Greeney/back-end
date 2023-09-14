@@ -68,6 +68,23 @@ public class TourlistAPIController {
         return tourMap;
     }
 
+    // 별점순 정렬
+    @GetMapping("/tourlist/star")
+    public HashMap<String, Object> tourlistOrderByStar() {
+        HashMap<String, Object> map = new HashMap<>();
+
+        try {
+            List<TourspotEntity> tourlistOrderByStar = tourService.findAllOrderByStar();
+            map.put("tourlist", tourlistOrderByStar);
+            map.put("success", Boolean.TRUE);
+        } catch (Exception e) {
+            map.put("success", Boolean.FALSE);
+            map.put("error", e.getMessage());
+        }
+
+        return map;
+    }
+
     @GetMapping("/tourlist/detail/{tourspotId}")
     public HashMap<String, Object> getTourlistDetail(@PathVariable int tourspotId, @RequestParam int userId) {
         // 결과를 담은 hashmap

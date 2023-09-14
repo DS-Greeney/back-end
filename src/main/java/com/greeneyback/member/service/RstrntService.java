@@ -86,6 +86,13 @@ public class RstrntService {
         return rstrntRepositoryImpl.findByLocationAreaCode(myLocation, areaCode);
     }
 
+    // 별점순 정렬
+    public List<RstrntEntity> findAllOrderByStar() {
+        return queryFactory.selectFrom(rstrntEntity)
+                .orderBy(rstrntEntity.rstrntStar.desc())
+                .fetch();
+    }
+
 
     // 리뷰를 db에 저장하는 메소드, 저장한 Entity를 반환한다.
     public SpotCommentEntity saveRstrntReviewComment(CommentDTO commentDTO) {

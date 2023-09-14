@@ -186,7 +186,7 @@ public class RstrntService {
     }
 
 
-
-
-
+    public List<RstrntEntity> findBySearchAndMyLocation(List<String> stringList, HashMap<String, Double> myLocation) {
+        return rstrntRepositoryImpl.findBySearchAndMyLocation(stringList, myLocation);
+    }
 }

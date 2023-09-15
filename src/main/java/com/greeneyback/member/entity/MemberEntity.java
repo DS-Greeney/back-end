@@ -23,10 +23,10 @@ public class MemberEntity {
     @Column(unique = true, nullable = false, length = 20)
     private String userNickname; // 닉네임
 
-    @Column(unique = true, nullable = false, length = 45)
+    @Column(unique = true, nullable = false, length = 200)
     private String userEmail; // 이메일
 
-    @Column(nullable = false, length = 45)
+    @Column(nullable = false, length = 200)
     private String userPassword; // 비밀번호
 
 //    @Column(unique = true, nullable = false, length = 20)

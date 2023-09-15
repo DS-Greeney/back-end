@@ -1,6 +1,9 @@
 package com.greeneyback.member.controller.api;
 
 import com.greeneyback.member.dto.MemberDTO;
+import com.greeneyback.member.entity.MemberEntity;
+import com.greeneyback.member.repository.MemberRepository;
+import com.greeneyback.member.service.EncryptService;
 import com.greeneyback.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -20,6 +24,8 @@ public class MemberAPIController {
 
     @Autowired
     private final MemberService memberService;
+    private final EncryptService encryptService;
+    private final MemberRepository memberRepository;
 
     @PostMapping("/signup")
     public HashMap<String, Object> signUp(@RequestBody MemberDTO memberDTO) {
@@ -37,8 +43,33 @@ public class MemberAPIController {
         return map;
     }
 
+    @PostMapping("/userLogin")
+    public HashMap<String, Object> userLogin(@RequestBody MemberDTO memberDTO) {
 
-        @PostMapping("/register")
+        HashMap<String, Object> map = new HashMap<>();
+
+        try {
+            Optional<MemberEntity> loginResult = memberService.userLogin(memberDTO);
+
+            // 이메일 복호화 테스트 부분임
+            String nickname = memberDTO.getUserNickname();
+            Optional<MemberEntity> user = memberRepository.findByUserNickname(nickname);
+
+            String decodedEmail = encryptService.decryptEmail(user.get().getUserEmail());
+
+            map.put("success", Boolean.TRUE);
+            map.put("userId", loginResult.get().getUserId());
+
+            map.put("userEmail", decodedEmail);
+        } catch (Exception e) {
+            map.put("success", Boolean.FALSE);
+            map.put("message", e.getMessage());
+        }
+
+        return map;
+    }
+
+    @PostMapping("/register")
     public HashMap<String, Object> register(@RequestBody MemberDTO memberDTO) {
 
         HashMap<String, Object> userMap = new HashMap<>();

@@ -21,7 +21,24 @@ public class MemberAPIController {
     @Autowired
     private final MemberService memberService;
 
-    @PostMapping("/register")
+    @PostMapping("/signup")
+    public HashMap<String, Object> signUp(@RequestBody MemberDTO memberDTO) {
+
+        HashMap<String, Object> map = new HashMap<>();
+
+        try {
+            memberService.registerUser(memberDTO);
+            map.put("success", Boolean.TRUE);
+        } catch (Exception e) {
+            map.put("success", Boolean.FALSE);
+            map.put("error", e.getMessage());
+        }
+
+        return map;
+    }
+
+
+        @PostMapping("/register")
     public HashMap<String, Object> register(@RequestBody MemberDTO memberDTO) {
 
         HashMap<String, Object> userMap = new HashMap<>();

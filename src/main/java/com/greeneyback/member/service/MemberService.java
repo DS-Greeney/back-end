@@ -4,6 +4,8 @@ import com.greeneyback.member.dto.MemberDTO;
 import com.greeneyback.member.entity.MemberEntity;
 import com.greeneyback.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,7 +15,27 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class MemberService {
+
+    @Autowired
     private final MemberRepository memberRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public void registerUser(MemberDTO memberDTO) {
+        // 이메일 암호화
+        String encodedEmail = passwordEncoder.encode(memberDTO.getUserEmail());
+        memberDTO.setUserEmail(encodedEmail);
+
+        // 비밀번호 암호화
+        String encodedPassword = passwordEncoder.encode(memberDTO.getUserPassword());
+        memberDTO.setUserPassword(encodedPassword);
+
+        String nickname = memberDTO.getUserNickname();
+        memberDTO.setUserNickname(nickname);
+
+        MemberEntity memberEntity = MemberEntity.toMemberEntity(memberDTO);
+        memberRepository.save(memberEntity);
+    }
 
     public void save(MemberDTO memberDTO) {
         // 1. dto -> entity 변환

@@ -44,6 +44,9 @@ dependencies {
 	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
 
+	// SpringSecurity
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 	// aws S3 연동
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }

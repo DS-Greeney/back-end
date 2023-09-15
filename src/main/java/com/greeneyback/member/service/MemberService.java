@@ -20,13 +20,14 @@ public class MemberService {
     private final MemberRepository memberRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    private final EncryptService encryptService;
 
     public void registerUser(MemberDTO memberDTO) {
-        // 이메일 암호화
-        String encodedEmail = passwordEncoder.encode(memberDTO.getUserEmail());
+        // 이메일 양방향 암호화
+        String encodedEmail = encryptService.encryptEmail(memberDTO.getUserEmail());
         memberDTO.setUserEmail(encodedEmail);
 
-        // 비밀번호 암호화
+        // 비밀번호 단방향 암호화
         String encodedPassword = passwordEncoder.encode(memberDTO.getUserPassword());
         memberDTO.setUserPassword(encodedPassword);
 
@@ -35,6 +36,26 @@ public class MemberService {
 
         MemberEntity memberEntity = MemberEntity.toMemberEntity(memberDTO);
         memberRepository.save(memberEntity);
+    }
+
+    public Optional<MemberEntity> userLogin(MemberDTO memberDTO) throws Exception {
+        String nickname = memberDTO.getUserNickname();
+
+        Optional<MemberEntity> user = memberRepository.findByUserNickname(nickname);
+
+        if (user.isPresent()) { // 조회 결과가 있다(해당 이메일을 가진 회원 정보가 있다.)
+            // passwordEncoder를 이용한 암호 비교 로직
+            if (passwordEncoder.matches(memberDTO.getUserPassword(), user.get().getUserPassword()) == true) {
+                return user;
+            }
+            else {
+                return null;
+            }
+        }
+        else {
+            return null;
+        }
+
     }
 
     public void save(MemberDTO memberDTO) {

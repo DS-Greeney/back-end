@@ -7,6 +7,8 @@ import com.greeneyback.member.repository.impl.TitleRepositoryImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,5 +31,17 @@ public class TitleService {
 
     public TitleEntity findNextUserTitle(int userChallengeNum) {
         return titleRepositoryImpl.findUserNextTitleByUserChallengeNum(userChallengeNum);
+    }
+
+    public List<String> findUserTitleList(int userChallengeNum) {
+        List<TitleEntity> titleEntityList = titleRepositoryImpl.findUserTitleList(userChallengeNum);
+
+        List<String> titleList = new ArrayList<>();
+
+        for(TitleEntity title : titleEntityList) {
+            titleList.add(title.getTitleName());
+        }
+        return titleList;
+
     }
 }

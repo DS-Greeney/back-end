@@ -87,12 +87,17 @@ public class ChallengeAPIController {
             // 사용자의 다음 칭호 정보 불러오기
             TitleEntity userNextTitle = titleService.findNextUserTitle(userChallengeNum);
 
+            // 사용자의 칭호 리스트 불러오기
+            List<String> userTitleList = titleService.findUserTitleList(userChallengeNum);
 
             // front에게 넘겨줄 값들
             map.put("success", true);
-            map.put("userNowTitle", userNowTitle.getTitleName());
-            map.put("goal", userNowTitle.getNextChallengeNm());
-            map.put("userNextTitle", userNextTitle.getTitleName());
+            map.put("userChallengeNum", user.getChallengeNum()); // 달성한 도전과제 수
+            map.put("userRemainChallengeNum", userNextTitle.getGoalChallengeNm()-user.getChallengeNum()); // 다음 칭호까지 사용자의 남은 도전과제 수
+            map.put("userNowTitle", userNowTitle.getTitleName());  // 사용자의 현재 칭호
+            map.put("goal", userNowTitle.getNextChallengeNm()); // 다음 칭호까지 남은 도전과제 수
+            map.put("userTitleList", userTitleList);  // 사용자의 칭호 리스트
+
 
 
         } catch (Exception e) {

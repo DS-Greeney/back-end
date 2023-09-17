@@ -4,6 +4,7 @@ import com.greeneyback.member.dto.MemberDTO;
 import com.greeneyback.member.entity.MemberEntity;
 import com.greeneyback.member.repository.MemberRepository;
 import com.greeneyback.member.service.EncryptService;
+import com.greeneyback.member.service.MailService;
 import com.greeneyback.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,9 @@ public class MemberAPIController {
     private final MemberService memberService;
     private final EncryptService encryptService;
     private final MemberRepository memberRepository;
+    private final MailService mailService;
+
+    private int number; // 이메일 인증 숫자를 저장하는 변수
 
     @PostMapping("/signup")
     public HashMap<String, Object> signUp(@RequestBody MemberDTO memberDTO) {
@@ -81,6 +85,33 @@ public class MemberAPIController {
         boolean isUnique = memberService.isUserEmailUnique(email);
         return ResponseEntity.ok(isUnique);
     }
+
+    @PostMapping("/mailSend")
+    public HashMap<String, Object> mailSend(String mail) {
+        HashMap<String, Object> map = new HashMap<>();
+
+        try {
+            number = mailService.sendMail(mail);
+            String num = String.valueOf(number);
+
+            map.put("success", Boolean.TRUE);
+            map.put("number", num);
+        } catch (Exception e) {
+            map.put("success", Boolean.FALSE);
+            map.put("error", e.getMessage());
+        }
+
+        return map;
+    }
+
+    @GetMapping("/mailCheck")
+    public ResponseEntity<?> mailCheck(@RequestParam String userNumber) {
+
+        boolean isMatch = userNumber.equals(String.valueOf(number));
+
+        return ResponseEntity.ok(isMatch);
+    }
+
 
     @PostMapping("/register")
     public HashMap<String, Object> register(@RequestBody MemberDTO memberDTO) {

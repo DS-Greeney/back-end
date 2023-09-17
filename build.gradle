@@ -47,6 +47,9 @@ dependencies {
 	// SpringSecurity
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 
+	// 이메일 인증
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 	// aws S3 연동
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }

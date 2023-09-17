@@ -172,19 +172,15 @@ public class MemberAPIController {
             map.put("success", Boolean.TRUE);
             map.put("userId", user.getUserId());
             map.put("userNickname", user.getUserNickname());
-            map.put("userEmail", user.getUserEmail());
-            map.put("userPassword", user.getUserPassword());
+
+            String decodedEmail = encryptService.decryptEmail(user.getUserEmail());
+            map.put("userEmail", decodedEmail);
 //            map.put("userPhonenum", user.getUserPhonenum());
 //            map.put("userBirthdate", user.getUserBirthdate());
 //            map.put("userGender", user.getUserGender());
             map.put("userTitle", user.getUserTitle());
             map.put("userPicture", user.getUserPicture());
-            map.put("ChallengeNum", user.getChallengeNum());
-            // 내가 쓴 글
-            // 내가 댓글 단 글
-            // 내가 쓴 후기
-            // 찜한 목록
-            // 달성한 도전 과제
+
             return map;
         } catch (Exception e) {
             map.put("success", Boolean.FALSE);
@@ -225,14 +221,9 @@ public class MemberAPIController {
         HashMap<String, Object> map = new HashMap<>();
 
         try {
-            MemberDTO memberDTO = memberService.findById(updateUser.getUserId());
-
-            memberDTO.setUserPassword(updateUser.getUserPassword());
-
-            memberService.update(memberDTO);
+            memberService.updateUserPassword(updateUser.getUserId(), updateUser.getUserPassword());
 
             map.put("success", Boolean.TRUE);
-            map.put("userPassword", memberDTO.getUserPassword());
 
             return map;
 

@@ -32,7 +32,7 @@ public class MemberAPIController {
 
     private int number; // 이메일 인증 숫자를 저장하는 변수
 
-    @PostMapping("/signup")
+    @PostMapping("/register")
     public HashMap<String, Object> signUp(@RequestBody MemberDTO memberDTO) {
 
         HashMap<String, Object> map = new HashMap<>();
@@ -48,7 +48,7 @@ public class MemberAPIController {
         return map;
     }
 
-    @PostMapping("/userLogin")
+    @PostMapping("/login")
     public HashMap<String, Object> userLogin(@RequestBody MemberDTO memberDTO) {
 
         HashMap<String, Object> map = new HashMap<>();
@@ -113,62 +113,62 @@ public class MemberAPIController {
     }
 
 
-    @PostMapping("/register")
-    public HashMap<String, Object> register(@RequestBody MemberDTO memberDTO) {
-
-        HashMap<String, Object> userMap = new HashMap<>();
-
-        try {
-//            MemberDTO memberDTO = new MemberDTO();
-//            memberDTO.setUserNickname(userNickname);
-//            memberDTO.setUserEmail(userEmail);
-//            memberDTO.setUserPassword(userPassword);
-//            memberDTO.setUserPhonenum(userPhonenum);
-//            memberDTO.setUserBirthdate(userBirthdate);
-//            memberDTO.setUserGender(userGender);
-
-            memberService.save(memberDTO);
-
-            userMap.put("success", Boolean.TRUE);
-
-            log.info("회원가입 성공");
-
-            return userMap;
-        } catch (Exception e) {
-            userMap.put("success", Boolean.FALSE);
-            userMap.put("message", e.getMessage());
-
-            log.info("회원가입 실패");
-            return userMap;
-        }
-    }
-
-    @PostMapping("/login")
-    public HashMap<String, Object> login(@RequestBody MemberDTO memberDTO) {
-
-        HashMap<String, Object> map = new HashMap<>();
-
-        try {
-//            MemberDTO memberDTO = new MemberDTO();
-//            memberDTO.setUserEmail(userEmail);
-//            memberDTO.setUserPassword(userPassword);
-
-            MemberDTO loginResult = memberService.login(memberDTO);
-
-            map.put("success", Boolean.TRUE);
-            map.put("userId", loginResult.getUserId());
-
-            log.info("로그인 성공");
-
-            return map;
-        } catch (Exception e) {
-            map.put("success", Boolean.FALSE);
-            map.put("message", e.getMessage());
-
-            log.info("로그인 실패");
-            return map;
-        }
-    }
+//    @PostMapping("/register1") // 이거 수정함
+//    public HashMap<String, Object> register(@RequestBody MemberDTO memberDTO) {
+//
+//        HashMap<String, Object> userMap = new HashMap<>();
+//
+//        try {
+////            MemberDTO memberDTO = new MemberDTO();
+////            memberDTO.setUserNickname(userNickname);
+////            memberDTO.setUserEmail(userEmail);
+////            memberDTO.setUserPassword(userPassword);
+////            memberDTO.setUserPhonenum(userPhonenum);
+////            memberDTO.setUserBirthdate(userBirthdate);
+////            memberDTO.setUserGender(userGender);
+//
+//            memberService.save(memberDTO);
+//
+//            userMap.put("success", Boolean.TRUE);
+//
+//            log.info("회원가입 성공");
+//
+//            return userMap;
+//        } catch (Exception e) {
+//            userMap.put("success", Boolean.FALSE);
+//            userMap.put("message", e.getMessage());
+//
+//            log.info("회원가입 실패");
+//            return userMap;
+//        }
+//    }
+//
+//    @PostMapping("/login1")  // 이거 수정
+//    public HashMap<String, Object> login(@RequestBody MemberDTO memberDTO) {
+//
+//        HashMap<String, Object> map = new HashMap<>();
+//
+//        try {
+////            MemberDTO memberDTO = new MemberDTO();
+////            memberDTO.setUserEmail(userEmail);
+////            memberDTO.setUserPassword(userPassword);
+//
+//            MemberDTO loginResult = memberService.login(memberDTO);
+//
+//            map.put("success", Boolean.TRUE);
+//            map.put("userId", loginResult.getUserId());
+//
+//            log.info("로그인 성공");
+//
+//            return map;
+//        } catch (Exception e) {
+//            map.put("success", Boolean.FALSE);
+//            map.put("message", e.getMessage());
+//
+//            log.info("로그인 실패");
+//            return map;
+//        }
+//    }
 
     @GetMapping("/logout")
     public HashMap<String, Object> logout(HttpSession session) {

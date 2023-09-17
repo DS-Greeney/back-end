@@ -26,43 +26,17 @@ public class ChallengeAPIController {
     private final ChallengeService challengeService;
 
     @PostMapping("/challengeComplete")
-    public HashMap<String, Object> challenge(@RequestParam int userId, @RequestParam int challengeId) {
+    public HashMap<String, Object> challengeComplete(@RequestParam int userId) {
         HashMap<String, Object> map = new HashMap<>();
-
-        // 달성한 도전 과제 개수
-
-        // 다음 목표 개수
-
-
 
         try {
             MemberDTO user = memberService.findById((long) userId); // 현재 user가 누구인지 검색
             user.setChallengeNum(user.getChallengeNum()+1);         // user의 challenge개수를 +1 해준다.
-            
-            int challengeNum = user.getChallengeNum();
-
-//            String title = "";
-//            int remainChallNum = 0;
-//            Optional<TitleEntity> titleEntity = null;
-//
-//            if (0<=challengeNum && challengeNum<3) { // 1단계일 때
-//                titleEntity = titleService.findById(2); // 다음 목표 2단계 설정
-//                remainChallNum = titleEntity.get().getGoalChallengeNm()-challengeNum;
-//            }
-//            else if (3<=challengeNum && challengeNum<10) { // 2단계일 때
-//                titleEntity = titleService.findById(2);
-//                title = titleEntity.get().getTitleName();
-//                user.setUserTitle(title);
-//                titleEntity = titleService.findById(3); // 다음 목표 3단계 설정
-//                remainChallNum = titleEntity.get().getGoalChallengeNm()-(challengeNum-titleService.findById(2).get().getGoalChallengeNm());
-//                // 다음 단계까지 남은 챌린지 개수 = 다음 단계의 목표 챌린지 개수 - (지금까지 쌓인 챌린지 개수 - 전 단계 목표 챌린지 개수)
-//            }
 
             memberService.update(user);
 
-            map.put("challengeNum", user.getChallengeNum());
-            //map.put("remainChallNum", remainChallNum);
-            map.put("title", user.getUserTitle());
+            map.put("success", Boolean.TRUE);
+            map.put("complete", 1);
         } catch (Exception e) {
             map.put("success", Boolean.FALSE);
             map.put("error", e.getMessage());

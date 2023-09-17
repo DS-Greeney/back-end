@@ -8,6 +8,7 @@ import com.greeneyback.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -67,6 +68,18 @@ public class MemberAPIController {
         }
 
         return map;
+    }
+
+    @GetMapping("/checkUsername")
+    public ResponseEntity<?> checkUsername(@RequestParam String username) {
+        boolean isUnique = memberService.isUserNicknameUnique(username);
+        return ResponseEntity.ok(isUnique);
+    }
+
+    @GetMapping("/checkEmail")
+    public ResponseEntity<?> checkEmail(@RequestParam String email) {
+        boolean isUnique = memberService.isUserEmailUnique(email);
+        return ResponseEntity.ok(isUnique);
     }
 
     @PostMapping("/register")

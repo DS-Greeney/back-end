@@ -155,4 +155,13 @@ public class MemberService {
         memberRepository.save(memberEntity);
     }
 
+    public void updateUserPassword(Long userId, String newPassword) {
+        MemberEntity user = memberRepository.findByUserId(userId);
+        if (user != null) {
+            String encodedPassword = passwordEncoder.encode(newPassword);
+            user.setUserPassword(encodedPassword);
+            memberRepository.save(user);
+        }
+    }
+
 }

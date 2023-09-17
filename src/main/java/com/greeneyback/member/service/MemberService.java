@@ -58,6 +58,15 @@ public class MemberService {
 
     }
 
+    public boolean isUserNicknameUnique(String userNickname) {
+        return !memberRepository.existsByUserNickname(userNickname);
+    }
+
+    public boolean isUserEmailUnique(String userEmail) {
+        String encryptedEmail = encryptService.encryptEmail(userEmail);
+        return !memberRepository.existsByUserEmail(encryptedEmail);
+    }
+
     public void save(MemberDTO memberDTO) {
         // 1. dto -> entity 변환
         // 2. repository의 save 메서드 호출

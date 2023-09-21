@@ -4,7 +4,7 @@ server:
 symmetric:
   key: greenavengers3000abcd3000efvde
 
-# database 연동 설정
+# database 연동 설정 RDS 연동완료
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver

@@ -4,13 +4,13 @@ server:
 symmetric:
   key: greenavengers3000abcd3000efvde
 
-# database 연동 설정
+# database 연동 설정 RDS 연동완료
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/db_greeney?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: user_greeney
-    password: 1234
+    url: jdbc:mysql://db-greeney.cukmb0xli9vk.ap-northeast-2.rds.amazonaws.com:3306/db_greeney?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: greenavengers
+    password: greeney4!
   thymeleaf:
     cache: false
 

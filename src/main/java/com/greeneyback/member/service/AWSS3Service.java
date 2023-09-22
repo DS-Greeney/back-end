@@ -59,7 +59,7 @@ public class AWSS3Service {
                                 .withCannedAcl(CannedAccessControlList.PublicRead)
                 );
 
-                String imageUrl = amazonS3Client.getUrl(bucket, uploadFilename).toString();
+                String imageUrl = amazonS3Client.getUrl(bucket, s3Key).toString();
                 imageUrlList.add(imageUrl);
 
             } catch (IOException e) {
@@ -95,7 +95,7 @@ public class AWSS3Service {
                     new PutObjectRequest(bucket, s3Key, inputStream, objectMetadata)
                             .withCannedAcl(CannedAccessControlList.PublicRead)
             );
-            imageUrl = amazonS3Client.getUrl(bucket, uploadFilename).toString();
+            imageUrl = amazonS3Client.getUrl(bucket, s3Key).toString();
 
 
         } catch (IOException e) {

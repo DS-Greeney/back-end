@@ -68,8 +68,8 @@ public class TourspotRepositoryImpl implements TourspotRepositoryCustom {
                     .or(tourspotEntity.summary.like("%" + search + "%"))
                     .or(tourspotEntity.title.like("%" + search + "%"));
 
-            // 각 조건을 AND로 묶어 whereConditions에 추가
-            whereConditions.and(condition);
+            // 각 조건을 OR로 묶어 whereConditions에 추가
+            whereConditions.or(condition);
         }
         List<TourspotEntity> tourspotEntityList = queryFactory
                 .selectFrom(tourspotEntity)

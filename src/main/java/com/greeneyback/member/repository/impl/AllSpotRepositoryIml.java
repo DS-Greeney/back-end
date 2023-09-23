@@ -46,7 +46,7 @@ public class AllSpotRepositoryIml implements AllSpotRepositoryCustom {
                         ),
                         Expressions.stringTemplate("POINT({0}, {1})",
                                 allSpotEntity.longitude,
-                                allSpotEntity.longitude
+                                allSpotEntity.latitude
                         )
                 ).asc())
                 .fetch();
@@ -78,7 +78,7 @@ public class AllSpotRepositoryIml implements AllSpotRepositoryCustom {
                         ),
                         Expressions.stringTemplate("POINT({0}, {1})",
                                 allSpotEntity.longitude,
-                                allSpotEntity.longitude
+                                allSpotEntity.latitude
                         )
                 ).asc())
                 .fetch();

@@ -68,8 +68,8 @@ public class ChallengeAPIController {
             map.put("success", true);
             map.put("userChallengeNum", user.getChallengeNum()); // 달성한 도전과제 수
             map.put("userRemainChallengeNum", userNextTitle.getGoalChallengeNm()-user.getChallengeNum()); // 다음 칭호까지 사용자의 남은 도전과제 수
-            map.put("userNowTitle", userNowTitle.getTitleName());  // 사용자의 현재 칭호
-            map.put("goal", userNowTitle.getNextChallengeNm()); // 다음 칭호까지 남은 도전과제 수
+            map.put("userNowTitle", user.getUserTitle());  // 사용자의 현재 칭호
+            map.put("goal", userNextTitle.getGoalChallengeNm()); // 다음 칭호까지 남은 도전과제 수
             map.put("userTitleList", userTitleList);  // 사용자의 칭호 리스트
 
 

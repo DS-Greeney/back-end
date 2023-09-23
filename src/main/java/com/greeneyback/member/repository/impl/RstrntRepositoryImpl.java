@@ -69,8 +69,8 @@ public class RstrntRepositoryImpl implements RstrntRepositoryCustom {
                     .or(rstrntEntity.rstrntMenuinfo.like("%" + search + "%"))
                     .or(rstrntEntity.rstrntName.like("%" + search + "%"));
 
-            // 각 조건을 AND로 묶어 whereConditions에 추가
-            whereConditions.and(condition);
+            // 각 조건을 OR로 묶어 whereConditions에 추가
+            whereConditions.or(condition);
         }
         List<RstrntEntity> RstrntEntityList = queryFactory
                 .selectFrom(rstrntEntity)

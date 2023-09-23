@@ -70,8 +70,8 @@ public class HotelRepositoryImpl implements HotelRepositoryCustom {
                     .or(hotelEntity.hotelName.like("%" + search + "%"))
                     .or(hotelEntity.hotelService.like("%" + search + "%"));
 
-            // 각 조건을 AND로 묶어 whereConditions에 추가
-            whereConditions.and(condition);
+            // 각 조건을 OR로 묶어 whereConditions에 추가
+            whereConditions.or(condition);
         }
         List<HotelEntity> HotelEntityList = queryFactory
                 .selectFrom(hotelEntity)

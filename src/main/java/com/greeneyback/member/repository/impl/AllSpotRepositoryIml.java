@@ -65,8 +65,8 @@ public class AllSpotRepositoryIml implements AllSpotRepositoryCustom {
                     .or(allSpotEntity.spotInfo.like("%" + search + "%"))
                     .and(allSpotEntity.categoryNumber.eq(categoryNumber));
 
-            // 각 조건을 AND로 묶어 whereConditions에 추가
-            whereConditions.and(condition);
+            // 각 조건을 OR로 묶어 whereConditions에 추가
+            whereConditions.or(condition);
         }
         List<AllSpotEntity> allSpotEntityList = queryFactory
                 .selectFrom(allSpotEntity)

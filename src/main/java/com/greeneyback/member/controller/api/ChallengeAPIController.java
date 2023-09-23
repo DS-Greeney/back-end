@@ -81,6 +81,26 @@ public class ChallengeAPIController {
         return map;
 
     }
+    
+    // 칭호 변경
+    @PostMapping("/updateTitle")
+    public HashMap<String, Object> updateTitle(@RequestParam int userId, @RequestParam String title) {
+        HashMap<String, Object> map = new HashMap<>();
+
+        try {
+            MemberDTO user = memberService.findById((long) userId); // 현재 user가 누구인지 검색
+            user.setUserTitle(title);
+
+            memberService.update(user);
+
+            map.put("success", Boolean.TRUE);
+        } catch (Exception e) {
+            map.put("success", Boolean.FALSE);
+            map.put("error", e.getMessage());
+        }
+        return map;
+        
+    }
 
     // 랜덤으로 하루에 챌린지 3개 불러오기
     @GetMapping("/challenge/today")

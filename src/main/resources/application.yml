@@ -14,9 +14,6 @@ spring:
   thymeleaf:
     cache: false
 
-chatgpt:
-  api-key: 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
-
   # spring data jpa 설정
   jpa:
     generate-ddl: true
@@ -43,3 +40,6 @@ cloud:
     credentials:
       accessKey: AKIAUJHXOY4CPPC7XRX7
       secretKey: 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
+
+chatgpt:
+  api-key: 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

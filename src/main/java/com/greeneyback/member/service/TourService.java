@@ -212,6 +212,7 @@ public class TourService {
 
             // 하나의 리뷰를 구성해준다.
             review.put("userNickname", userNickname);
+            review.put("userPicture", memberEntity.getUserPicture());
             review.put("tourspotCmntContent", spotCommentEntity.getSpotCmntContent());
             review.put("tourspotCmntTime", spotCommentEntity.getSpotCmntTime());
             review.put("tourspotCmntStar", spotCommentEntity.getSpotCmntStar());

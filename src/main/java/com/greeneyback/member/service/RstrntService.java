@@ -171,6 +171,7 @@ public class RstrntService {
 
             // 하나의 리뷰를 구성해준다.
             review.put("userNickname", userNickname);
+            review.put("userPicture", memberEntity.getUserPicture());
             review.put("rstrntCmntContent", spotCommentEntity.getSpotCmntContent());
             review.put("rstrntCmntTime", spotCommentEntity.getSpotCmntTime());
             review.put("rstrntCmntStar", spotCommentEntity.getSpotCmntStar());

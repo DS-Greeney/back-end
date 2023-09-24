@@ -177,6 +177,7 @@ public class HotelService {
 
             // 하나의 리뷰를 구성해준다.
             review.put("userNickname", userNickname);
+            review.put("userPicture", memberEntity.getUserPicture());
             review.put("hotelCmntContent", spotCommentEntity.getSpotCmntContent());
             review.put("hotelCmntTime", spotCommentEntity.getSpotCmntTime());
             review.put("hotelCmntStar", spotCommentEntity.getSpotCmntStar());

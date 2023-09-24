@@ -21,11 +21,13 @@ public class ChatController {
 
     // chat-gpt와 간단한 채팅 서비스 소스
     @PostMapping("/chat")
-    public HashMap<String, Object> chatbot(@RequestBody String question) {
+    public String chatbot(@RequestBody String question) {
         HashMap<String, Object> map = new HashMap<>();
 
+        String prompt = chatService.getChatResponse(question);
+
         try {
-            String prompt = chatService.getChatResponse(question);
+            //String prompt = chatService.getChatResponse(question);
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObj = (JSONObject) jsonParser.parse(prompt);
 
@@ -36,6 +38,7 @@ public class ChatController {
             map.put("error", e.getMessage());
         }
 
-        return map;
+        //return map;
+        return prompt;
     }
 }

@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "challenge_table")
 public class ChallengeEntity {
     @Id
-    @Column(unique = true)
+    @Column(unique = true, name="challenge_id")
     @NotNull
     private int challengeId;
 

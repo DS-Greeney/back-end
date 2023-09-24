@@ -1,5 +1,6 @@
 package com.greeneyback.member.controller.api;
 
+import com.greeneyback.member.dto.ChallengeDTO;
 import com.greeneyback.member.dto.MemberDTO;
 import com.greeneyback.member.entity.ChallengeEntity;
 import com.greeneyback.member.entity.TitleEntity;
@@ -26,7 +27,7 @@ public class ChallengeAPIController {
     private final ChallengeService challengeService;
 
     @PostMapping("/challengeComplete")
-    public HashMap<String, Object> challengeComplete(@RequestParam int userId) {
+    public HashMap<String, Object> challengeComplete(@RequestParam int userId, @RequestParam int challengeId) {
         HashMap<String, Object> map = new HashMap<>();
 
         try {
@@ -34,6 +35,9 @@ public class ChallengeAPIController {
             user.setChallengeNum(user.getChallengeNum()+1);         // user의 challenge개수를 +1 해준다.
 
             memberService.update(user);
+
+            // ChallengeCompleteTable에 값 추가.
+            challengeService.updateChallengeComplete((long) userId, challengeId);
 
             map.put("success", Boolean.TRUE);
             map.put("complete", 1);
@@ -104,24 +108,26 @@ public class ChallengeAPIController {
 
     // 랜덤으로 하루에 챌린지 3개 불러오기
     @GetMapping("/challenge/today")
-    public HashMap<String, Object> todayRandomChallenge() {
+    public HashMap<String, Object> todayRandomChallenge(@RequestParam int userId) {
         HashMap<String, Object> map = new HashMap<>();
-
-
         try {
-            List<ChallengeEntity> randomChallenges = challengeService.getRandomChallenges();
             List<Object> challenges = new ArrayList<>();
 
-            for (ChallengeEntity challenge : randomChallenges) {
+            for (ChallengeEntity challenge : challengeService.getRandomChallenges()) {
 
                 HashMap<String, Object> map2 = new HashMap<>();
 
+                // 챌린지의 정보 받아오는 DTO
                 int challengeId = challenge.getChallengeId();
                 String challengeContent = challenge.getChallengeContent();
 
                 map2.put("challengeId", challengeId);
                 map2.put("content", challengeContent);
-                map2.put("complete", 0);
+
+                // 이 챌린지 user가 했는지 확인
+                MemberDTO user = memberService.findById((long) userId); // 현재 user가 누구인지 검색
+                // 결과값 넣어주기
+                map2.put("complete", challengeService.getResultChallengeComplete(user.getUserId(), challengeId));
 
                 challenges.add(map2);
             }

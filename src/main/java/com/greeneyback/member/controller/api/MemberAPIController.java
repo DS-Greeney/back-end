@@ -30,8 +30,6 @@ public class MemberAPIController {
     private final MemberRepository memberRepository;
     private final MailService mailService;
 
-    private int number; // 이메일 인증 숫자를 저장하는 변수
-
     @PostMapping("/register")
     public HashMap<String, Object> signUp(@RequestBody MemberDTO memberDTO) {
 
@@ -91,11 +89,10 @@ public class MemberAPIController {
         HashMap<String, Object> map = new HashMap<>();
 
         try {
-            number = mailService.sendMail(mail);
-            String num = String.valueOf(number);
+            mailService.sendMail(mail);
 
             map.put("success", Boolean.TRUE);
-            map.put("number", num);
+
         } catch (Exception e) {
             map.put("success", Boolean.FALSE);
             map.put("error", e.getMessage());
@@ -105,9 +102,9 @@ public class MemberAPIController {
     }
 
     @GetMapping("/mailCheck")
-    public ResponseEntity<?> mailCheck(@RequestParam String userNumber) {
+    public ResponseEntity<?> mailCheck(@RequestParam String mail, @RequestParam int userNumber) {
 
-        boolean isMatch = userNumber.equals(String.valueOf(number));
+        boolean isMatch = mailService.checkVerificationNumber(mail, userNumber);
 
         return ResponseEntity.ok(isMatch);
     }

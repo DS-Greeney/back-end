@@ -83,7 +83,9 @@ public class AWSS3Service {
 
         // S3 업로드 전 이름 변경
         // 양식: userId = 1인 경우, 1로 저장됨
-        String uploadFilename = createUserImageName(userId);
+//        String uploadFilename = createUserImageName(userId);
+        String originalFilename = multipartFile.getOriginalFilename();
+        String uploadFilename = createFileName(originalFilename);
 
         // S3 업로드할 때 파일 경로 설정
         String s3Key = folderName + "/" + uploadFilename;

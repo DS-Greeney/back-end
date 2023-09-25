@@ -109,7 +109,7 @@ public class HotellistAPIController {
     // 리뷰 작성 post
     @Transactional
     @PostMapping("/hotellist/detail/{hotelId}")
-    public HashMap<String, Object> postHotelComment(@RequestParam("images") List<MultipartFile> multipartFiles, @ModelAttribute CommentDTO commentDTO) {
+    public HashMap<String, Object> postHotelComment(@RequestParam(value = "images", required = false) List<MultipartFile> multipartFiles, @ModelAttribute CommentDTO commentDTO) {
         HashMap<String, Object> map = new HashMap<>();
 
         // S3 service
@@ -117,15 +117,17 @@ public class HotellistAPIController {
         try {
             // S3에 넣고 결과 url을 담을 리스트
             List<String> imageUrlList = new ArrayList<>();
-
-            // S3Service에게 파일값을 넘겨주고 결과 url 리스트를 받아온다
-            imageUrlList = awss3Service.uploadReviewImageFileToS3(multipartFiles);
-
             // 리뷰 테이블에 먼저 추가한 후 그 Entity를 받아온다. (commentID 때문에)
             SpotCommentEntity spotCommentEntity = hotelService.saveHotelReviewComment(commentDTO);
 
-            // commentID와 함께 이미지 db를 추가한다.
-            hotelService.saveHotelReviewImage(spotCommentEntity, imageUrlList);
+            if (multipartFiles != null) {
+                if (!multipartFiles.isEmpty()) {
+                    // S3Service에게 파일값을 넘겨주고 결과 url 리스트를 받아온다
+                    imageUrlList = awss3Service.uploadReviewImageFileToS3(multipartFiles);
+                    // commentID와 함께 이미지 db를 추가한다.
+                    hotelService.saveHotelReviewImage(spotCommentEntity, imageUrlList);
+                }
+            }
 
             // 리뷰 별점을 계산하고 저장한다.
             hotelService.calculateAvgStar(commentDTO);

@@ -172,11 +172,11 @@ public class RstrntService {
             // 하나의 리뷰를 구성해준다.
             review.put("userNickname", userNickname);
             review.put("userPicture", memberEntity.getUserPicture());
-            review.put("rstrntCmntContent", spotCommentEntity.getSpotCmntContent());
-            review.put("rstrntCmntTime", spotCommentEntity.getSpotCmntTime());
-            review.put("rstrntCmntStar", spotCommentEntity.getSpotCmntStar());
+            review.put("tourspotCmntContent", spotCommentEntity.getSpotCmntContent());
+            review.put("tourspotCmntTime", spotCommentEntity.getSpotCmntTime());
+            review.put("tourspotCmntStar", spotCommentEntity.getSpotCmntStar());
             review.put("categoryNumber", spotCommentEntity.getCategoryNumber());
-            review.put("rstrntCmntImg", imgUrlList);
+            review.put("tourCmntImg", imgUrlList);
 
             // 최종적으로 reviewList에 넣어준다.
             reviewList.add(review);

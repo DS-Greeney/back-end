@@ -178,11 +178,11 @@ public class HotelService {
             // 하나의 리뷰를 구성해준다.
             review.put("userNickname", userNickname);
             review.put("userPicture", memberEntity.getUserPicture());
-            review.put("hotelCmntContent", spotCommentEntity.getSpotCmntContent());
-            review.put("hotelCmntTime", spotCommentEntity.getSpotCmntTime());
-            review.put("hotelCmntStar", spotCommentEntity.getSpotCmntStar());
+            review.put("tourspotCmntContent", spotCommentEntity.getSpotCmntContent());
+            review.put("tourspotCmntTime", spotCommentEntity.getSpotCmntTime());
+            review.put("tourspotCmntStar", spotCommentEntity.getSpotCmntStar());
             review.put("categoryNumber", spotCommentEntity.getCategoryNumber());
-            review.put("hotelCmntImg", imgUrlList);
+            review.put("tourCmntImg", imgUrlList);
 
             // 최종적으로 reviewList에 넣어준다.
             reviewList.add(review);

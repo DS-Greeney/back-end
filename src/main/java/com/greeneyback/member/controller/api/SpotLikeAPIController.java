@@ -5,6 +5,7 @@ import com.greeneyback.member.dto.SpotLikeDTO;
 import com.greeneyback.member.entity.*;
 import com.greeneyback.member.service.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.util.Optional;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/greeney/mypage")
+@Slf4j
 public class SpotLikeAPIController {
 
     @Autowired
@@ -31,10 +33,13 @@ public class SpotLikeAPIController {
 
         HashMap<String, Object> map = new HashMap<>();
 
+        log.info("userId : "+ String.valueOf(userId));
+        log.info("아이템 ID: " + String.valueOf(itemId));
+        
         try {
             SpotLikeDTO spotLikeDTO = new SpotLikeDTO();
 
-            Optional<MemberEntity> likeUser = memberService.findUserById(Long.valueOf(userId));
+            Optional<MemberEntity> likeUser = memberService.findUserById((long) userId);
             spotLikeDTO.setUser(likeUser.get());
 
             Optional<TourspotEntity> likeTourspot = tourService.findById(itemId);

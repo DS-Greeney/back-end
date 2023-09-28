@@ -39,16 +39,34 @@ public class ChallengeService {
 
         // challengeCompleteTable 모두 지우기
         challengeCompleteRepository.deleteAll();
+        randomChallenges.clear(); // 이전 랜덤 과제를 지우고 새로 생성
 
         List<ChallengeEntity> allChallenges = challengeRepository.findAll();
 
         int totalChallenges = allChallenges.size();
 
+        int count = 3; // 무작위로 선택할 숫자의 개수
+        List<Integer> selectedNumbers = new ArrayList<>(); // 선택된 Number, challenge의 ID
         Random random = new Random();
-        randomChallenges.clear(); // 이전 랜덤 과제를 지우고 새로 생성
-        for (int i = 0; i < 3; i++) {
-            int randomIndex = random.nextInt(totalChallenges);
-            ChallengeEntity challengeEntity = allChallenges.get(randomIndex);
+
+        // 랜덤으로 숫자 3개 생성
+        for (int i = 0; i < count; i++) {
+            int randomNumber;
+            do {
+                randomNumber = random.nextInt(totalChallenges) + 1; // 범위 내에서 무작위 숫자 생성
+            } while (selectedNumbers.contains(randomNumber)); // 중복된 숫자인 경우 다시 생성
+
+            selectedNumbers.add(randomNumber); // 중복되지 않는 숫자를 리스트에 추가
+        }
+
+//        for (int i = 0; i < 3; i++) {
+//            int randomIndex = random.nextInt(totalChallenges);
+//            ChallengeEntity challengeEntity = allChallenges.get(randomIndex);
+//            randomChallenges.add(challengeEntity);
+//        }
+
+        for (int selectedNumber : selectedNumbers) {
+            ChallengeEntity challengeEntity = allChallenges.get(selectedNumber);
             randomChallenges.add(challengeEntity);
         }
     }

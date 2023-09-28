@@ -47,4 +47,6 @@ gen
 .gradle
 build
 
+# application.properties와 yml 무시
 src/main/resources/application.properties
+src/main/resources/application.yml
